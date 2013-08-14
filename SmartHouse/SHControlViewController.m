@@ -96,7 +96,6 @@
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentSize:CGSizeMake(1104.0, 136.0)];
     [self.scrollView setBackgroundColor:[UIColor redColor]];
-    [self.scrollView setScrollEnabled:NO];
     for (int i = 0; i < 6; i++) {
         UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(i*184 + 20, 44, 144, 48)];
         [modeButton setTitle:@"温馨模式" forState:UIControlStateNormal];
@@ -108,8 +107,8 @@
 - (void)onScrollLeftClick:(id)sender
 {
     CGPoint point = [self.scrollView contentOffset];
-    if ((point.x - 184 >= 0)&&(!isScrolling)) {
-        point.x = point.x - 184;
+    if (point.x > 0) {
+        point.x = 0;
         [self.scrollView setContentOffset:point animated:YES];
     }
 }
@@ -117,8 +116,8 @@
 - (void)onScrollRightClick:(id)sender
 {
     CGPoint point = [self.scrollView contentOffset];
-    if ((point.x + 184 <= 2*184)&&(!isScrolling)) {
-        point.x = point.x + 184;
+    if (point.x < 2*184) {
+        point.x = 2*184;
         [self.scrollView setContentOffset:point animated:YES];
     }
 }
@@ -130,7 +129,7 @@
 
 - (IBAction)onCuitainClick:(id)sender
 {
-
+    
 }
 
 - (IBAction)onMusicClick:(id)sender
@@ -177,16 +176,6 @@
 	return 1;
 }
 
-
-#pragma mark UIScrollViewDelegate
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    isScrolling = YES;
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    isScrolling = NO;
-}
 
 
 
