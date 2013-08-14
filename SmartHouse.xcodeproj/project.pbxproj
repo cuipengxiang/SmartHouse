@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52E2297C17BBAA470086355A /* SHRoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E2297B17BBAA470086355A /* SHRoomModel.m */; };
+		52E2297F17BBC6110086355A /* vio_line2.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E2297D17BBC6110086355A /* vio_line2.png */; };
+		52E2298017BBC6110086355A /* vio_line2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E2297E17BBC6110086355A /* vio_line2@2x.png */; };
 		D816387017BB0501008FAD0E /* SHReadConfigFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D816386F17BB0501008FAD0E /* SHReadConfigFile.m */; };
 		D8421CFF17BA853500C39DA0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8421CFE17BA853500C39DA0 /* UIKit.framework */; };
 		D8421D0117BA853500C39DA0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8421D0017BA853500C39DA0 /* Foundation.framework */; };
@@ -32,6 +35,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52E2297A17BBAA470086355A /* SHRoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHRoomModel.h; sourceTree = "<group>"; };
+		52E2297B17BBAA470086355A /* SHRoomModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHRoomModel.m; sourceTree = "<group>"; };
+		52E2297D17BBC6110086355A /* vio_line2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vio_line2.png; sourceTree = "<group>"; };
+		52E2297E17BBC6110086355A /* vio_line2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vio_line2@2x.png"; sourceTree = "<group>"; };
 		D816386E17BB0501008FAD0E /* SHReadConfigFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHReadConfigFile.h; sourceTree = "<group>"; };
 		D816386F17BB0501008FAD0E /* SHReadConfigFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHReadConfigFile.m; sourceTree = "<group>"; };
 		D8421CFB17BA853500C39DA0 /* SmartHouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartHouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +132,8 @@
 				D8F056FA17BAC95500DF2928 /* SHSettingsViewController.xib */,
 				D816386E17BB0501008FAD0E /* SHReadConfigFile.h */,
 				D816386F17BB0501008FAD0E /* SHReadConfigFile.m */,
+				52E2297A17BBAA470086355A /* SHRoomModel.h */,
+				52E2297B17BBAA470086355A /* SHRoomModel.m */,
 				D8421D0517BA853500C39DA0 /* Supporting Files */,
 			);
 			path = SmartHouse;
@@ -147,6 +156,8 @@
 		D8F056E217BA8AAE00DF2928 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				52E2297D17BBC6110086355A /* vio_line2.png */,
+				52E2297E17BBC6110086355A /* vio_line2@2x.png */,
 				D8F056F417BA923F00DF2928 /* top_navigation_back.png */,
 				D8F056F517BA923F00DF2928 /* top_navigation_back@2x.png */,
 				D8F056F017BA90CC00DF2928 /* top_navigation_background_black.png */,
@@ -238,6 +249,8 @@
 				D8F056F617BA923F00DF2928 /* top_navigation_back.png in Resources */,
 				D8F056F717BA923F00DF2928 /* top_navigation_back@2x.png in Resources */,
 				D8F056FC17BAC95600DF2928 /* SHSettingsViewController.xib in Resources */,
+				52E2297F17BBC6110086355A /* vio_line2.png in Resources */,
+				52E2298017BBC6110086355A /* vio_line2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,6 +269,7 @@
 				D8F056EE17BA8CE300DF2928 /* SHControlViewController.m in Sources */,
 				D8F056FB17BAC95600DF2928 /* SHSettingsViewController.m in Sources */,
 				D816387017BB0501008FAD0E /* SHReadConfigFile.m in Sources */,
+				52E2297C17BBAA470086355A /* SHRoomModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

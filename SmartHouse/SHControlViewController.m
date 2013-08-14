@@ -8,6 +8,10 @@
 
 #import "SHControlViewController.h"
 #import "SHSettingsViewController.h"
+#import "SHRoomModel.h"
+
+
+#define MODE_BTN_BASE_TAG 1000
 
 @interface SHControlViewController ()
 
@@ -19,6 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        self.myAppDelegate = [[UIApplication sharedApplication] delegate];
         [self setupNavigationBar];
         [self.view setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]];
     }
@@ -29,10 +34,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupModeSelectBar];
+    [self setupModeSelectBar:0];
     [self.tableView setBounces:NO];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
 }
 
@@ -88,20 +94,30 @@
     [self presentViewController:controller animated:YES completion:nil];
 }
 
-- (void)setupModeSelectBar
+- (void)setupModeSelectBar:(int)row
 {
-    isScrolling = NO;
+    for (UIButton *button in self.scrollView.subviews) {
+        [button removeFromSuperview];
+    }
     [self.scrollView setBounces:NO];
     [self.scrollView setDelegate:self];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
-    [self.scrollView setContentSize:CGSizeMake(1104.0, 136.0)];
+    SHRoomModel *model = [self.myAppDelegate.models objectAtIndex:row];
+    [self.scrollView setContentSize:CGSizeMake(184*model.modesNames.count, 136.0)];
     [self.scrollView setBackgroundColor:[UIColor redColor]];
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < model.modesNames.count; i++) {
         UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(i*184 + 20, 44, 144, 48)];
-        [modeButton setTitle:@"温馨模式" forState:UIControlStateNormal];
+        [modeButton setTitle:[model.modesNames objectAtIndex:i] forState:UIControlStateNormal];
         [modeButton setBackgroundColor:[UIColor blueColor]];
+        [modeButton setTag:MODE_BTN_BASE_TAG + i];
+        [modeButton addTarget:self action:@selector(onModeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:modeButton];
     }
+}
+
+- (void)onModeButtonClick:(UIButton *)button
+{
+    NSLog(@"button:%d",button.tag);
 }
 
 - (void)onScrollLeftClick:(id)sender
@@ -137,6 +153,11 @@
     
 }
 
+-(void)updateViews:(int)row
+{
+    [self setupModeSelectBar:row];
+}
+
 
 #pragma mark UITableViewDelegate
 
@@ -145,7 +166,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [self updateViews:indexPath.row];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -161,15 +182,20 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    
-    [cell.textLabel setText:@"主卧室"];
-    
+    NSString *roomName = [[self.myAppDelegate.models objectAtIndex:indexPath.row] name];
+    [cell.textLabel setText:roomName];
+    UIImageView *separator = [[UIImageView alloc] initWithFrame:CGRectMake(0, 53, cell.frame.size.width, 1)];
+    [separator setImage:[UIImage imageNamed:@"vio_line2"]];
+    [cell addSubview:separator];
+    if (indexPath.row == 0) {
+        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+    }
     return cell;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return self.myAppDelegate.models.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -177,6 +203,9 @@
 }
 
 
+- (void)sendCommand:(int)row
+{
+}
 
 
 - (void)didReceiveMemoryWarning

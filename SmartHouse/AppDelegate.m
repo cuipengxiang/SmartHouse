@@ -8,8 +8,11 @@
 
 #import "AppDelegate.h"
 #import "SHLoginViewController.h"
+#import "SHReadConfigFile.h"
 
 @implementation AppDelegate
+
+@synthesize models;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -18,6 +21,8 @@
     self.viewController = [[SHLoginViewController alloc] initWithNibName:@"SHLoginViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
+    SHReadConfigFile *fileReader = [[SHReadConfigFile alloc] init];
+    [fileReader readFile];
     return YES;
 }
 

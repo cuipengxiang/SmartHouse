@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface SHControlViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
-{
-    BOOL isScrolling;
-}
 
+@property(nonatomic, strong)AppDelegate *myAppDelegate;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
 @property(nonatomic, strong)IBOutlet UITableView *tableView;
 @property(nonatomic, strong)IBOutlet UIScrollView *scrollView;
@@ -21,16 +20,22 @@
 @property(nonatomic, strong)IBOutlet UIButton *LightButton;
 @property(nonatomic, strong)IBOutlet UIButton *CurtainButton;
 @property(nonatomic, strong)IBOutlet UIButton *MusicButton;
+@property(nonatomic, strong)IBOutlet UIScrollView *detailView;
 
 - (void)setupNavigationBar;
+- (void)setupModeSelectBar:(int)row;
+- (void)updateViews:(int)row;
+
 - (void)onBackButtonClick;
 - (void)onSettingsButtonClick;
-- (void)setupModeSelectBar;
+- (void)onModeButtonClick:(UIButton *)button;
 
 - (IBAction)onScrollLeftClick:(id)sender;
 - (IBAction)onScrollRightClick:(id)sender;
 - (IBAction)onLightClick:(id)sender;
 - (IBAction)onCuitainClick:(id)sender;
 - (IBAction)onMusicClick:(id)sender;
+
+- (void)sendCommand:(int)row;
 
 @end

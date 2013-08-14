@@ -11,8 +11,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+@property (strong, nonatomic) NSMutableArray *models;
 @property (strong, nonatomic) UIWindow *window;
-
 @property (strong, nonatomic) SHLoginViewController *viewController;
 
 @end

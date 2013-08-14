@@ -10,4 +10,7 @@
 
 @interface SHReadConfigFile : NSObject
 
+- (id)init;
+- (void)readFile;
+
 @end
