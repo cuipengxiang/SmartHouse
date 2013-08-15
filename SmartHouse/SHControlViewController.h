@@ -22,6 +22,8 @@
 @property(nonatomic, strong)IBOutlet UIButton *MusicButton;
 @property(nonatomic, strong)IBOutlet UIScrollView *detailView;
 
+@property(nonatomic)int modesCount;
+
 - (void)setupNavigationBar;
 - (void)setupModeSelectBar:(int)row;
 - (void)updateViews:(int)row;

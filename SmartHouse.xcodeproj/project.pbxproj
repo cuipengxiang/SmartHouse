@@ -22,6 +22,7 @@
 		D8421D1517BA853500C39DA0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8421D1417BA853500C39DA0 /* Default-568h@2x.png */; };
 		D8421D1817BA853500C39DA0 /* SHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D1717BA853500C39DA0 /* SHLoginViewController.m */; };
 		D8421D1B17BA853500C39DA0 /* SHLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8421D1917BA853500C39DA0 /* SHLoginViewController.xib */; };
+		D8EEBD0D17BC7F8200200262 /* SHDetailContolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */; };
 		D8F056E917BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056E617BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m */; };
 		D8F056EA17BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056E817BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m */; };
 		D8F056EE17BA8CE300DF2928 /* SHControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056EC17BA8CE300DF2928 /* SHControlViewController.m */; };
@@ -57,6 +58,8 @@
 		D8421D1617BA853500C39DA0 /* SHLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHLoginViewController.h; sourceTree = "<group>"; };
 		D8421D1717BA853500C39DA0 /* SHLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHLoginViewController.m; sourceTree = "<group>"; };
 		D8421D1A17BA853500C39DA0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SHLoginViewController.xib; sourceTree = "<group>"; };
+		D8EEBD0B17BC7F8200200262 /* SHDetailContolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHDetailContolView.h; sourceTree = "<group>"; };
+		D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDetailContolView.m; sourceTree = "<group>"; };
 		D8F056E517BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		D8F056E617BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		D8F056E717BA8BD000DF2928 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				D816386F17BB0501008FAD0E /* SHReadConfigFile.m */,
 				52E2297A17BBAA470086355A /* SHRoomModel.h */,
 				52E2297B17BBAA470086355A /* SHRoomModel.m */,
+				D8EEBD0B17BC7F8200200262 /* SHDetailContolView.h */,
+				D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */,
 				D8421D0517BA853500C39DA0 /* Supporting Files */,
 			);
 			path = SmartHouse;
@@ -270,6 +275,7 @@
 				D8F056FB17BAC95600DF2928 /* SHSettingsViewController.m in Sources */,
 				D816387017BB0501008FAD0E /* SHReadConfigFile.m in Sources */,
 				52E2297C17BBAA470086355A /* SHRoomModel.m in Sources */,
+				D8EEBD0D17BC7F8200200262 /* SHDetailContolView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

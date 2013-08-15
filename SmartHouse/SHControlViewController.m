@@ -102,7 +102,9 @@
     [self.scrollView setBounces:NO];
     [self.scrollView setDelegate:self];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
+    [self.scrollView setContentOffset:CGPointMake(0, 0)];
     SHRoomModel *model = [self.myAppDelegate.models objectAtIndex:row];
+    self.modesCount = model.modesNames.count;
     [self.scrollView setContentSize:CGSizeMake(184*model.modesNames.count, 136.0)];
     [self.scrollView setBackgroundColor:[UIColor redColor]];
     for (int i = 0; i < model.modesNames.count; i++) {
@@ -113,6 +115,7 @@
         [modeButton addTarget:self action:@selector(onModeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:modeButton];
     }
+    
 }
 
 - (void)onModeButtonClick:(UIButton *)button
@@ -131,10 +134,12 @@
 
 - (void)onScrollRightClick:(id)sender
 {
-    CGPoint point = [self.scrollView contentOffset];
-    if (point.x < 2*184) {
-        point.x = 2*184;
-        [self.scrollView setContentOffset:point animated:YES];
+    if (self.modesCount > 4) {
+        CGPoint point = [self.scrollView contentOffset];
+        if (point.x < (self.modesCount - 4)*184) {
+            point.x = (self.modesCount - 4)*184;
+            [self.scrollView setContentOffset:point animated:YES];
+        }
     }
 }
 
