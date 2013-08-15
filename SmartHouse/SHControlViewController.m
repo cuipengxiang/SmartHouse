@@ -9,9 +9,9 @@
 #import "SHControlViewController.h"
 #import "SHSettingsViewController.h"
 #import "SHRoomModel.h"
+#import "SHDetailContolView.h"
 
-
-#define MODE_BTN_BASE_TAG 1000
+#define MODE_BTN_BASE_TAG 100
 
 @interface SHControlViewController ()
 
@@ -35,6 +35,7 @@
 {
     [super viewDidLoad];
     [self setupModeSelectBar:0];
+    [self setupDetailView:0];
     [self.tableView setBounces:NO];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -99,7 +100,7 @@
     for (UIButton *button in self.scrollView.subviews) {
         [button removeFromSuperview];
     }
-    [self.scrollView setBounces:NO];
+    [self.scrollView setBounces:YES];
     [self.scrollView setDelegate:self];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
@@ -143,6 +144,15 @@
     }
 }
 
+- (void)setupDetailView:(int)row
+{
+    for (UIView *view in self.detailView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+
+}
+
 - (IBAction)onLightClick:(id)sender
 {
     
@@ -161,6 +171,7 @@
 -(void)updateViews:(int)row
 {
     [self setupModeSelectBar:row];
+    [self setupDetailView:row];
 }
 
 

@@ -26,6 +26,7 @@
 
 - (void)setupNavigationBar;
 - (void)setupModeSelectBar:(int)row;
+- (void)setupDetailView:(int)row;
 - (void)updateViews:(int)row;
 
 - (void)onBackButtonClick;

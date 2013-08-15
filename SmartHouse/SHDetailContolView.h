@@ -11,5 +11,6 @@
 @interface SHDetailContolView : UIView
 
 - (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString;
+- (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds;
 
 @end
