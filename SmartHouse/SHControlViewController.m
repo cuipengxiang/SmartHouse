@@ -12,6 +12,9 @@
 #import "SHDetailContolView.h"
 
 #define MODE_BTN_BASE_TAG 100
+#define TYPE_LIGHT 0
+#define TYPE_CURTAIN 1
+#define TYPE_MUSIC 2
 
 @interface SHControlViewController ()
 
@@ -35,7 +38,7 @@
 {
     [super viewDidLoad];
     [self setupModeSelectBar:0];
-    [self setupDetailView:0];
+    [self setupDetailView:0 Type:TYPE_LIGHT];
     [self.tableView setBounces:NO];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -144,13 +147,42 @@
     }
 }
 
-- (void)setupDetailView:(int)row
+- (void)setupDetailView:(int)row Type:(int)type
 {
     for (UIView *view in self.detailView.subviews) {
         [view removeFromSuperview];
     }
+    [self.detailView setBounces:NO];
+    [self.scrollView setDelegate:self];
+    [self.scrollView setShowsHorizontalScrollIndicator:NO];
+    [self.scrollView setContentOffset:CGPointMake(0, 0)];
     
-
+    SHRoomModel *model = [self.myAppDelegate.models objectAtIndex:row];
+    NSMutableArray *detailViewNames = nil;
+    NSMutableArray *detailViewBtns = nil;
+    NSMutableArray *detailViewCmds = nil;
+    switch (type) {
+        case TYPE_LIGHT:
+            detailViewNames = [[NSMutableArray alloc] initWithArray:model.lightNames];
+            detailViewBtns = [[NSMutableArray alloc] initWithArray:model.lightBtns];
+            detailViewCmds = [[NSMutableArray alloc] initWithArray:model.lightCmds];
+            break;
+        case TYPE_CURTAIN:
+            detailViewNames = [[NSMutableArray alloc] initWithArray:model.curtainNames];
+            detailViewBtns = [[NSMutableArray alloc] initWithArray:model.curtainBtns];
+            detailViewCmds = [[NSMutableArray alloc] initWithArray:model.curtainCmds];
+            break;
+        case TYPE_MUSIC:
+            detailViewNames = [[NSMutableArray alloc] initWithArray:model.musicNames];
+            detailViewBtns = [[NSMutableArray alloc] initWithArray:model.musicBtns];
+            detailViewCmds = [[NSMutableArray alloc] initWithArray:model.musicNames];
+            break;
+    }
+    for (int i = 0; i < detailViewNames.count; i++) {
+        SHDetailContolView *detailView = [[SHDetailContolView alloc] initWithFrame:CGRectMake(30 + (i % 3) * 265, 45 + (i / 3) * 155, 250, 140) andTitle:[detailViewNames objectAtIndex:i]];
+        [detailView setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
+        [self.detailView addSubview:detailView];
+    }
 }
 
 - (IBAction)onLightClick:(id)sender
@@ -171,7 +203,7 @@
 -(void)updateViews:(int)row
 {
     [self setupModeSelectBar:row];
-    [self setupDetailView:row];
+    [self setupDetailView:row Type:0];
 }
 
 

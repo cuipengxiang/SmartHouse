@@ -44,12 +44,13 @@
     for (int i = 0; i < names.count; i++) {
         UIButton *button = [[UIButton alloc] init];
         if (names.count == 4) {
-            [button setFrame:CGRectMake(10 + i * 60 + 10, 72, 40, 35)];
+            [button setFrame:CGRectMake(17.5 + i * 55, 72, 50, 25)];
         } else if (names.count == 2) {
-            [button setFrame:CGRectMake(20 + i * 105 + 15, 72, 75, 35)];
+            [button setFrame:CGRectMake(72.5 + i * 55, 72, 50, 25)];
         }
         [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
         [button setTag:BUTTON_BASE_TAG + i];
+        [button setBackgroundColor:[UIColor blueColor]];
         [self addSubview:button];
     }
 }

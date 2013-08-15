@@ -64,10 +64,14 @@
             NSArray *lights = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
             arrayCursor++;
             [tempModel.lightNames addObject:[lights objectAtIndex:0]];
+            NSMutableArray *lightBtnstemp = [[NSMutableArray alloc] init];
+            NSMutableArray *lightCmdstemp = [[NSMutableArray alloc] init];
             for (int k = 1; k < lights.count; k = k + 2) {
-                [tempModel.lightBtns addObject:[lights objectAtIndex:k]];
-                [tempModel.lightCmds addObject:[lights objectAtIndex:k+1]];
+                [lightBtnstemp addObject:[lights objectAtIndex:k]];
+                [lightCmdstemp addObject:[lights objectAtIndex:k + 1]];
             }
+            [tempModel.lightBtns addObject:lightBtnstemp];
+            [tempModel.lightCmds addObject:lightCmdstemp];
         }
         int curtainsCount = [[fileArray objectAtIndex:arrayCursor] intValue];
         arrayCursor++;
@@ -75,10 +79,14 @@
             NSArray *curtains = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
             arrayCursor++;
             [tempModel.curtainNames addObject:[curtains objectAtIndex:0]];
+            NSMutableArray *curtainBtnstemp = [[NSMutableArray alloc] init];
+            NSMutableArray *curtainCmdstemp = [[NSMutableArray alloc] init];
             for (int k = 1; k < curtains.count; k = k + 2) {
-                [tempModel.curtainBtns addObject:[curtains objectAtIndex:k]];
-                [tempModel.curtainCmds addObject:[curtains objectAtIndex:k+1]];
+                [curtainBtnstemp addObject:[curtains objectAtIndex:k]];
+                [curtainCmdstemp addObject:[curtains objectAtIndex:k + 1]];
             }
+            [tempModel.curtainBtns addObject:curtainBtnstemp];
+            [tempModel.curtainCmds addObject:curtainCmdstemp];
         }
         int musicsCount = [[fileArray objectAtIndex:arrayCursor] intValue];
         arrayCursor++;
@@ -86,10 +94,14 @@
             NSArray *musics = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
             arrayCursor++;
             [tempModel.musicNames addObject:[musics objectAtIndex:0]];
+            NSMutableArray *musicBtnstemp = [[NSMutableArray alloc] init];
+            NSMutableArray *musicCmdstemp = [[NSMutableArray alloc] init];
             for (int k = 1; k < musics.count; k = k + 2) {
-                [tempModel.musicBtns addObject:[musics objectAtIndex:k]];
-                [tempModel.musicCmds addObject:[musics objectAtIndex:k+1]];
+                [musicBtnstemp addObject:[musics objectAtIndex:k]];
+                [musicCmdstemp addObject:[musics objectAtIndex:k + 1]];
             }
+            [tempModel.musicBtns addObject:musicBtnstemp];
+            [tempModel.musicCmds addObject:musicCmdstemp];
         }
         [myDelegate.models addObject:tempModel];
     }
