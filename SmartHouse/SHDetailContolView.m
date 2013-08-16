@@ -41,6 +41,9 @@
 
 - (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds
 {
+    self.buttonNames = [[NSMutableArray alloc] initWithArray:names];
+    self.buttonCmds = [[NSMutableArray alloc] initWithArray:cmds];
+    
     for (int i = 0; i < names.count; i++) {
         UIButton *button = [[UIButton alloc] init];
         if (names.count == 4) {
@@ -51,8 +54,20 @@
         [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
         [button setTag:BUTTON_BASE_TAG + i];
         [button setBackgroundColor:[UIColor blueColor]];
+        [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
     }
+}
+
+- (void)onButtonClick:(UIButton *)button
+{
+    [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG]];
+}
+
+- (void)sendCommand:(NSString *)cmd
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert show];
 }
 
 /*

@@ -8,7 +8,6 @@
 
 #import "SHControlViewController.h"
 #import "SHSettingsViewController.h"
-#import "SHRoomModel.h"
 #import "SHDetailContolView.h"
 
 #define MODE_BTN_BASE_TAG 100
@@ -36,9 +35,10 @@
 
 - (void)viewDidLoad
 {
+    self.currentModel = [self.myAppDelegate.models objectAtIndex:0];
     [super viewDidLoad];
-    [self setupModeSelectBar:0];
-    [self setupDetailView:0 Type:TYPE_LIGHT];
+    [self setupModeSelectBar:self.currentModel];
+    [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
     [self.tableView setBounces:NO];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
@@ -98,7 +98,7 @@
     [self presentViewController:controller animated:YES completion:nil];
 }
 
-- (void)setupModeSelectBar:(int)row
+- (void)setupModeSelectBar:(SHRoomModel *)currentModel
 {
     for (UIButton *button in self.scrollView.subviews) {
         [button removeFromSuperview];
@@ -107,13 +107,12 @@
     [self.scrollView setDelegate:self];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
-    SHRoomModel *model = [self.myAppDelegate.models objectAtIndex:row];
-    self.modesCount = model.modesNames.count;
-    [self.scrollView setContentSize:CGSizeMake(184*model.modesNames.count, 136.0)];
+    self.modesCount = self.currentModel.modesNames.count;
+    [self.scrollView setContentSize:CGSizeMake(184*self.currentModel.modesNames.count, 136.0)];
     [self.scrollView setBackgroundColor:[UIColor redColor]];
-    for (int i = 0; i < model.modesNames.count; i++) {
+    for (int i = 0; i < self.currentModel.modesNames.count; i++) {
         UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(i*184 + 20, 44, 144, 48)];
-        [modeButton setTitle:[model.modesNames objectAtIndex:i] forState:UIControlStateNormal];
+        [modeButton setTitle:[self.currentModel.modesNames objectAtIndex:i] forState:UIControlStateNormal];
         [modeButton setBackgroundColor:[UIColor blueColor]];
         [modeButton setTag:MODE_BTN_BASE_TAG + i];
         [modeButton addTarget:self action:@selector(onModeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -124,7 +123,8 @@
 
 - (void)onModeButtonClick:(UIButton *)button
 {
-    NSLog(@"button:%d",button.tag);
+    NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
+    [self sendCommand:cmd];
 }
 
 - (void)onScrollLeftClick:(id)sender
@@ -147,63 +147,74 @@
     }
 }
 
-- (void)setupDetailView:(int)row Type:(int)type
+- (void)setupDetailView:(SHRoomModel *)currentModel Type:(int)type
 {
     for (UIView *view in self.detailView.subviews) {
         [view removeFromSuperview];
     }
     [self.detailView setBounces:NO];
-    [self.scrollView setDelegate:self];
-    [self.scrollView setShowsHorizontalScrollIndicator:NO];
-    [self.scrollView setContentOffset:CGPointMake(0, 0)];
+    [self.detailView setDelegate:self];
+    [self.detailView setShowsHorizontalScrollIndicator:NO];
+    [self.detailView setContentOffset:CGPointMake(0, 0)];
+    [self.detailView setPagingEnabled:YES];
     
-    SHRoomModel *model = [self.myAppDelegate.models objectAtIndex:row];
     NSMutableArray *detailViewNames = nil;
     NSMutableArray *detailViewBtns = nil;
     NSMutableArray *detailViewCmds = nil;
     switch (type) {
         case TYPE_LIGHT:
-            detailViewNames = [[NSMutableArray alloc] initWithArray:model.lightNames];
-            detailViewBtns = [[NSMutableArray alloc] initWithArray:model.lightBtns];
-            detailViewCmds = [[NSMutableArray alloc] initWithArray:model.lightCmds];
+            detailViewNames = [[NSMutableArray alloc] initWithArray:self.currentModel.lightNames];
+            detailViewBtns = [[NSMutableArray alloc] initWithArray:self.currentModel.lightBtns];
+            detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.lightCmds];
             break;
         case TYPE_CURTAIN:
-            detailViewNames = [[NSMutableArray alloc] initWithArray:model.curtainNames];
-            detailViewBtns = [[NSMutableArray alloc] initWithArray:model.curtainBtns];
-            detailViewCmds = [[NSMutableArray alloc] initWithArray:model.curtainCmds];
+            detailViewNames = [[NSMutableArray alloc] initWithArray:self.currentModel.curtainNames];
+            detailViewBtns = [[NSMutableArray alloc] initWithArray:self.currentModel.curtainBtns];
+            detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.curtainCmds];
             break;
         case TYPE_MUSIC:
-            detailViewNames = [[NSMutableArray alloc] initWithArray:model.musicNames];
-            detailViewBtns = [[NSMutableArray alloc] initWithArray:model.musicBtns];
-            detailViewCmds = [[NSMutableArray alloc] initWithArray:model.musicNames];
+            detailViewNames = [[NSMutableArray alloc] initWithArray:self.currentModel.musicNames];
+            detailViewBtns = [[NSMutableArray alloc] initWithArray:self.currentModel.musicBtns];
+            detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.musicNames];
             break;
     }
-    for (int i = 0; i < detailViewNames.count; i++) {
-        SHDetailContolView *detailView = [[SHDetailContolView alloc] initWithFrame:CGRectMake(30 + (i % 3) * 265, 45 + (i / 3) * 155, 250, 140) andTitle:[detailViewNames objectAtIndex:i]];
-        [detailView setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
-        [self.detailView addSubview:detailView];
+    if (type != TYPE_MUSIC) {
+        int pageCount = detailViewNames.count/6;
+        if (detailViewNames.count%6 != 0) {
+            pageCount++;
+        }
+        if (pageCount > 1) {
+            [self.detailView setContentSize:CGSizeMake(844*pageCount, 348)];
+        }
+        for (int i = 0; i < detailViewNames.count; i++) {
+            SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 30 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i]];
+            [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
+            [self.detailView addSubview:detailViewPanel];
+        }
+    } else {
+    
     }
 }
 
 - (IBAction)onLightClick:(id)sender
 {
-    
+    [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
 }
 
 - (IBAction)onCuitainClick:(id)sender
 {
-    
+    [self setupDetailView:self.currentModel Type:TYPE_CURTAIN];
 }
 
 - (IBAction)onMusicClick:(id)sender
 {
-    
+    [self setupDetailView:self.currentModel Type:TYPE_MUSIC];
 }
 
--(void)updateViews:(int)row
+-(void)updateViews:(SHRoomModel *)currentModel
 {
-    [self setupModeSelectBar:row];
-    [self setupDetailView:row Type:0];
+    [self setupModeSelectBar:self.currentModel];
+    [self setupDetailView:self.currentModel Type:0];
 }
 
 
@@ -214,7 +225,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self updateViews:indexPath.row];
+    self.currentModel = [self.myAppDelegate.models objectAtIndex:indexPath.row];
+    [self updateViews:self.currentModel];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -251,8 +263,10 @@
 }
 
 
-- (void)sendCommand:(int)row
+- (void)sendCommand:(NSString *)cmd
 {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert show];
 }
 
 

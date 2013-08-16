@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "SHRoomModel.h"
 
 @interface SHControlViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
@@ -22,12 +23,13 @@
 @property(nonatomic, strong)IBOutlet UIButton *MusicButton;
 @property(nonatomic, strong)IBOutlet UIScrollView *detailView;
 
+@property(nonatomic)SHRoomModel *currentModel;
 @property(nonatomic)int modesCount;
 
 - (void)setupNavigationBar;
-- (void)setupModeSelectBar:(int)row;
-- (void)setupDetailView:(int)row Type:(int)type;
-- (void)updateViews:(int)row;
+- (void)setupModeSelectBar:(SHRoomModel *)currentModel;
+- (void)setupDetailView:(SHRoomModel *)currentModel Type:(int)type;
+- (void)updateViews:(SHRoomModel *)currentModel;
 
 - (void)onBackButtonClick;
 - (void)onSettingsButtonClick;
@@ -39,6 +41,6 @@
 - (IBAction)onCuitainClick:(id)sender;
 - (IBAction)onMusicClick:(id)sender;
 
-- (void)sendCommand:(int)row;
+- (void)sendCommand:(NSString *)cmd;
 
 @end

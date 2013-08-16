@@ -10,7 +10,12 @@
 
 @interface SHDetailContolView : UIView
 
+@property (nonatomic, strong)NSMutableArray *buttonNames;
+@property (nonatomic, strong)NSMutableArray *buttonCmds;
+
 - (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString;
 - (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds;
+- (void)onButtonClick:(UIButton *)button;
+- (void)sendCommand:(NSString *)cmd;
 
 @end
