@@ -185,9 +185,7 @@
         if (detailViewNames.count%6 != 0) {
             pageCount++;
         }
-        if (pageCount > 1) {
-            [self.detailView setContentSize:CGSizeMake(844*pageCount, 384)];
-        }
+        [self.detailView setContentSize:CGSizeMake(844*pageCount, 384)];
         for (int i = 0; i < detailViewNames.count; i++) {
             SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 32 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i]];
             [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
@@ -198,9 +196,7 @@
         if (detailViewNames.count%2 != 0) {
             pageCount++;
         }
-        if (pageCount > 1) {
-            [self.detailView setContentSize:CGSizeMake(844*pageCount, 384)];
-        }
+        [self.detailView setContentSize:CGSizeMake(844*pageCount, 384)];
         for (int i = 0; i < detailViewNames.count; i++) {
             SHMusicControlView *detailViewPanel = [[SHMusicControlView alloc] initWithFrame:CGRectMake(i/2*844 + 30 + (i%2)*405, 45, 375, 280)andTitle:[detailViewNames objectAtIndex:i]];
             [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
