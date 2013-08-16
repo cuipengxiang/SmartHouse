@@ -22,9 +22,11 @@
 @property(nonatomic, strong)IBOutlet UIButton *CurtainButton;
 @property(nonatomic, strong)IBOutlet UIButton *MusicButton;
 @property(nonatomic, strong)IBOutlet UIScrollView *detailView;
+@property(nonatomic, strong)IBOutlet UIView *GuidePanel;
 
 @property(nonatomic)SHRoomModel *currentModel;
 @property(nonatomic)int modesCount;
+@property(nonatomic)int detailPageCount;
 
 - (void)setupNavigationBar;
 - (void)setupModeSelectBar:(SHRoomModel *)currentModel;

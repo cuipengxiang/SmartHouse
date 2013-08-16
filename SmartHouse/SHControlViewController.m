@@ -11,6 +11,7 @@
 #import "SHDetailContolView.h"
 #import "SHMusicControlView.h"
 
+#define GUIDE_PANEL_BASE_TAG 1000
 #define MODE_BTN_BASE_TAG 100
 #define TYPE_LIGHT 0
 #define TYPE_CURTAIN 1
@@ -105,7 +106,7 @@
         [button removeFromSuperview];
     }
     [self.scrollView setBounces:YES];
-    [self.scrollView setDelegate:self];
+    //[self.scrollView setDelegate:self];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
     self.modesCount = self.currentModel.modesNames.count;
@@ -154,11 +155,15 @@
     for (UIView *view in self.detailView.subviews) {
         [view removeFromSuperview];
     }
+    for (UIView *view in self.GuidePanel.subviews) {
+        [view removeFromSuperview];
+    }
     [self.detailView setBounces:NO];
     [self.detailView setDelegate:self];
     [self.detailView setShowsHorizontalScrollIndicator:NO];
     [self.detailView setContentOffset:CGPointMake(0, 0)];
     [self.detailView setPagingEnabled:YES];
+    [self.detailView setBackgroundColor:[UIColor whiteColor]];
     
     NSMutableArray *detailViewNames = nil;
     NSMutableArray *detailViewBtns = nil;
@@ -180,12 +185,28 @@
             detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.musicCmds];
             break;
     }
+    [self.GuidePanel setHidden:YES];
     if (type != TYPE_MUSIC) {
         int pageCount = detailViewNames.count/6;
         if (detailViewNames.count%6 != 0) {
             pageCount++;
         }
+        self.detailPageCount = pageCount;
         [self.detailView setContentSize:CGSizeMake(844*pageCount, 384)];
+        if (pageCount > 1) {
+            [self.GuidePanel setFrame:CGRectMake(160+(844-(pageCount*2-1)*15)/2.0, 684, (pageCount*2-1)*15, 44)];
+            for (int i = 0; i < pageCount; i++) {
+                UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(i*30, 14.5, 15, 15)];
+                if (i == 0) {
+                    [image setImage:[UIImage imageNamed:@"selected"]];
+                } else {
+                    [image setImage:[UIImage imageNamed:@"unselected"]];
+                }
+                [image setTag:GUIDE_PANEL_BASE_TAG + i];
+                [self.GuidePanel addSubview:image];
+            }
+            [self.GuidePanel setHidden:NO];
+        }
         for (int i = 0; i < detailViewNames.count; i++) {
             SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 32 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i]];
             [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
@@ -196,7 +217,22 @@
         if (detailViewNames.count%2 != 0) {
             pageCount++;
         }
+        self.detailPageCount = pageCount;
         [self.detailView setContentSize:CGSizeMake(844*pageCount, 384)];
+        if (pageCount > 1) {
+            [self.GuidePanel setFrame:CGRectMake(160+(844-(pageCount*2-1)*15)/2.0, 684, (pageCount*2-1)*15, 44)];
+            for (int i = 0; i < pageCount; i++) {
+                UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(i*30, 14.5, 15, 15)];
+                if (i == 0) {
+                    [image setImage:[UIImage imageNamed:@"selected"]];
+                } else {
+                    [image setImage:[UIImage imageNamed:@"unselected"]];
+                }
+                [image setTag:GUIDE_PANEL_BASE_TAG + i];
+                [self.GuidePanel addSubview:image];
+            }
+            [self.GuidePanel setHidden:NO];
+        }
         for (int i = 0; i < detailViewNames.count; i++) {
             SHMusicControlView *detailViewPanel = [[SHMusicControlView alloc] initWithFrame:CGRectMake(i/2*844 + 30 + (i%2)*405, 45, 375, 280)andTitle:[detailViewNames objectAtIndex:i]];
             [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
@@ -276,6 +312,18 @@
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
+}
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    int currentPage = scrollView.contentOffset.x/844.0;
+    for (int i = 0; i < self.detailPageCount; i++) {
+        UIImageView *image = (UIImageView *)[self.GuidePanel viewWithTag:GUIDE_PANEL_BASE_TAG + i];
+        [image setImage:[UIImage imageNamed:@"unselected"]];
+    }
+    UIImageView *image = (UIImageView *)[self.GuidePanel viewWithTag:GUIDE_PANEL_BASE_TAG + currentPage];
+    [image setImage:[UIImage imageNamed:@"selected"]];
 }
 
 

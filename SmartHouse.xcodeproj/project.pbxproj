@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		528B7F8B17BE778E0021447D /* unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528B7F8917BE778E0021447D /* unselected@2x.png */; };
+		528B7F8C17BE778E0021447D /* selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 528B7F8A17BE778E0021447D /* selected.png */; };
 		52CFD61717BD1693003C3C4D /* menu_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 52CFD61517BD1693003C3C4D /* menu_background.png */; };
 		52CFD61817BD1693003C3C4D /* menu_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52CFD61617BD1693003C3C4D /* menu_background@2x.png */; };
 		52E2297C17BBAA470086355A /* SHRoomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 52E2297B17BBAA470086355A /* SHRoomModel.m */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		528B7F8917BE778E0021447D /* unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unselected@2x.png"; sourceTree = "<group>"; };
+		528B7F8A17BE778E0021447D /* selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selected.png; sourceTree = "<group>"; };
 		52CFD61517BD1693003C3C4D /* menu_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_background.png; sourceTree = "<group>"; };
 		52CFD61617BD1693003C3C4D /* menu_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_background@2x.png"; sourceTree = "<group>"; };
 		52E2297A17BBAA470086355A /* SHRoomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHRoomModel.h; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 		D8F056E217BA8AAE00DF2928 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				528B7F8917BE778E0021447D /* unselected@2x.png */,
+				528B7F8A17BE778E0021447D /* selected.png */,
 				52CFD61517BD1693003C3C4D /* menu_background.png */,
 				52CFD61617BD1693003C3C4D /* menu_background@2x.png */,
 				52E2297D17BBC6110086355A /* vio_line2.png */,
@@ -269,6 +275,8 @@
 				52E2298017BBC6110086355A /* vio_line2@2x.png in Resources */,
 				52CFD61717BD1693003C3C4D /* menu_background.png in Resources */,
 				52CFD61817BD1693003C3C4D /* menu_background@2x.png in Resources */,
+				528B7F8B17BE778E0021447D /* unselected@2x.png in Resources */,
+				528B7F8C17BE778E0021447D /* selected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

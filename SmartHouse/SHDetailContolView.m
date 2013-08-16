@@ -8,7 +8,7 @@
 
 #import "SHDetailContolView.h"
 
-#define BUTTON_BASE_TAG 1000
+#define BUTTON_BASE_TAG 2000
 
 @implementation SHDetailContolView
 
