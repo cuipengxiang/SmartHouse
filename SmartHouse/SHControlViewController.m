@@ -9,6 +9,7 @@
 #import "SHControlViewController.h"
 #import "SHSettingsViewController.h"
 #import "SHDetailContolView.h"
+#import "SHMusicControlView.h"
 
 #define MODE_BTN_BASE_TAG 100
 #define TYPE_LIGHT 0
@@ -111,7 +112,7 @@
     [self.scrollView setContentSize:CGSizeMake(184*self.currentModel.modesNames.count, 136.0)];
     [self.scrollView setBackgroundColor:[UIColor redColor]];
     for (int i = 0; i < self.currentModel.modesNames.count; i++) {
-        UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(i*184 + 20, 44, 144, 48)];
+        UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(i*184 + 20, 22, 144, 56)];
         [modeButton setTitle:[self.currentModel.modesNames objectAtIndex:i] forState:UIControlStateNormal];
         [modeButton setBackgroundColor:[UIColor blueColor]];
         [modeButton setTag:MODE_BTN_BASE_TAG + i];
@@ -125,6 +126,7 @@
 {
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
     [self sendCommand:cmd];
+    
 }
 
 - (void)onScrollLeftClick:(id)sender
@@ -175,7 +177,7 @@
         case TYPE_MUSIC:
             detailViewNames = [[NSMutableArray alloc] initWithArray:self.currentModel.musicNames];
             detailViewBtns = [[NSMutableArray alloc] initWithArray:self.currentModel.musicBtns];
-            detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.musicNames];
+            detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.musicCmds];
             break;
     }
     if (type != TYPE_MUSIC) {
@@ -184,15 +186,26 @@
             pageCount++;
         }
         if (pageCount > 1) {
-            [self.detailView setContentSize:CGSizeMake(844*pageCount, 348)];
+            [self.detailView setContentSize:CGSizeMake(844*pageCount, 384)];
         }
         for (int i = 0; i < detailViewNames.count; i++) {
-            SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 30 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i]];
+            SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 32 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i]];
             [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
             [self.detailView addSubview:detailViewPanel];
         }
     } else {
-    
+        int pageCount = detailViewNames.count/2;
+        if (detailViewNames.count%2 != 0) {
+            pageCount++;
+        }
+        if (pageCount > 1) {
+            [self.detailView setContentSize:CGSizeMake(844*pageCount, 384)];
+        }
+        for (int i = 0; i < detailViewNames.count; i++) {
+            SHMusicControlView *detailViewPanel = [[SHMusicControlView alloc] initWithFrame:CGRectMake(i/2*844 + 30 + (i%2)*405, 45, 375, 280)andTitle:[detailViewNames objectAtIndex:i]];
+            [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
+            [self.detailView addSubview:detailViewPanel];
+        }
     }
 }
 

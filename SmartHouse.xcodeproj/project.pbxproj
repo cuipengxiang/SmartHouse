@@ -35,6 +35,7 @@
 		D8F056F717BA923F00DF2928 /* top_navigation_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F056F517BA923F00DF2928 /* top_navigation_back@2x.png */; };
 		D8F056FB17BAC95600DF2928 /* SHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056F917BAC95500DF2928 /* SHSettingsViewController.m */; };
 		D8F056FC17BAC95600DF2928 /* SHSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F056FA17BAC95500DF2928 /* SHSettingsViewController.xib */; };
+		D8F5BEB217BDD10000D3500A /* SHMusicControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F5BEB117BDD10000D3500A /* SHMusicControlView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,8 @@
 		D8F056F817BAC95500DF2928 /* SHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSettingsViewController.h; sourceTree = "<group>"; };
 		D8F056F917BAC95500DF2928 /* SHSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHSettingsViewController.m; sourceTree = "<group>"; };
 		D8F056FA17BAC95500DF2928 /* SHSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHSettingsViewController.xib; sourceTree = "<group>"; };
+		D8F5BEB017BDD10000D3500A /* SHMusicControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHMusicControlView.h; sourceTree = "<group>"; };
+		D8F5BEB117BDD10000D3500A /* SHMusicControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHMusicControlView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,8 @@
 				52E2297B17BBAA470086355A /* SHRoomModel.m */,
 				D8EEBD0B17BC7F8200200262 /* SHDetailContolView.h */,
 				D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */,
+				D8F5BEB017BDD10000D3500A /* SHMusicControlView.h */,
+				D8F5BEB117BDD10000D3500A /* SHMusicControlView.m */,
 				D8421D0517BA853500C39DA0 /* Supporting Files */,
 			);
 			path = SmartHouse;
@@ -284,6 +289,7 @@
 				D816387017BB0501008FAD0E /* SHReadConfigFile.m in Sources */,
 				52E2297C17BBAA470086355A /* SHRoomModel.m in Sources */,
 				D8EEBD0D17BC7F8200200262 /* SHDetailContolView.m in Sources */,
+				D8F5BEB217BDD10000D3500A /* SHMusicControlView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
