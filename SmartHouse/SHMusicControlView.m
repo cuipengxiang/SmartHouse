@@ -22,7 +22,7 @@
         [titleLabel setTextColor:[UIColor whiteColor]];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [titleLabel sizeToFit];
-        [titleLabel setFrame:CGRectMake((frame.size.width - titleLabel.frame.size.width)/2, 10, titleLabel.frame.size.width, titleLabel.frame.size.height)];
+        [titleLabel setFrame:CGRectMake((frame.size.width - titleLabel.frame.size.width)/2, 20, titleLabel.frame.size.width, titleLabel.frame.size.height)];
         [self addSubview:titleLabel];
     }
     return self;
@@ -33,7 +33,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         UIImageView *background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        [background setImage:[UIImage imageNamed:@"menu_background"]];
+        [background setImage:[UIImage imageNamed:@"bg_music"]];
         [self addSubview:background];
     }
     return self;
@@ -47,40 +47,19 @@
     for (int i = 0; i < 5; i++) {
         UIButton *button = [[UIButton alloc] init];
         [button setFrame:CGRectMake(30 + i * 65, 62, 55, 55)];
-        [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
         [button setTag:BUTTON_BASE_TAG + i];
-        [button setBackgroundColor:[UIColor whiteColor]];
+        [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"music_control%d",i]] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
-        switch (i) {
-            case 0:
-                [button setBackgroundImage:nil forState:UIControlStateNormal];
-                [button setBackgroundImage:nil forState:UIControlStateSelected];
-                break;
-            case 1:
-                [button setBackgroundImage:nil forState:UIControlStateNormal];
-                [button setBackgroundImage:nil forState:UIControlStateSelected];
-                break;
-            case 2:
-                [button setBackgroundImage:nil forState:UIControlStateNormal];
-                [button setBackgroundImage:nil forState:UIControlStateSelected];
-                break;
-            case 3:
-                [button setBackgroundImage:nil forState:UIControlStateNormal];
-                [button setBackgroundImage:nil forState:UIControlStateSelected];
-                break;
-            case 4:
-                [button setBackgroundImage:nil forState:UIControlStateNormal];
-                [button setBackgroundImage:nil forState:UIControlStateSelected];
-                break;
-        }
     }
     for (int i = 5; i < self.buttonNames.count; i++) {
         UIButton *button = [[UIButton alloc] init];
         [button setFrame:CGRectMake(25.5 + (i-5)%4*83, 150 + (i-5)/4*40, 75, 25)];
-        [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
         [button setTag:BUTTON_BASE_TAG + i];
-        [button setBackgroundColor:[UIColor whiteColor]];
+        [button setTitle:[self.buttonNames objectAtIndex:i] forState:UIControlStateNormal];
+        [button.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+        [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"btn_music_control"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
     }

@@ -12,8 +12,10 @@
 
 @property (nonatomic, strong)NSMutableArray *buttonNames;
 @property (nonatomic, strong)NSMutableArray *buttonCmds;
+@property (nonatomic)int type;
 
-- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString;
+- (id)initWithFrame:(CGRect)frame andType:(int)type;
+- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andType:(int)type;
 - (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds;
 - (void)onButtonClick:(UIButton *)button;
 - (void)sendCommand:(NSString *)cmd;

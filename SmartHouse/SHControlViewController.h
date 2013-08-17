@@ -14,6 +14,7 @@
 
 @property(nonatomic, strong)AppDelegate *myAppDelegate;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
+@property(nonatomic, strong)IBOutlet UIImageView *modeView;
 @property(nonatomic, strong)IBOutlet UITableView *tableView;
 @property(nonatomic, strong)IBOutlet UIScrollView *scrollView;
 @property(nonatomic, strong)IBOutlet UIButton *scrollLeft;

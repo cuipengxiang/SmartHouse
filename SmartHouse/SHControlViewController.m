@@ -29,7 +29,7 @@
     if (self) {
         self.myAppDelegate = [[UIApplication sharedApplication] delegate];
         [self setupNavigationBar];
-        [self.view setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0]];
+        [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
     }
     return self;
 }
@@ -37,22 +37,26 @@
 
 - (void)viewDidLoad
 {
+    [self.modeView setImage:[UIImage imageNamed:@"bg_mode"]];
     self.currentModel = [self.myAppDelegate.models objectAtIndex:0];
     [super viewDidLoad];
     [self setupModeSelectBar:self.currentModel];
     [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
+    [self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left_background"]]];
     [self.tableView setBounces:NO];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
+    
+    [self.GuidePanel setBackgroundColor:[UIColor clearColor]];
 }
 
 //设置导航栏
 - (void)setupNavigationBar
 {
     self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 1024, 44)];
-    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_navigation_background_black"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_topbar_all"] forBarMetrics:UIBarMetricsDefault];
     
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setText:@"智能家居系统"];
@@ -62,16 +66,14 @@
     [titleLabel sizeToFit];
     
     UIButton *leftButton = [[UIButton alloc] init];
-    [leftButton setBackgroundImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
-    [leftButton setTitle:@"返回" forState:UIControlStateNormal];
+    [leftButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
     [leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [leftButton.titleLabel setFont:[UIFont systemFontOfSize:18.0]];
     [leftButton addTarget:self action:@selector(onBackButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [leftButton sizeToFit];
     
     UIButton *rightButton = [[UIButton alloc] init];
-    [rightButton setBackgroundImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
-    [rightButton setTitle:@"设置" forState:UIControlStateNormal];
+    [rightButton setBackgroundImage:[UIImage imageNamed:@"btn_setting"] forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton.titleLabel setFont:[UIFont systemFontOfSize:18.0]];
     [rightButton addTarget:self action:@selector(onSettingsButtonClick) forControlEvents:UIControlEventTouchUpInside];
@@ -106,16 +108,20 @@
         [button removeFromSuperview];
     }
     [self.scrollView setBounces:YES];
-    //[self.scrollView setDelegate:self];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
     self.modesCount = self.currentModel.modesNames.count;
     [self.scrollView setContentSize:CGSizeMake(184*self.currentModel.modesNames.count, 136.0)];
-    [self.scrollView setBackgroundColor:[UIColor redColor]];
+    [self.scrollView setBackgroundColor:[UIColor clearColor]];
     for (int i = 0; i < self.currentModel.modesNames.count; i++) {
         UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(i*184 + 20, 22, 144, 56)];
         [modeButton setTitle:[self.currentModel.modesNames objectAtIndex:i] forState:UIControlStateNormal];
-        [modeButton setBackgroundColor:[UIColor blueColor]];
+        [modeButton setTitle:[self.currentModel.modesNames objectAtIndex:i] forState:UIControlStateSelected];
+        [modeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
+        [modeButton setBackgroundImage:[UIImage imageNamed:@"mode_normal"] forState:UIControlStateNormal];
+        [modeButton setBackgroundImage:[UIImage imageNamed:@"mode_selected"] forState:UIControlStateSelected];
+        [modeButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+        [modeButton setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
         [modeButton setTag:MODE_BTN_BASE_TAG + i];
         [modeButton addTarget:self action:@selector(onModeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:modeButton];
@@ -125,6 +131,10 @@
 
 - (void)onModeButtonClick:(UIButton *)button
 {
+    for (int i = MODE_BTN_BASE_TAG; i < MODE_BTN_BASE_TAG + self.currentModel.modesNames.count; i++) {
+        [(UIButton *)[self.modeView viewWithTag:i] setSelected:NO];
+    }
+    [button setSelected:YES];
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
     [self sendCommand:cmd];
     
@@ -163,7 +173,6 @@
     [self.detailView setShowsHorizontalScrollIndicator:NO];
     [self.detailView setContentOffset:CGPointMake(0, 0)];
     [self.detailView setPagingEnabled:YES];
-    [self.detailView setBackgroundColor:[UIColor whiteColor]];
     
     NSMutableArray *detailViewNames = nil;
     NSMutableArray *detailViewBtns = nil;
@@ -173,16 +182,19 @@
             detailViewNames = [[NSMutableArray alloc] initWithArray:self.currentModel.lightNames];
             detailViewBtns = [[NSMutableArray alloc] initWithArray:self.currentModel.lightBtns];
             detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.lightCmds];
+            [self.detailView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_detail_light"]]];
             break;
         case TYPE_CURTAIN:
             detailViewNames = [[NSMutableArray alloc] initWithArray:self.currentModel.curtainNames];
             detailViewBtns = [[NSMutableArray alloc] initWithArray:self.currentModel.curtainBtns];
             detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.curtainCmds];
+            [self.detailView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_detail_curtain"]]];
             break;
         case TYPE_MUSIC:
             detailViewNames = [[NSMutableArray alloc] initWithArray:self.currentModel.musicNames];
             detailViewBtns = [[NSMutableArray alloc] initWithArray:self.currentModel.musicBtns];
             detailViewCmds = [[NSMutableArray alloc] initWithArray:self.currentModel.musicCmds];
+            [self.detailView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_detail_music"]]];
             break;
     }
     [self.GuidePanel setHidden:YES];
@@ -208,7 +220,7 @@
             [self.GuidePanel setHidden:NO];
         }
         for (int i = 0; i < detailViewNames.count; i++) {
-            SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 32 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i]];
+            SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 32 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i] andType:type];
             [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
             [self.detailView addSubview:detailViewPanel];
         }
@@ -289,9 +301,12 @@
     }
     NSString *roomName = [[self.myAppDelegate.models objectAtIndex:indexPath.row] name];
     [cell.textLabel setText:roomName];
-    UIImageView *separator = [[UIImageView alloc] initWithFrame:CGRectMake(0, 53, cell.frame.size.width, 1)];
-    [separator setImage:[UIImage imageNamed:@"vio_line2"]];
-    [cell addSubview:separator];
+    [cell.textLabel setBackgroundColor:[UIColor clearColor]];
+    [cell.textLabel setTextColor:[UIColor whiteColor]];
+    [cell.textLabel setHighlightedTextColor:[UIColor yellowColor]];
+    cell.selectedBackgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"left_selected"]];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left_normal"]];
+    
     if (indexPath.row == 0) {
         [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
     }
