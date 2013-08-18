@@ -44,8 +44,6 @@
     
     UIButton *leftButton = [[UIButton alloc] init];
     [leftButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
-    [leftButton setTitle:@"返回" forState:UIControlStateNormal];
-    [leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [leftButton.titleLabel setFont:[UIFont systemFontOfSize:18.0]];
     [leftButton addTarget:self action:@selector(onBackButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [leftButton sizeToFit];
