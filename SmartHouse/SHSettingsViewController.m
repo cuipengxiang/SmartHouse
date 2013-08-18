@@ -43,7 +43,7 @@
     [titleLabel sizeToFit];
     
     UIButton *leftButton = [[UIButton alloc] init];
-    [leftButton setBackgroundImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
+    [leftButton setBackgroundImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
     [leftButton setTitle:@"返回" forState:UIControlStateNormal];
     [leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [leftButton.titleLabel setFont:[UIFont systemFontOfSize:18.0]];

@@ -10,7 +10,10 @@
 
 @interface SHReadConfigFile : NSObject
 
+@property BOOL needCallback;
+
 - (id)init;
+- (id)initWithNeedCallback:(BOOL)need;
 - (void)readFile;
 
 @end

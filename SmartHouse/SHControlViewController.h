@@ -13,6 +13,7 @@
 @interface SHControlViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property(nonatomic, retain)AppDelegate *myAppDelegate;
+@property(nonatomic, strong)NSThread *myModeThread;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
 @property(nonatomic, strong)IBOutlet UIImageView *modeView;
 @property(nonatomic, strong)IBOutlet UITableView *tableView;
@@ -45,5 +46,6 @@
 - (IBAction)onMusicClick:(id)sender;
 
 - (void)sendCommand:(NSString *)cmd;
+- (void)queryMode:(NSThread *)thread;
 
 @end

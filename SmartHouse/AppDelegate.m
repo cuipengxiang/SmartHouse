@@ -91,12 +91,12 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
+    //[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-	NSString *httpResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(httpResponse);
+	NSLog(@"%@", data);
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
@@ -107,7 +107,9 @@
 - (void)sendCommand:(NSString *)command from:(UIViewController *)controller
 {
     //SHControlViewController *viewcontroller = (SHControlViewController *) controller;
-    //[self.socket writeData:nil withTimeout:-1 tag:0];
+    NSData *data = [command dataUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"%@", command);
+    [self.socket writeData:data withTimeout:-1 tag:0];
 }
 
 

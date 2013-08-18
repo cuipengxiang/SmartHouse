@@ -16,6 +16,16 @@
 {
     self = [super init];
     if (self) {
+        self.needCallback = NO;
+    }
+    return self;
+}
+
+- (id)initWithNeedCallback:(BOOL)need
+{
+    self = [super init];
+    if (self) {
+        self.needCallback = need;
     }
     return self;
 }

@@ -28,6 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        self.myModeThread = [[NSThread alloc] initWithTarget:self selector:@selector(queryMode:) object:nil];
         [self setupNavigationBar];
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
     }
@@ -107,6 +108,11 @@
     for (UIButton *button in self.scrollView.subviews) {
         [button removeFromSuperview];
     }
+    
+    if (![self.myModeThread isExecuting]) {
+        [self.myModeThread start];
+    }
+    
     [self.scrollView setBounces:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
@@ -325,8 +331,6 @@
 
 - (void)sendCommand:(NSString *)cmd
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert show];
     [self.myAppDelegate sendCommand:cmd from:self];
 }
 
@@ -342,6 +346,14 @@
     [image setImage:[UIImage imageNamed:@"selected"]];
 }
 
+- (void)queryMode:(NSThread *)thread
+{
+    while (YES) {
+        NSLog(@"1111111111111111");
+        [self sendCommand:self.currentModel.queryCmd];
+        sleep(2);
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
