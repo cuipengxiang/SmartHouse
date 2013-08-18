@@ -16,6 +16,7 @@
 {
     self = [self initWithFrame:frame];
     if (self) {
+        self.myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setText:titleString];
         [titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
@@ -74,6 +75,7 @@
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
+    [self.myDelegate sendCommand:cmd from:nil];
 }
 
 

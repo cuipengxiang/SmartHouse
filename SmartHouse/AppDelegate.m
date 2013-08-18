@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SHLoginViewController.h"
 #import "SHReadConfigFile.h"
+#import "SHControlViewController.h"
 
 @implementation AppDelegate
 
@@ -23,6 +24,7 @@
     [self.window makeKeyAndVisible];
     SHReadConfigFile *fileReader = [[SHReadConfigFile alloc] init];
     [fileReader readFile];
+    
     return YES;
 }
 
@@ -46,11 +48,67 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
+    NSError *error = nil;
+    [self.socket connectToHost:self.host onPort:self.port error:&error];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+#pragma mark Socket Delegate
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
+{
+    [sock performBlock:^{
+        [sock enableBackgroundingOnSocket];
+    }];
+    
+    NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
+
+    [settings setObject:self.host
+                 forKey:(NSString *)kCFStreamSSLPeerName];
+    
+    [sock startTLS:settings];
+
+}
+
+- (void)socketDidSecure:(GCDAsyncSocket *)sock
+{
+    /*
+	NSString *requestStr = [NSString stringWithFormat:@"GET / HTTP/1.1\r\nHost: %@\r\n\r\n", self.host];
+	NSData *requestData = [requestStr dataUsingEncoding:NSUTF8StringEncoding];
+	
+	[sock writeData:requestData withTimeout:-1 tag:0];
+	[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+     */
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+	NSString *httpResponse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(httpResponse);
+}
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+	
+}
+
+- (void)sendCommand:(NSString *)command from:(UIViewController *)controller
+{
+    //SHControlViewController *viewcontroller = (SHControlViewController *) controller;
+    //[self.socket writeData:nil withTimeout:-1 tag:0];
+}
+
 
 @end

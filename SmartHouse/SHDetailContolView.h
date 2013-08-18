@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface SHDetailContolView : UIView
 
+@property (nonatomic, retain)AppDelegate *myDelegate;
 @property (nonatomic, strong)NSMutableArray *buttonNames;
 @property (nonatomic, strong)NSMutableArray *buttonCmds;
 @property (nonatomic)int type;

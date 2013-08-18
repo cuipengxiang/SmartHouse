@@ -27,7 +27,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.myAppDelegate = [[UIApplication sharedApplication] delegate];
+        self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [self setupNavigationBar];
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
     }
@@ -111,7 +111,7 @@
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
     self.modesCount = self.currentModel.modesNames.count;
-    [self.scrollView setContentSize:CGSizeMake(184*self.currentModel.modesNames.count, 136.0)];
+    [self.scrollView setContentSize:CGSizeMake(184*self.currentModel.modesNames.count, 100.0f)];
     [self.scrollView setBackgroundColor:[UIColor clearColor]];
     for (int i = 0; i < self.currentModel.modesNames.count; i++) {
         UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(i*184 + 20, 22, 144, 56)];
@@ -327,6 +327,7 @@
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
+    [self.myAppDelegate sendCommand:cmd from:self];
 }
 
 

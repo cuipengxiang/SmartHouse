@@ -22,7 +22,7 @@
 
 - (void)readFile
 {
-    AppDelegate *myDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate *myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (!myDelegate.models) {
         myDelegate.models = [[NSMutableArray alloc] init];
     }
@@ -32,7 +32,10 @@
     NSString *file = [documentDirectory stringByAppendingPathComponent:@"test1.txt"];
     NSError *error;	
     NSArray *fileArray = [[NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:&error] componentsSeparatedByString:@"\n"];
-    NSArray *house = [[fileArray objectAtIndex:0] componentsSeparatedByString:@","];
+    NSArray *socketHostandPort = [[fileArray objectAtIndex:0] componentsSeparatedByString:@","];
+    myDelegate.host = [socketHostandPort objectAtIndex:0];
+    myDelegate.port = [[socketHostandPort objectAtIndex:1] integerValue];
+    NSArray *house = [[fileArray objectAtIndex:1] componentsSeparatedByString:@","];
     int roomsCount = [[house objectAtIndex:0] intValue];
     SHRoomModel *wholeHouse = [[SHRoomModel alloc] init];
     wholeHouse.name = @"整个住宅";
@@ -42,7 +45,7 @@
     [wholeHouse.modesCmds addObject:[house objectAtIndex:2]];
     [wholeHouse.modesCmds addObject:[house objectAtIndex:4]];
     
-    int arrayCursor = 1;
+    int arrayCursor = 2;
     for (int i = 0; i < roomsCount; i++){
         SHRoomModel *tempModel = [[SHRoomModel alloc] init];
         NSArray *name = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];

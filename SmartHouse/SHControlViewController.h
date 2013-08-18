@@ -12,7 +12,7 @@
 
 @interface SHControlViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
-@property(nonatomic, strong)AppDelegate *myAppDelegate;
+@property(nonatomic, retain)AppDelegate *myAppDelegate;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
 @property(nonatomic, strong)IBOutlet UIImageView *modeView;
 @property(nonatomic, strong)IBOutlet UITableView *tableView;
