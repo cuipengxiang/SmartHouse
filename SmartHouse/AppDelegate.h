@@ -12,6 +12,8 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, GCDAsyncSocketDelegate>
 
+@property (retain)UIViewController *mainController;
+@property BOOL needBack;
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 @property (strong, nonatomic) NSString *host;
 @property (nonatomic)int16_t port;
@@ -19,6 +21,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SHLoginViewController *viewController;
 
-- (void)sendCommand:(NSString *)command from:(UIViewController *)controller;
+- (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback;
 
 @end

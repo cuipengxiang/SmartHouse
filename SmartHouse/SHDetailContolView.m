@@ -99,7 +99,7 @@
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
-    [self.myDelegate sendCommand:cmd from:nil];
+    [self.myDelegate sendCommand:cmd from:nil needBack:NO];
 }
 
 /*

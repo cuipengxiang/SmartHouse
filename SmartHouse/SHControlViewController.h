@@ -45,7 +45,7 @@
 - (IBAction)onCuitainClick:(id)sender;
 - (IBAction)onMusicClick:(id)sender;
 
-- (void)sendCommand:(NSString *)cmd;
 - (void)queryMode:(NSThread *)thread;
+- (void)setCurrentMode:(NSString *)mode;
 
 @end

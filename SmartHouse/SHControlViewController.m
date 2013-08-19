@@ -142,8 +142,7 @@
     }
     [button setSelected:YES];
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
-    [self sendCommand:cmd];
-    
+    [self.myAppDelegate sendCommand:cmd from:self needBack:NO];
 }
 
 - (void)onScrollLeftClick:(id)sender
@@ -329,12 +328,6 @@
 }
 
 
-- (void)sendCommand:(NSString *)cmd
-{
-    [self.myAppDelegate sendCommand:cmd from:self];
-}
-
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     int currentPage = scrollView.contentOffset.x/844.0;
@@ -349,10 +342,22 @@
 - (void)queryMode:(NSThread *)thread
 {
     while (YES) {
-        NSLog(@"1111111111111111");
-        [self sendCommand:self.currentModel.queryCmd];
-        sleep(2);
+        [self.myAppDelegate sendCommand:self.currentModel.queryCmd from:self needBack:YES];
+        sleep(1);
     }
+}
+
+- (void)setCurrentMode:(NSString *)mode
+{
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        for (int i = MODE_BTN_BASE_TAG; i < MODE_BTN_BASE_TAG + self.currentModel.modesNames.count; i++) {
+            if (![mode isEqualToString:[self.currentModel.modeBacks objectAtIndex:i - MODE_BTN_BASE_TAG]]) {
+                [(UIButton *)[self.modeView viewWithTag:i] setSelected:NO];
+            } else {
+                [(UIButton *)[self.modeView viewWithTag:i] setSelected:YES];
+            }
+        }
+    });
 }
 
 - (void)didReceiveMemoryWarning

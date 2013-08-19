@@ -49,12 +49,14 @@
     int roomsCount = [[house objectAtIndex:0] intValue];
     SHRoomModel *wholeHouse = [[SHRoomModel alloc] init];
     wholeHouse.name = @"整个住宅";
-    wholeHouse.queryCmd = nil;
-    [wholeHouse.modesNames addObject:[house objectAtIndex:1]];
-    [wholeHouse.modesNames addObject:[house objectAtIndex:3]];
-    [wholeHouse.modesCmds addObject:[house objectAtIndex:2]];
-    [wholeHouse.modesCmds addObject:[house objectAtIndex:4]];
-    
+    wholeHouse.queryCmd = [house objectAtIndex:1];
+    [wholeHouse.modesNames addObject:[house objectAtIndex:2]];
+    [wholeHouse.modesNames addObject:[house objectAtIndex:5]];
+    [wholeHouse.modesCmds addObject:[house objectAtIndex:3]];
+    [wholeHouse.modesCmds addObject:[house objectAtIndex:6]];
+    [wholeHouse.modeBacks addObject:[house objectAtIndex:4]];
+    [wholeHouse.modeBacks addObject:[house objectAtIndex:7]];
+
     int arrayCursor = 2;
     for (int i = 0; i < roomsCount; i++){
         SHRoomModel *tempModel = [[SHRoomModel alloc] init];
@@ -62,6 +64,9 @@
         arrayCursor++;
         tempModel.name = [name objectAtIndex:0];
         tempModel.queryCmd = [name objectAtIndex:1];
+        for (int i = 2; i < name.count; i++) {
+            [tempModel.modeBacks addObject:[name objectAtIndex:i]];
+        }
         NSArray *models = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
         arrayCursor++;
         for (int j = 0; j < models.count; j = j + 2) {

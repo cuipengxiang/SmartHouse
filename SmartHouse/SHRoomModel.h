@@ -12,6 +12,7 @@
 
 @property (nonatomic,strong)NSString *name;
 @property (nonatomic,strong)NSString *queryCmd;
+@property (nonatomic,strong)NSMutableArray *modeBacks;
 @property (nonatomic,strong)NSMutableArray *modesNames;
 @property (nonatomic,strong)NSMutableArray *modesCmds;
 @property (nonatomic,strong)NSMutableArray *lightNames;

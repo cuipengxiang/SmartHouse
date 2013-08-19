@@ -65,38 +65,24 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    [sock performBlock:^{
-        [sock enableBackgroundingOnSocket];
-    }];
-    
-    NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithCapacity:3];
-
-    [settings setObject:self.host
-                 forKey:(NSString *)kCFStreamSSLPeerName];
-    
-    [sock startTLS:settings];
-
+    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
 }
 
 - (void)socketDidSecure:(GCDAsyncSocket *)sock
 {
-    /*
-	NSString *requestStr = [NSString stringWithFormat:@"GET / HTTP/1.1\r\nHost: %@\r\n\r\n", self.host];
-	NSData *requestData = [requestStr dataUsingEncoding:NSUTF8StringEncoding];
-	
-	[sock writeData:requestData withTimeout:-1 tag:0];
-	[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
-     */
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    //[sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-	NSLog(@"%@", data);
+    NSData *strData = [data subdataWithRange:NSMakeRange(0, [data length] - 2)];
+    NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
+    [(SHControlViewController *)self.mainController setCurrentMode:msg];
+	NSLog(@"%@", msg);
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
@@ -104,12 +90,15 @@
 	
 }
 
-- (void)sendCommand:(NSString *)command from:(UIViewController *)controller
+- (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback
 {
-    //SHControlViewController *viewcontroller = (SHControlViewController *) controller;
-    NSData *data = [command dataUsingEncoding:NSUTF8StringEncoding];
+    self.mainController = controller;
+    NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
     NSLog(@"%@", command);
-    [self.socket writeData:data withTimeout:-1 tag:0];
+    [self.socket writeData:[commandSend dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+    if (needback){
+        [self.socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    }
 }
 
 

@@ -16,6 +16,7 @@
     if (self) {
         self.name = [[NSString alloc] init];
         self.queryCmd = [[NSString alloc] init];
+        self.modeBacks = [[NSMutableArray alloc] init];
         self.modesNames = [[NSMutableArray alloc] init];
         self.modesCmds = [[NSMutableArray alloc] init];
         self.lightNames = [[NSMutableArray alloc] init];
@@ -27,6 +28,7 @@
         self.musicNames = [[NSMutableArray alloc] init];
         self.musicBtns = [[NSMutableArray alloc] init];
         self.musicCmds = [[NSMutableArray alloc] init];
+        
     }
     return self;
 }
