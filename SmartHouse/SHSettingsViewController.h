@@ -10,9 +10,13 @@
 
 @interface SHSettingsViewController : UIViewController
 
+@property(nonatomic, strong)IBOutlet UIButton *commit;
+@property(nonatomic, strong)IBOutlet UITextField *oldpassword;
+@property(nonatomic, strong)IBOutlet UITextField *newpassword;
+@property(nonatomic, strong)IBOutlet UITextField *newpassword_again;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
 
 - (void)onBackButtonClick;
-- (void)setupNavigationBar;
+//- (void)setupNavigationBar;
 
 @end

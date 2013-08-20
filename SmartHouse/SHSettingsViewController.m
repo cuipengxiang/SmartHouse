@@ -18,7 +18,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self setupNavigationBar];
+        //[self setupNavigationBar];
     }
     return self;
 }
@@ -26,9 +26,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.oldpassword setSecureTextEntry:YES];
+    [self.newpassword setSecureTextEntry:YES];
+    [self.newpassword_again setSecureTextEntry:YES];
+    [self.commit setBackgroundColor:[UIColor clearColor]];
     // Do any additional setup after loading the view from its nib.
 }
-
+/*
 //设置导航栏
 - (void)setupNavigationBar
 {
@@ -57,7 +61,7 @@
     [self.navigationBar pushNavigationItem:item animated:YES];
     [self.view addSubview:self.navigationBar];
 }
-
+*/
 - (void)onBackButtonClick
 {
     [self dismissViewControllerAnimated:YES completion:nil];
