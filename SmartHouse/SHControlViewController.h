@@ -18,11 +18,11 @@
 @property(nonatomic, strong)IBOutlet UIImageView *modeView;
 @property(nonatomic, strong)IBOutlet UITableView *tableView;
 @property(nonatomic, strong)IBOutlet UIScrollView *scrollView;
-@property(nonatomic, strong)IBOutlet UIButton *scrollLeft;
-@property(nonatomic, strong)IBOutlet UIButton *scrollRight;
-@property(nonatomic, strong)IBOutlet UIButton *LightButton;
-@property(nonatomic, strong)IBOutlet UIButton *CurtainButton;
-@property(nonatomic, strong)IBOutlet UIButton *MusicButton;
+@property(nonatomic, strong)UIButton *scrollLeft;
+@property(nonatomic, strong)UIButton *scrollRight;
+@property(nonatomic, strong)UIButton *LightButton;
+@property(nonatomic, strong)UIButton *CurtainButton;
+@property(nonatomic, strong)UIButton *MusicButton;
 @property(nonatomic, strong)IBOutlet UIScrollView *detailView;
 @property(nonatomic, strong)IBOutlet UIView *GuidePanel;
 
@@ -41,11 +41,11 @@
 - (void)onSettingsButtonClick;
 - (void)onModeButtonClick:(UIButton *)button;
 
-- (IBAction)onScrollLeftClick:(id)sender;
-- (IBAction)onScrollRightClick:(id)sender;
-- (IBAction)onLightClick:(id)sender;
-- (IBAction)onCuitainClick:(id)sender;
-- (IBAction)onMusicClick:(id)sender;
+- (void)onScrollLeftClick:(id)sender;
+- (void)onScrollRightClick:(id)sender;
+- (void)onLightClick:(id)sender;
+- (void)onCuitainClick:(id)sender;
+- (void)onMusicClick:(id)sender;
 
 - (void)queryMode:(NSThread *)thread;
 - (void)setCurrentMode:(NSString *)mode;

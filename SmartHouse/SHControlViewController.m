@@ -29,7 +29,6 @@
     if (self) {
         self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.myModeThread = [[NSThread alloc] initWithTarget:self selector:@selector(queryMode:) object:nil];
-        self.needquery = YES;
         [self setupNavigationBar];
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
     }
@@ -39,19 +38,55 @@
 
 - (void)viewDidLoad
 {
-    [self.modeView setImage:[UIImage imageNamed:@"bg_mode"]];
-    self.currentModel = [self.myAppDelegate.models objectAtIndex:0];
     [super viewDidLoad];
-    [self setupModeSelectBar:self.currentModel];
-    [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
+    self.needquery = YES;
+    
+    self.LightButton = [[UIButton alloc] initWithFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
+    [self.LightButton setBackgroundImage:[UIImage imageNamed:@"btn_light"] forState:UIControlStateNormal];
+    [self.LightButton setBackgroundImage:[UIImage imageNamed:@"btn_light"] forState:UIControlStateSelected];
+    [self.LightButton addTarget:self action:@selector(onLightClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.CurtainButton = [[UIButton alloc] initWithFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
+    [self.CurtainButton setBackgroundImage:[UIImage imageNamed:@"btn_curtain"] forState:UIControlStateNormal];
+    [self.CurtainButton setBackgroundImage:[UIImage imageNamed:@"btn_curtain"] forState:UIControlStateSelected];
+    [self.CurtainButton addTarget:self action:@selector(onCuitainClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.MusicButton = [[UIButton alloc] initWithFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
+    [self.MusicButton setBackgroundImage:[UIImage imageNamed:@"btn_music"] forState:UIControlStateNormal];
+    [self.MusicButton setBackgroundImage:[UIImage imageNamed:@"btn_music"] forState:UIControlStateSelected];
+    [self.MusicButton addTarget:self action:@selector(onMusicClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.LightButton];
+    [self.view addSubview:self.CurtainButton];
+    [self.view addSubview:self.MusicButton];
+    
+    self.scrollLeft = [[UIButton alloc] initWithFrame:CGRectMake(20.0f, 55.0f, 25.0f, 50.0f)];
+    [self.scrollLeft setBackgroundImage:[UIImage imageNamed:@"turn_left"] forState:UIControlStateNormal];
+    [self.scrollLeft setBackgroundImage:[UIImage imageNamed:@"turn_left"] forState:UIControlStateSelected];
+    [self.scrollLeft addTarget:self action:@selector(onScrollLeftClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.scrollRight = [[UIButton alloc] initWithFrame:CGRectMake(799.0f, 55.0f, 25.0f, 50.0f)];
+    [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateNormal];
+    [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateSelected];
+    [self.scrollRight addTarget:self action:@selector(onScrollLeftClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.modeView addSubview:self.scrollLeft];
+    [self.modeView addSubview:self.scrollRight];
+    
+    [self.modeView setImage:[UIImage imageNamed:@"bg_mode"]];
+    
+    [self.GuidePanel setBackgroundColor:[UIColor clearColor]];
+    
+    self.currentModel = [self.myAppDelegate.models objectAtIndex:0];
     [self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left_background"]]];
     [self.tableView setBounces:NO];
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
+    [self setupModeSelectBar:self.currentModel];
+    [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
     
-    [self.GuidePanel setBackgroundColor:[UIColor clearColor]];
 }
 
 //设置导航栏
@@ -264,17 +299,17 @@
     }
 }
 
-- (IBAction)onLightClick:(id)sender
+- (void)onLightClick:(id)sender
 {
     [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
 }
 
-- (IBAction)onCuitainClick:(id)sender
+- (void)onCuitainClick:(id)sender
 {
     [self setupDetailView:self.currentModel Type:TYPE_CURTAIN];
 }
 
-- (IBAction)onMusicClick:(id)sender
+- (void)onMusicClick:(id)sender
 {
     [self setupDetailView:self.currentModel Type:TYPE_MUSIC];
 }
@@ -349,7 +384,7 @@
 {
     while (YES) {
         if (self.needquery) {
-            [self.myAppDelegate sendCommand:self.currentModel.queryCmd from:self needBack:YES];
+            [self.myAppDelegate sendCommand:self.currentModel.queryCmd from:self needBack:NO];
             sleep(1);
         }
     }

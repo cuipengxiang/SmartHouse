@@ -25,6 +25,12 @@
     SHReadConfigFile *fileReader = [[SHReadConfigFile alloc] init];
     [fileReader readFile];
     
+    //建立Socket连接
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
+    NSError *error = nil;
+    [self.socket connectToHost:self.host onPort:self.port error:&error];
+    
     return YES;
 }
 
@@ -48,10 +54,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
-    self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
-    NSError *error = nil;
-    [self.socket connectToHost:self.host onPort:self.port error:&error];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -87,7 +89,7 @@
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-	
+
 }
 
 - (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback
@@ -95,9 +97,13 @@
     self.mainController = controller;
     NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
     NSLog(@"%@", command);
-    [self.socket writeData:[commandSend dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
-    if (needback){
-        [self.socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    if ([self.socket isConnected]) {
+        [self.socket writeData:[commandSend dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        if (needback){
+            [self.socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+        }
+    } else {
+        NSLog(@"no connection");
     }
 }
 
