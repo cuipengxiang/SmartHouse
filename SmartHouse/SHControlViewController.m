@@ -29,6 +29,7 @@
     if (self) {
         self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.myModeThread = [[NSThread alloc] initWithTarget:self selector:@selector(queryMode:) object:nil];
+        self.needquery = YES;
         [self setupNavigationBar];
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
     }
@@ -94,13 +95,18 @@
 
 - (void)onBackButtonClick
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^(void){
+        self.needquery = NO;
+    }];
 }
 
 - (void)onSettingsButtonClick
 {
     SHSettingsViewController *controller = [[SHSettingsViewController alloc] initWithNibName:nil bundle:nil];
-    [self presentViewController:controller animated:YES completion:nil];
+    controller.controller = self;
+    [self presentViewController:controller animated:YES completion:^(void){
+        self.needquery = NO;
+    }];
 }
 
 - (void)setupModeSelectBar:(SHRoomModel *)currentModel
@@ -342,8 +348,10 @@
 - (void)queryMode:(NSThread *)thread
 {
     while (YES) {
-        [self.myAppDelegate sendCommand:self.currentModel.queryCmd from:self needBack:YES];
-        sleep(1);
+        if (self.needquery) {
+            [self.myAppDelegate sendCommand:self.currentModel.queryCmd from:self needBack:YES];
+            sleep(1);
+        }
     }
 }
 

@@ -67,6 +67,49 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)onCommitClick:(id)sender
+{
+    if (![self.newpassword.text isEqualToString:self.newpassword_again.text]) {
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"两次输入的新密码不一致" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [av show];
+        return;
+    }
+    if (self.newpassword.text.length < 4) {
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"密码长度不能小于4位" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [av show];
+        return;
+    }
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
+    if (password) {
+        if ([password isEqualToString:[self.oldpassword text]]) {
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"修改密码成功" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [av show];
+            [[NSUserDefaults standardUserDefaults] setObject:self.newpassword.text forKey:@"password"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self dismissViewControllerAnimated:YES completion:^(void){
+                self.controller.needquery = YES;
+            }];
+        } else {
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"旧密码错误" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [av show];
+            return;
+        }
+    } else {
+        if ([[self.oldpassword text] isEqualToString:@"0000"]) {
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"修改密码成功" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [av show];
+            [[NSUserDefaults standardUserDefaults] setObject:self.newpassword.text forKey:@"password"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self dismissViewControllerAnimated:YES completion:^(void){
+                self.controller.needquery = YES;
+            }];
+        } else {
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"旧密码错误" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [av show];
+        }
+    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {

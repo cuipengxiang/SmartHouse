@@ -30,6 +30,8 @@
 @property(nonatomic)int modesCount;
 @property(nonatomic)int detailPageCount;
 
+@property BOOL needquery;
+
 - (void)setupNavigationBar;
 - (void)setupModeSelectBar:(SHRoomModel *)currentModel;
 - (void)setupDetailView:(SHRoomModel *)currentModel Type:(int)type;

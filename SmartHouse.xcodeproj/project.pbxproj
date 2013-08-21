@@ -678,10 +678,12 @@
 		D8421D1F17BA853500C39DA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: 鹏翔 崔 (GVQA7B9MVH)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartHouse/SmartHouse-Prefix.pch";
 				INFOPLIST_FILE = "SmartHouse/SmartHouse-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "971C89E2-2181-4F4F-8BF6-311669A832DB";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -690,10 +692,12 @@
 		D8421D2017BA853500C39DA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: 鹏翔 崔 (GVQA7B9MVH)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartHouse/SmartHouse-Prefix.pch";
 				INFOPLIST_FILE = "SmartHouse/SmartHouse-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "971C89E2-2181-4F4F-8BF6-311669A832DB";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};

@@ -48,10 +48,29 @@
 - (void)loginCheck
 {
     [self.passwordField resignFirstResponder];
-    SHControlViewController *controller = [[SHControlViewController alloc] initWithNibName:nil bundle:nil];
-    [self presentViewController:controller animated:YES completion:^(void){
-        [self.passwordField setText:nil];
-    }];
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:@"password"];
+    if (password) {
+        if ([password isEqualToString:[self.passwordField text]]) {
+            SHControlViewController *controller = [[SHControlViewController alloc] initWithNibName:nil bundle:nil];
+            [self presentViewController:controller animated:YES completion:^(void){
+                [self.passwordField setText:nil];
+            }];
+        } else {
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"密码错误" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [av show];
+        }
+    } else {
+        if ([[self.passwordField text] isEqualToString:@"0000"]) {
+            SHControlViewController *controller = [[SHControlViewController alloc] initWithNibName:nil bundle:nil];
+            [self presentViewController:controller animated:YES completion:^(void){
+                [self.passwordField setText:nil];
+            }];
+        } else {
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"密码错误" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [av show];
+        }
+    }
+    
 }
 
 - (void)viewDidLoad

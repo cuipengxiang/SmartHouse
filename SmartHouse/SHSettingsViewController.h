@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SHControlViewController.h"
 
 @interface SHSettingsViewController : UIViewController
 
@@ -15,8 +16,10 @@
 @property(nonatomic, strong)IBOutlet UITextField *newpassword;
 @property(nonatomic, strong)IBOutlet UITextField *newpassword_again;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
+@property(nonatomic, retain)SHControlViewController *controller;
 
 - (void)onBackButtonClick;
 //- (void)setupNavigationBar;
+- (IBAction)onCommitClick:(id)sender;
 
 @end
