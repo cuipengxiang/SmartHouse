@@ -405,16 +405,17 @@
 
 - (void)sendCommand:(NSString *)cmd needBack:(BOOL)needback check:(BOOL)check;
 {
-    if ((check)&&(![self.myAppDelegate.socket isConnected])) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"与服务端连接已断开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alert show];
-        return;
+    if ([self.myAppDelegate.socket isConnected]) {
+        [self.myAppDelegate sendCommand:cmd from:self needBack:needback];
     } else {
         if (check) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"与服务端连接已断开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alert show];
             [self.myAppDelegate reConnectSocketWithCommand:cmd];
+        } else {
+            [self.myAppDelegate reConnectSocketWithCommand:nil];
         }
     }
-    [self.myAppDelegate sendCommand:cmd from:self needBack:needback];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{

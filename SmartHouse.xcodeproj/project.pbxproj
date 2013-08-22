@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5214CB7817C068F500BDCEBC /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5214CB7717C068F500BDCEBC /* GCDAsyncSocket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		5214CB7817C068F500BDCEBC /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 5214CB7717C068F500BDCEBC /* GCDAsyncSocket.m */; };
 		52336A0517C087080094CE29 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52336A0317C086D50094CE29 /* Security.framework */; };
 		52336A0617C0870B0094CE29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52336A0117C086CC0094CE29 /* CFNetwork.framework */; };
 		528B7F8B17BE778E0021447D /* unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 528B7F8917BE778E0021447D /* unselected@2x.png */; };
@@ -690,13 +690,13 @@
 		D8421D1F17BA853500C39DA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: 鹏翔 崔 (GVQA7B9MVH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 世倩 衣 (BZR7AKESU3)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartHouse/SmartHouse-Prefix.pch";
 				INFOPLIST_FILE = "SmartHouse/SmartHouse-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "971C89E2-2181-4F4F-8BF6-311669A832DB";
+				PROVISIONING_PROFILE = "7EC052FE-07A2-42BE-96E7-629B6910A98A";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -705,13 +705,13 @@
 		D8421D2017BA853500C39DA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: 鹏翔 崔 (GVQA7B9MVH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 世倩 衣 (BZR7AKESU3)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartHouse/SmartHouse-Prefix.pch";
 				INFOPLIST_FILE = "SmartHouse/SmartHouse-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "971C89E2-2181-4F4F-8BF6-311669A832DB";
+				PROVISIONING_PROFILE = "7EC052FE-07A2-42BE-96E7-629B6910A98A";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};

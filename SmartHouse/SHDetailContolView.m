@@ -97,18 +97,17 @@
 
 - (void)sendCommand:(NSString *)cmd check:(BOOL)check
 {
-    if ((check)&&(![self.myDelegate.socket isConnected])) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"与服务端连接已断开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alert show];
-        return;
+    if ([self.myDelegate.socket isConnected]) {
+        [self.myDelegate sendCommand:cmd from:nil needBack:NO];
     } else {
         if (check) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"与服务端连接已断开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alert show];
             [self.myDelegate reConnectSocketWithCommand:cmd];
+        } else {
+            [self.myDelegate reConnectSocketWithCommand:nil];
         }
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-    [alert show];
-    [self.myDelegate sendCommand:cmd from:nil needBack:NO];
 }
 
 /*

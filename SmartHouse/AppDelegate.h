@@ -12,7 +12,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, GCDAsyncSocketDelegate>
 
-@property (retain)UIViewController *mainController;
+@property (strong)UIViewController *mainController;
 @property BOOL needBack;
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 @property (strong, nonatomic) NSString *host;

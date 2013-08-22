@@ -11,7 +11,7 @@
 
 @interface SHMusicControlView : UIView
 
-@property (nonatomic ,retain)AppDelegate *myDelegate;
+@property (nonatomic ,strong)AppDelegate *myDelegate;
 @property (nonatomic, strong)NSMutableArray *buttonNames;
 @property (nonatomic, strong)NSMutableArray *buttonCmds;
 
