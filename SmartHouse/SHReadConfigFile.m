@@ -42,10 +42,10 @@
     NSString *file = [documentDirectory stringByAppendingPathComponent:@"test1.txt"];
     NSError *error;	
     NSArray *fileArray = [[NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:&error] componentsSeparatedByString:@"\n"];
-    NSArray *socketHostandPort = [[fileArray objectAtIndex:0] componentsSeparatedByString:@","];
+    NSArray *socketHostandPort = [[fileArray objectAtIndex:0] componentsSeparatedByString:@"|"];
     myDelegate.host = [socketHostandPort objectAtIndex:0];
     myDelegate.port = [[socketHostandPort objectAtIndex:1] integerValue];
-    NSArray *house = [[fileArray objectAtIndex:1] componentsSeparatedByString:@","];
+    NSArray *house = [[fileArray objectAtIndex:1] componentsSeparatedByString:@"|"];
     int roomsCount = [[house objectAtIndex:0] intValue];
     SHRoomModel *wholeHouse = [[SHRoomModel alloc] init];
     wholeHouse.name = @"整个住宅";
@@ -60,14 +60,14 @@
     int arrayCursor = 2;
     for (int i = 0; i < roomsCount; i++){
         SHRoomModel *tempModel = [[SHRoomModel alloc] init];
-        NSArray *name = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
+        NSArray *name = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@"|"];
         arrayCursor++;
         tempModel.name = [name objectAtIndex:0];
         tempModel.queryCmd = [name objectAtIndex:1];
         for (int i = 2; i < name.count; i++) {
             [tempModel.modeBacks addObject:[name objectAtIndex:i]];
         }
-        NSArray *models = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
+        NSArray *models = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@"|"];
         arrayCursor++;
         for (int j = 0; j < models.count; j = j + 2) {
             [tempModel.modesNames addObject:[models objectAtIndex:j]];
@@ -76,7 +76,7 @@
         int lightsCount = [[fileArray objectAtIndex:arrayCursor] intValue];
         arrayCursor++;
         for (int j = 0; j < lightsCount; j++) {
-            NSArray *lights = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
+            NSArray *lights = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@"|"];
             arrayCursor++;
             [tempModel.lightNames addObject:[lights objectAtIndex:0]];
             [wholeHouse.lightNames addObject:[lights objectAtIndex:0]];
@@ -94,7 +94,7 @@
         int curtainsCount = [[fileArray objectAtIndex:arrayCursor] intValue];
         arrayCursor++;
         for (int j = 0; j < curtainsCount; j++) {
-            NSArray *curtains = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
+            NSArray *curtains = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@"|"];
             arrayCursor++;
             [tempModel.curtainNames addObject:[curtains objectAtIndex:0]];
             [wholeHouse.curtainNames addObject:[curtains objectAtIndex:0]];
@@ -112,7 +112,7 @@
         int musicsCount = [[fileArray objectAtIndex:arrayCursor] intValue];
         arrayCursor++;
         for (int j = 0; j < musicsCount; j++) {
-            NSArray *musics = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@","];
+            NSArray *musics = [[fileArray objectAtIndex:arrayCursor] componentsSeparatedByString:@"|"];
             arrayCursor++;
             [tempModel.musicNames addObject:[musics objectAtIndex:0]];
             [wholeHouse.musicNames addObject:[musics objectAtIndex:0]];
