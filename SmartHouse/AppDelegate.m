@@ -67,7 +67,10 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    if (self.resendCommand) {
+        [self.socket writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        self.resendCommand = nil;
+    }
 }
 
 - (void)socketDidSecure:(GCDAsyncSocket *)sock
@@ -105,6 +108,13 @@
     } else {
         NSLog(@"no connection");
     }
+}
+
+- (void)reConnectSocketWithCommand:(NSString *)command
+{
+    self.resendCommand = command;
+    NSError *error = nil;
+    [self.socket connectToHost:self.host onPort:self.port error:&error];
 }
 
 

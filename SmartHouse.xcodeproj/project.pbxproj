@@ -81,6 +81,10 @@
 		D812DC3717C5B08300521DEF /* bg_btn_back.png in Resources */ = {isa = PBXBuildFile; fileRef = D812DC3517C5B08300521DEF /* bg_btn_back.png */; };
 		D812DC3817C5B08300521DEF /* bg_btn_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D812DC3617C5B08300521DEF /* bg_btn_back@2x.png */; };
 		D816387017BB0501008FAD0E /* SHReadConfigFile.m in Sources */ = {isa = PBXBuildFile; fileRef = D816386F17BB0501008FAD0E /* SHReadConfigFile.m */; };
+		D81BD48F17C5F16800D96702 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D81BD48E17C5F16800D96702 /* icon.png */; };
+		D81BD49117C5F16D00D96702 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D81BD49017C5F16D00D96702 /* icon@2x.png */; };
+		D81BD49317C5F18000D96702 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D81BD49217C5F18000D96702 /* Default-Landscape~ipad.png */; };
+		D81BD49517C5F18600D96702 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D81BD49417C5F18600D96702 /* Default-Landscape@2x~ipad.png */; };
 		D8226FF017C2FD7100F90A27 /* bg_btn_commit.png in Resources */ = {isa = PBXBuildFile; fileRef = D8226FE517C2FD7100F90A27 /* bg_btn_commit.png */; };
 		D8226FF117C2FD7100F90A27 /* bg_btn_commit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8226FE617C2FD7100F90A27 /* bg_btn_commit@2x.png */; };
 		D8226FF217C2FD7100F90A27 /* bg_btn_login.png in Resources */ = {isa = PBXBuildFile; fileRef = D8226FE717C2FD7100F90A27 /* bg_btn_login.png */; };
@@ -98,9 +102,6 @@
 		D8421D0917BA853500C39DA0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8421D0717BA853500C39DA0 /* InfoPlist.strings */; };
 		D8421D0B17BA853500C39DA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D0A17BA853500C39DA0 /* main.m */; };
 		D8421D0F17BA853500C39DA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D0E17BA853500C39DA0 /* AppDelegate.m */; };
-		D8421D1117BA853500C39DA0 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D8421D1017BA853500C39DA0 /* Default.png */; };
-		D8421D1317BA853500C39DA0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8421D1217BA853500C39DA0 /* Default@2x.png */; };
-		D8421D1517BA853500C39DA0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8421D1417BA853500C39DA0 /* Default-568h@2x.png */; };
 		D8421D1817BA853500C39DA0 /* SHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D1717BA853500C39DA0 /* SHLoginViewController.m */; };
 		D8421D1B17BA853500C39DA0 /* SHLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8421D1917BA853500C39DA0 /* SHLoginViewController.xib */; };
 		D8EEBD0D17BC7F8200200262 /* SHDetailContolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */; };
@@ -191,6 +192,10 @@
 		D812DC3617C5B08300521DEF /* bg_btn_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_btn_back@2x.png"; sourceTree = "<group>"; };
 		D816386E17BB0501008FAD0E /* SHReadConfigFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHReadConfigFile.h; sourceTree = "<group>"; };
 		D816386F17BB0501008FAD0E /* SHReadConfigFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHReadConfigFile.m; sourceTree = "<group>"; };
+		D81BD48E17C5F16800D96702 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
+		D81BD49017C5F16D00D96702 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../icon@2x.png"; sourceTree = "<group>"; };
+		D81BD49217C5F18000D96702 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		D81BD49417C5F18600D96702 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x~ipad.png"; path = "../Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
 		D8226FE517C2FD7100F90A27 /* bg_btn_commit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_btn_commit.png; sourceTree = "<group>"; };
 		D8226FE617C2FD7100F90A27 /* bg_btn_commit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_btn_commit@2x.png"; sourceTree = "<group>"; };
 		D8226FE717C2FD7100F90A27 /* bg_btn_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_btn_login.png; sourceTree = "<group>"; };
@@ -212,9 +217,6 @@
 		D8421D0C17BA853500C39DA0 /* SmartHouse-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartHouse-Prefix.pch"; sourceTree = "<group>"; };
 		D8421D0D17BA853500C39DA0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D8421D0E17BA853500C39DA0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D8421D1017BA853500C39DA0 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		D8421D1217BA853500C39DA0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		D8421D1417BA853500C39DA0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D8421D1617BA853500C39DA0 /* SHLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHLoginViewController.h; sourceTree = "<group>"; };
 		D8421D1717BA853500C39DA0 /* SHLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHLoginViewController.m; sourceTree = "<group>"; };
 		D8421D1A17BA853500C39DA0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SHLoginViewController.xib; sourceTree = "<group>"; };
@@ -320,13 +322,14 @@
 		D8421D0517BA853500C39DA0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D81BD49417C5F18600D96702 /* Default-Landscape@2x~ipad.png */,
+				D81BD49217C5F18000D96702 /* Default-Landscape~ipad.png */,
+				D81BD49017C5F16D00D96702 /* icon@2x.png */,
+				D81BD48E17C5F16800D96702 /* icon.png */,
 				D8421D0617BA853500C39DA0 /* SmartHouse-Info.plist */,
 				D8421D0717BA853500C39DA0 /* InfoPlist.strings */,
 				D8421D0A17BA853500C39DA0 /* main.m */,
 				D8421D0C17BA853500C39DA0 /* SmartHouse-Prefix.pch */,
-				D8421D1017BA853500C39DA0 /* Default.png */,
-				D8421D1217BA853500C39DA0 /* Default@2x.png */,
-				D8421D1417BA853500C39DA0 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -492,9 +495,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8421D0917BA853500C39DA0 /* InfoPlist.strings in Resources */,
-				D8421D1117BA853500C39DA0 /* Default.png in Resources */,
-				D8421D1317BA853500C39DA0 /* Default@2x.png in Resources */,
-				D8421D1517BA853500C39DA0 /* Default-568h@2x.png in Resources */,
 				D8421D1B17BA853500C39DA0 /* SHLoginViewController.xib in Resources */,
 				D8F056EF17BA8CE300DF2928 /* SHControlViewController.xib in Resources */,
 				D8F056FC17BAC95600DF2928 /* SHSettingsViewController.xib in Resources */,
@@ -578,6 +578,10 @@
 				D80AD51417C3E4AB009EDE35 /* bg_textfield.png in Resources */,
 				D812DC3717C5B08300521DEF /* bg_btn_back.png in Resources */,
 				D812DC3817C5B08300521DEF /* bg_btn_back@2x.png in Resources */,
+				D81BD48F17C5F16800D96702 /* icon.png in Resources */,
+				D81BD49117C5F16D00D96702 /* icon@2x.png in Resources */,
+				D81BD49317C5F18000D96702 /* Default-Landscape~ipad.png in Resources */,
+				D81BD49517C5F18600D96702 /* Default-Landscape@2x~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

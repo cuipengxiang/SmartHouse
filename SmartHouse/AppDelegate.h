@@ -20,7 +20,9 @@
 @property (strong, nonatomic) NSMutableArray *models;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) SHLoginViewController *viewController;
+@property (strong)NSString *resendCommand;
 
 - (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback;
+- (void)reConnectSocketWithCommand:(NSString *)command;
 
 @end
