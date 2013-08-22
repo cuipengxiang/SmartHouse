@@ -26,10 +26,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.commit = [[UIButton alloc] initWithFrame:CGRectMake(677.0f, 428.0f, 150.0f, 48.0f)];
+    [self.commit setBackgroundImage:[UIImage imageNamed:@"bg_btn_commit"] forState:UIControlStateNormal];
+    [self.commit setBackgroundImage:[UIImage imageNamed:@"bg_btn_commit"] forState:UIControlStateSelected];
+    [self.commit addTarget:self action:@selector(onCommitClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.commit];
+    
+    self.cancel = [[UIButton alloc] initWithFrame:CGRectMake(517.0f, 428.0f, 150.0f, 48.0f)];
+    [self.cancel setBackgroundImage:[UIImage imageNamed:@"bg_btn_commit"] forState:UIControlStateNormal];
+    [self.cancel setBackgroundImage:[UIImage imageNamed:@"bg_btn_commit"] forState:UIControlStateSelected];
+    [self.cancel addTarget:self action:@selector(onBackButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.cancel];
+    
     [self.oldpassword setSecureTextEntry:YES];
     [self.newpassword setSecureTextEntry:YES];
     [self.newpassword_again setSecureTextEntry:YES];
-    [self.commit setBackgroundColor:[UIColor clearColor]];
     // Do any additional setup after loading the view from its nib.
 }
 /*
@@ -62,9 +73,11 @@
     [self.view addSubview:self.navigationBar];
 }
 */
-- (void)onBackButtonClick
+- (void)onBackButtonClick:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^(void){
+        self.controller.needquery = YES;
+    }];
 }
 
 - (void)onCommitClick:(id)sender
