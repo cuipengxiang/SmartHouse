@@ -33,8 +33,8 @@
     [self.view addSubview:self.commit];
     
     self.cancel = [[UIButton alloc] initWithFrame:CGRectMake(517.0f, 428.0f, 150.0f, 48.0f)];
-    [self.cancel setBackgroundImage:[UIImage imageNamed:@"bg_btn_commit"] forState:UIControlStateNormal];
-    [self.cancel setBackgroundImage:[UIImage imageNamed:@"bg_btn_commit"] forState:UIControlStateSelected];
+    [self.cancel setBackgroundImage:[UIImage imageNamed:@"bg_btn_back"] forState:UIControlStateNormal];
+    [self.cancel setBackgroundImage:[UIImage imageNamed:@"bg_btn_back"] forState:UIControlStateSelected];
     [self.cancel addTarget:self action:@selector(onBackButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.cancel];
     
