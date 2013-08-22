@@ -183,7 +183,7 @@
     }
     [button setSelected:YES];
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
-    [self.myAppDelegate sendCommand:cmd from:self needBack:NO];
+    [self sendCommand:cmd needBack:NO check:YES];
 }
 
 - (void)onScrollLeftClick:(id)sender
@@ -384,7 +384,7 @@
 {
     while (YES) {
         if (self.needquery) {
-            [self.myAppDelegate sendCommand:self.currentModel.queryCmd from:self needBack:NO];
+            [self sendCommand:self.currentModel.queryCmd needBack:NO check:NO];
             sleep(1);
         }
     }
@@ -401,6 +401,16 @@
             }
         }
     });
+}
+
+- (void)sendCommand:(NSString *)cmd needBack:(BOOL)needback check:(BOOL)check;
+{
+    if ((check)&&(![self.myAppDelegate.socket isConnected])) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"与服务端连接已断开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+        return;
+    }
+    [self.myAppDelegate sendCommand:cmd from:self needBack:needback];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{

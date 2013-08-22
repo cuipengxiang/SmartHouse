@@ -20,6 +20,6 @@
 - (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andType:(int)type;
 - (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds;
 - (void)onButtonClick:(UIButton *)button;
-- (void)sendCommand:(NSString *)cmd;
+- (void)sendCommand:(NSString *)cmd check:(BOOL)check;
 
 @end

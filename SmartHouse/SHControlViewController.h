@@ -49,5 +49,6 @@
 
 - (void)queryMode:(NSThread *)thread;
 - (void)setCurrentMode:(NSString *)mode;
+- (void)sendCommand:(NSString *)cmd needBack:(BOOL)needback check:(BOOL)check;
 
 @end

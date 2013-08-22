@@ -92,11 +92,16 @@
 
 - (void)onButtonClick:(UIButton *)button
 {
-    [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG]];
+    [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];
 }
 
-- (void)sendCommand:(NSString *)cmd
+- (void)sendCommand:(NSString *)cmd check:(BOOL)check
 {
+    if ((check)&&(![self.myDelegate.socket isConnected])) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"与服务端连接已断开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+        return;
+    }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:cmd delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
     [self.myDelegate sendCommand:cmd from:nil needBack:NO];
