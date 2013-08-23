@@ -68,7 +68,7 @@
     self.scrollRight = [[UIButton alloc] initWithFrame:CGRectMake(799.0f, 55.0f, 25.0f, 50.0f)];
     [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateNormal];
     [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateSelected];
-    [self.scrollRight addTarget:self action:@selector(onScrollLeftClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.scrollRight addTarget:self action:@selector(onScrollRightClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.modeView addSubview:self.scrollLeft];
     [self.modeView addSubview:self.scrollRight];
