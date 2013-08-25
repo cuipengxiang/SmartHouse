@@ -384,8 +384,8 @@
 {
     while (YES) {
         if (self.needquery) {
-            [self sendCommand:self.currentModel.queryCmd needBack:NO check:NO];
-            sleep(1);
+            [self sendCommand:self.currentModel.queryCmd needBack:YES check:NO];
+            sleep(2);
         }
     }
 }
