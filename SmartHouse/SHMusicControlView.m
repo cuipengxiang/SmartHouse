@@ -84,6 +84,8 @@
 
 - (void)sendCommand:(NSString *)cmd check:(BOOL)check
 {
+    [self.myDelegate sendCommand:cmd from:nil needBack:NO];
+    /*
     if ([self.myDelegate.socket isConnected]) {
         [self.myDelegate sendCommand:cmd from:nil needBack:NO];
     } else {
@@ -95,6 +97,7 @@
             [self.myDelegate reConnectSocketWithCommand:nil];
         }
     }
+    */
 }
 
 /*
