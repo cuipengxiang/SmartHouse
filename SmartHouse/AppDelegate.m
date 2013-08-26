@@ -89,6 +89,7 @@
     NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
     [(SHControlViewController *)self.mainController setCurrentMode:msg];
 	NSLog(@"read:%@", msg);
+    [self.socket disconnect];
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
@@ -104,6 +105,8 @@
     [self.socket writeData:[commandSend dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
     if (needback){
         [self.socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:3 tag:0];
+    } else {
+        [self.socket disconnect];
     }
 }
 

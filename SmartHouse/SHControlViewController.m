@@ -394,7 +394,9 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         for (int i = MODE_BTN_BASE_TAG; i < MODE_BTN_BASE_TAG + self.currentModel.modesNames.count; i++) {
-            if (![mode isEqualToString:[self.currentModel.modeBacks objectAtIndex:i - MODE_BTN_BASE_TAG]]) {
+            int location = [mode rangeOfString:[self.currentModel.modeBacks objectAtIndex:i - MODE_BTN_BASE_TAG]].location;
+            
+            if (location == INT32_MAX) {
                 [(UIButton *)[self.modeView viewWithTag:i] setSelected:NO];
             } else {
                 [(UIButton *)[self.modeView viewWithTag:i] setSelected:YES];
