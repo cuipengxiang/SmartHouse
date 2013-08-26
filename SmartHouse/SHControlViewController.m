@@ -16,6 +16,7 @@
 #define TYPE_LIGHT 0
 #define TYPE_CURTAIN 1
 #define TYPE_MUSIC 2
+#define BUTTON_DELAY 1.0
 
 @interface SHControlViewController ()
 
@@ -184,6 +185,16 @@
     [button setSelected:YES];
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
     [self sendCommand:cmd needBack:NO check:YES];
+    /*
+    [button setEnabled:NO];
+    double delayInSeconds = BUTTON_DELAY;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [button setEnabled:YES];
+        });
+    });
+    */
 }
 
 - (void)onScrollLeftClick:(id)sender
@@ -407,6 +418,9 @@
 
 - (void)sendCommand:(NSString *)cmd needBack:(BOOL)needback check:(BOOL)check;
 {
+    [self.myAppDelegate sendCommand:cmd from:self needBack:needback];
+    
+    /* 先判断状态-----1
     if ([self.myAppDelegate.socket isConnected]) {
         [self.myAppDelegate sendCommand:cmd from:self needBack:needback];
     } else {
@@ -418,6 +432,7 @@
             [self.myAppDelegate reConnectSocketWithCommand:nil];
         }
     }
+    */
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{

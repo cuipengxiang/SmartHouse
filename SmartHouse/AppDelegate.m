@@ -29,8 +29,8 @@
     //建立Socket连接
     dispatch_queue_t mainQueue = dispatch_queue_create("socketQueue", NULL);//dispatch_get_main_queue();
     self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
-    NSError *error = nil;
-    [self.socket connectToHost:self.host onPort:self.port error:&error];
+    //NSError *error = nil;
+    //[self.socket connectToHost:self.host onPort:self.port error:&error];
     
     return YES;
 }
@@ -99,6 +99,9 @@
 
 - (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback
 {
+    self.resendCommand = command;
+    NSError *error = nil;
+    [self.socket connectToHost:self.host onPort:self.port error:&error];
     self.mainController = controller;
     NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
     NSLog(@"send:%@", command);
@@ -108,6 +111,18 @@
     } else {
         [self.socket disconnect];
     }
+    
+    /*先判断状态-----1
+    self.mainController = controller;
+    NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
+    NSLog(@"send:%@", command);
+    [self.socket writeData:[commandSend dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+    if (needback){
+        [self.socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:3 tag:0];
+    } else {
+        [self.socket disconnect];
+    }
+    */
 }
 
 - (void)reConnectSocketWithCommand:(NSString *)command
