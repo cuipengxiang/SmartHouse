@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SHLoginViewController : UIViewController
+@interface SHLoginViewController : UIViewController<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong)UITextField *passwordField;
 @property (nonatomic, strong)UIButton *loginButton;
+@property (nonatomic, strong)UIImageView *imageView;
 
 - (void)loginCheck;
+- (void)onTouch;
 
 @end

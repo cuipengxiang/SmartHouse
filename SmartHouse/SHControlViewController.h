@@ -31,6 +31,7 @@
 @property(nonatomic)int detailPageCount;
 
 @property BOOL needquery;
+@property int skipQuery;
 
 - (void)setupNavigationBar;
 - (void)setupModeSelectBar:(SHRoomModel *)currentModel;

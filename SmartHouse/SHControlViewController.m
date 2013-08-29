@@ -183,18 +183,11 @@
         [(UIButton *)[self.modeView viewWithTag:i] setSelected:NO];
     }
     [button setSelected:YES];
+    self.skipQuery = 1;
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
     [self sendCommand:cmd needBack:NO check:YES];
-    /*
-    [button setEnabled:NO];
-    double delayInSeconds = BUTTON_DELAY;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [button setEnabled:YES];
-        });
-    });
-    */
+    
+    
 }
 
 - (void)onScrollLeftClick:(id)sender
@@ -403,6 +396,11 @@
 
 - (void)setCurrentMode:(NSString *)mode
 {
+    //跳过点击按钮后的第一次查询
+    if (self.skipQuery == 1) {
+        self.skipQuery = 0;
+        return;
+    }
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         for (int i = MODE_BTN_BASE_TAG; i < MODE_BTN_BASE_TAG + self.currentModel.modesNames.count; i++) {
             int location = [mode rangeOfString:[self.currentModel.modeBacks objectAtIndex:i - MODE_BTN_BASE_TAG]].location;

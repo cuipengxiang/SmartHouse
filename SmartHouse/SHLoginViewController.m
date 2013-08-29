@@ -51,6 +51,15 @@
 {
     [super viewDidLoad];
     
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, 1024, 748)];
+    [self.imageView setImage:[UIImage imageNamed:@"bg_login"]];
+    [self.view addSubview:self.imageView];
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTouch)];
+    [gesture setNumberOfTouchesRequired:1];
+    [gesture setNumberOfTapsRequired:1];
+    [gesture setDelegate:self];
+    [self.view addGestureRecognizer:gesture];
+    
 	UILabel *loginLabel = [[UILabel alloc] init];
     [loginLabel setBackgroundColor:[UIColor clearColor]];
     [loginLabel setTextAlignment:NSTextAlignmentCenter];
@@ -80,10 +89,23 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
-    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+    if ((toInterfaceOrientation == UIInterfaceOrientationLandscapeRight)||(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft)) {
         return YES;
     }
     return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isKindOfClass:[UIButton class]]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)onTouch
+{
+    [self.passwordField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

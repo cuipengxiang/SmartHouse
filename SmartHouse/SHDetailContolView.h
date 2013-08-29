@@ -15,11 +15,14 @@
 @property (nonatomic, strong)NSMutableArray *buttonNames;
 @property (nonatomic, strong)NSMutableArray *buttonCmds;
 @property (nonatomic)int type;
+@property BOOL isdown;
 
 - (id)initWithFrame:(CGRect)frame andType:(int)type;
 - (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andType:(int)type;
 - (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds;
 - (void)onButtonClick:(UIButton *)button;
+- (void)onButtonDown:(UIButton *)button;
+- (void)onButtonUp:(UIButton *)button;
 - (void)sendCommand:(NSString *)cmd check:(BOOL)check;
 
 @end

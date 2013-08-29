@@ -103,7 +103,6 @@
 		D8421D0B17BA853500C39DA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D0A17BA853500C39DA0 /* main.m */; };
 		D8421D0F17BA853500C39DA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D0E17BA853500C39DA0 /* AppDelegate.m */; };
 		D8421D1817BA853500C39DA0 /* SHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D1717BA853500C39DA0 /* SHLoginViewController.m */; };
-		D8421D1B17BA853500C39DA0 /* SHLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8421D1917BA853500C39DA0 /* SHLoginViewController.xib */; };
 		D8EEBD0D17BC7F8200200262 /* SHDetailContolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */; };
 		D8F056E917BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056E617BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m */; };
 		D8F056EA17BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056E817BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m */; };
@@ -219,7 +218,6 @@
 		D8421D0E17BA853500C39DA0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D8421D1617BA853500C39DA0 /* SHLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHLoginViewController.h; sourceTree = "<group>"; };
 		D8421D1717BA853500C39DA0 /* SHLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHLoginViewController.m; sourceTree = "<group>"; };
-		D8421D1A17BA853500C39DA0 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SHLoginViewController.xib; sourceTree = "<group>"; };
 		D8EEBD0B17BC7F8200200262 /* SHDetailContolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHDetailContolView.h; sourceTree = "<group>"; };
 		D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDetailContolView.m; sourceTree = "<group>"; };
 		D8F056E517BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
@@ -299,7 +297,6 @@
 				D8421D0E17BA853500C39DA0 /* AppDelegate.m */,
 				D8421D1617BA853500C39DA0 /* SHLoginViewController.h */,
 				D8421D1717BA853500C39DA0 /* SHLoginViewController.m */,
-				D8421D1917BA853500C39DA0 /* SHLoginViewController.xib */,
 				D8F056EB17BA8CE300DF2928 /* SHControlViewController.h */,
 				D8F056EC17BA8CE300DF2928 /* SHControlViewController.m */,
 				D8F056ED17BA8CE300DF2928 /* SHControlViewController.xib */,
@@ -495,7 +492,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8421D0917BA853500C39DA0 /* InfoPlist.strings in Resources */,
-				D8421D1B17BA853500C39DA0 /* SHLoginViewController.xib in Resources */,
 				D8F056EF17BA8CE300DF2928 /* SHControlViewController.xib in Resources */,
 				D8F056FC17BAC95600DF2928 /* SHSettingsViewController.xib in Resources */,
 				528B7F8B17BE778E0021447D /* unselected@2x.png in Resources */,
@@ -616,14 +612,6 @@
 				D8421D0817BA853500C39DA0 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D8421D1917BA853500C39DA0 /* SHLoginViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D8421D1A17BA853500C39DA0 /* en */,
-			);
-			name = SHLoginViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
