@@ -96,7 +96,26 @@
             [self addSubview:button];
         }
     } else if (names.count == 3) {
-        
+        for (int i = 0; i < names.count; i++) {
+            UIButton *button = [[UIButton alloc] init];
+            [button setFrame:CGRectMake(17.5 + i * 55, 72, 50, 25)];
+            [button setTag:BUTTON_BASE_TAG + i];
+            if (i < 2) {
+                [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
+                [button.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+                [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
+                [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
+                [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            } else if (i == 2) {
+                if (self.type == 0) {
+                    [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"light_%d",i]] forState:UIControlStateNormal];
+                } else {
+                    [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"curtain_%d",i]] forState:UIControlStateNormal];
+                }
+                [button addTarget:self action:@selector(onButtonClick::) forControlEvents:UIControlEventTouchUpInside];
+            }
+            [self addSubview:button];
+        }
     }
 }
 
@@ -134,7 +153,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
         while (self.isdown) {
             [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];
-            sleep(1);
+            sleep(0.8);
         }
     });
 }
