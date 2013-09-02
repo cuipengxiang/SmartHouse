@@ -26,11 +26,9 @@
     SHReadConfigFile *fileReader = [[SHReadConfigFile alloc] init];
     [fileReader readFile];
     
-    //建立Socket连接
+    //初始化Socket连接
     dispatch_queue_t mainQueue = dispatch_queue_create("socketQueue", NULL);//dispatch_get_main_queue();
     self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
-    //NSError *error = nil;
-    //[self.socket connectToHost:self.host onPort:self.port error:&error];
     
     return YES;
 }
@@ -102,18 +100,23 @@
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    
+    NSLog(@"disconnected withError:%d", [err code]);
+    if (([err code] == 61)&&(self.check)) {
+        [(SHControlViewController *)self.mainController errorRemind:err];
+    }
 }
 
-- (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback
+- (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback check:(BOOL)check
 {
     NSError *error = nil;
-    [self.socket connectToHost:self.host onPort:self.port error:&error];
     self.mainController = controller;
+    [self.socket connectToHost:self.host onPort:self.port error:&error];
+
     NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
     //NSLog(@"send:%@", command);
     self.resendCommand = commandSend;
     self.needBack = needback;
+    self.check = check;
     /*先判断状态-----1
     self.mainController = controller;
     NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];

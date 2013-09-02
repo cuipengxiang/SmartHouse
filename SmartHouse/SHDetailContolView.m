@@ -13,11 +13,12 @@
 
 @implementation SHDetailContolView
 
-- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andType:(int)type
+- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andType:(int)type andController:(SHControlViewController *)controller
 {
     self = [self initWithFrame:frame andType:type];
     if (self) {
         self.myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        self.controller = controller;
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setText:titleString];
         [titleLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
@@ -126,7 +127,7 @@
 
 - (void)sendCommand:(NSString *)cmd check:(BOOL)check
 {
-    [self.myDelegate sendCommand:cmd from:nil needBack:NO];
+    [self.myDelegate sendCommand:cmd from:self.controller needBack:NO check:check];
     /*
     if ([self.myDelegate.socket isConnected]) {
         [self.myDelegate sendCommand:cmd from:nil needBack:NO];

@@ -179,14 +179,15 @@
 
 - (void)onModeButtonClick:(UIButton *)button
 {
+    
     for (int i = MODE_BTN_BASE_TAG; i < MODE_BTN_BASE_TAG + self.currentModel.modesNames.count; i++) {
         [(UIButton *)[self.modeView viewWithTag:i] setSelected:NO];
     }
     [button setSelected:YES];
+
     self.skipQuery = 1;
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
     [self sendCommand:cmd needBack:NO check:YES];
-    
     
 }
 
@@ -270,7 +271,7 @@
             [self.GuidePanel setHidden:NO];
         }
         for (int i = 0; i < detailViewNames.count; i++) {
-            SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 32 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i] andType:type];
+            SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(i/6*844 + 32 + (i%3)*265, 45 + i/3%2*155, 250, 140)andTitle:[detailViewNames objectAtIndex:i] andType:type andController:self];
             [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
             [self.detailView addSubview:detailViewPanel];
         }
@@ -296,7 +297,7 @@
             [self.GuidePanel setHidden:NO];
         }
         for (int i = 0; i < detailViewNames.count; i++) {
-            SHMusicControlView *detailViewPanel = [[SHMusicControlView alloc] initWithFrame:CGRectMake(i/2*844 + 30 + (i%2)*405, 45, 375, 280)andTitle:[detailViewNames objectAtIndex:i]];
+            SHMusicControlView *detailViewPanel = [[SHMusicControlView alloc] initWithFrame:CGRectMake(i/2*844 + 30 + (i%2)*405, 45, 375, 280)andTitle:[detailViewNames objectAtIndex:i] andController:self];
             [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
             [self.detailView addSubview:detailViewPanel];
         }
@@ -386,12 +387,12 @@
 
 - (void)queryMode:(NSThread *)thread
 {
-    while (YES) {
+    //while (YES) {
         if (self.needquery) {
             [self sendCommand:self.currentModel.queryCmd needBack:YES check:NO];
             sleep(2);
         }
-    }
+    //}
 }
 
 - (void)setCurrentMode:(NSString *)mode
@@ -416,7 +417,7 @@
 
 - (void)sendCommand:(NSString *)cmd needBack:(BOOL)needback check:(BOOL)check;
 {
-    [self.myAppDelegate sendCommand:cmd from:self needBack:needback];
+    [self.myAppDelegate sendCommand:cmd from:self needBack:needback check:check];
     
     /* 先判断状态-----1
     if ([self.myAppDelegate.socket isConnected]) {
@@ -431,6 +432,14 @@
         }
     }
     */
+}
+
+- (void)errorRemind:(NSError *)error
+{
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"连接服务端失败" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alert show];
+    });
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{

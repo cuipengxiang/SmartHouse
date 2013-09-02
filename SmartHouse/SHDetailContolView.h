@@ -8,17 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "SHControlViewController.h"
 
 @interface SHDetailContolView : UIView
 
 @property (nonatomic, strong)AppDelegate *myDelegate;
 @property (nonatomic, strong)NSMutableArray *buttonNames;
 @property (nonatomic, strong)NSMutableArray *buttonCmds;
+@property (nonatomic, retain)SHControlViewController *controller;
 @property (nonatomic)int type;
 @property BOOL isdown;
 
 - (id)initWithFrame:(CGRect)frame andType:(int)type;
-- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andType:(int)type;
+- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andType:(int)type andController:(SHControlViewController *)controller;
 - (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds;
 - (void)onButtonClick:(UIButton *)button;
 - (void)onButtonDown:(UIButton *)button;

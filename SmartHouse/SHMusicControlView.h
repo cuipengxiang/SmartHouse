@@ -8,14 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+#import "SHControlViewController.h"
 
 @interface SHMusicControlView : UIView
 
 @property (nonatomic ,strong)AppDelegate *myDelegate;
 @property (nonatomic, strong)NSMutableArray *buttonNames;
 @property (nonatomic, strong)NSMutableArray *buttonCmds;
+@property (nonatomic, retain)SHControlViewController *controller;
 
-- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString;
+- (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andController:(SHControlViewController *)controller;
 - (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds;
 - (void)onButtonClick:(UIButton *)button;
 - (void)sendCommand:(NSString *)cmd check:(BOOL)check;

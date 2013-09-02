@@ -14,6 +14,7 @@
 
 @property (strong)UIViewController *mainController;
 @property BOOL needBack;
+@property BOOL check;
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 @property (strong, nonatomic) NSString *host;
 @property (nonatomic)int16_t port;
@@ -22,7 +23,7 @@
 @property (strong, nonatomic) SHLoginViewController *viewController;
 @property (strong)NSString *resendCommand;
 
-- (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback;
+- (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback check:(BOOL)check;
 - (void)reConnectSocketWithCommand:(NSString *)command;
 
 @end
