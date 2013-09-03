@@ -42,17 +42,17 @@
     [super viewDidLoad];
     self.needquery = YES;
     
-    self.LightButton = [[UIButton alloc] initWithFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
+    self.LightButton = [[UIButton alloc] initWithFrame:CGRectMake(192.0f, 248.0f, 66.0f, 70.0f)];
     [self.LightButton setBackgroundImage:[UIImage imageNamed:@"btn_light"] forState:UIControlStateNormal];
     [self.LightButton setBackgroundImage:[UIImage imageNamed:@"btn_light"] forState:UIControlStateSelected];
     [self.LightButton addTarget:self action:@selector(onLightClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.CurtainButton = [[UIButton alloc] initWithFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
+    self.CurtainButton = [[UIButton alloc] initWithFrame:CGRectMake(292.0f, 248.0f, 66.0f, 70.0f)];
     [self.CurtainButton setBackgroundImage:[UIImage imageNamed:@"btn_curtain"] forState:UIControlStateNormal];
     [self.CurtainButton setBackgroundImage:[UIImage imageNamed:@"btn_curtain"] forState:UIControlStateSelected];
     [self.CurtainButton addTarget:self action:@selector(onCuitainClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.MusicButton = [[UIButton alloc] initWithFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
+    self.MusicButton = [[UIButton alloc] initWithFrame:CGRectMake(392.0f, 248.0f, 66.0f, 70.0f)];
     [self.MusicButton setBackgroundImage:[UIImage imageNamed:@"btn_music"] forState:UIControlStateNormal];
     [self.MusicButton setBackgroundImage:[UIImage imageNamed:@"btn_music"] forState:UIControlStateSelected];
     [self.MusicButton addTarget:self action:@selector(onMusicClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -66,10 +66,11 @@
     [self.scrollLeft setBackgroundImage:[UIImage imageNamed:@"turn_left"] forState:UIControlStateSelected];
     [self.scrollLeft addTarget:self action:@selector(onScrollLeftClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.scrollRight = [[UIButton alloc] initWithFrame:CGRectMake(799.0f, 55.0f, 25.0f, 50.0f)];
+    self.scrollRight = [[UIButton alloc] initWithFrame:CGRectMake(self.modeView.frame.size.width - 45.0f, 55.0f, 25.0f, 50.0f)];
     [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateNormal];
     [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateSelected];
     [self.scrollRight addTarget:self action:@selector(onScrollRightClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     [self.modeView addSubview:self.scrollLeft];
     [self.modeView addSubview:self.scrollRight];
@@ -90,8 +91,14 @@
     [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
     if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 708)];
+        [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
+        [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
+        [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
     } else if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
+        [self.LightButton setFrame:CGRectMake(192.0f, 248.0f, 72.0f, 76.0f)];
+        [self.CurtainButton setFrame:CGRectMake(292.0f, 248.0f, 72.0f, 76.0f)];
+        [self.MusicButton setFrame:CGRectMake(392.0f, 248.0f, 72.0f, 76.0f)];
     }
     [self.view addSubview:self.tableView];
 }
@@ -457,8 +464,14 @@
 {
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 708)];
+        [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
+        [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
+        [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
     } else if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
+        [self.LightButton setFrame:CGRectMake(192.0f, 248.0f, 72.0f, 76.0f)];
+        [self.CurtainButton setFrame:CGRectMake(292.0f, 248.0f, 72.0f, 76.0f)];
+        [self.MusicButton setFrame:CGRectMake(392.0f, 248.0f, 72.0f, 76.0f)];
     }
 }
 
