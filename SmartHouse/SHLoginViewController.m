@@ -103,10 +103,11 @@
         [loginLabel setFrame:CGRectMake((1024 - loginLabel.frame.size.width)/2.0, 100, loginLabel.frame.size.width, loginLabel.frame.size.height)];
         [self.loginButton setFrame:CGRectMake((1024 - self.loginButton.frame.size.width)/2.0, 396, self.loginButton.frame.size.width, self.loginButton.frame.size.height)];
         [self.passwordField setFrame:CGRectMake(360, 313, 305, 50)];
-    } else if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
+    } else if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
         [self.imageView setFrame:CGRectMake(0.0, 0.0, 768, 1004)];
         [loginLabel setFrame:CGRectMake((768 - loginLabel.frame.size.width)/2.0, 100, loginLabel.frame.size.width, loginLabel.frame.size.height)];
         [self.loginButton setFrame:CGRectMake((768 - self.loginButton.frame.size.width)/2.0, 550, self.loginButton.frame.size.width, self.loginButton.frame.size.height)];
+        [self.passwordField setFrame:CGRectMake(279, 428, 210, 50)];
     }
     
 }

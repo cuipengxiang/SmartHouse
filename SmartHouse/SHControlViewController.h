@@ -17,7 +17,7 @@
 @property(nonatomic, strong)NSThread *myModeThread;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
 @property(nonatomic, strong)IBOutlet UIImageView *modeView;
-@property(nonatomic, strong)IBOutlet UITableView *tableView;
+@property(nonatomic, strong)UITableView *tableView;
 @property(nonatomic, strong)IBOutlet UIScrollView *scrollView;
 @property(nonatomic, strong)UIButton *scrollLeft;
 @property(nonatomic, strong)UIButton *scrollRight;

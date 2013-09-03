@@ -154,7 +154,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
         while (self.isdown) {
             [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];
-            sleep(0.8);
+            sleep(1.5);
         }
     });
 }

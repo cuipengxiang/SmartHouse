@@ -100,10 +100,12 @@
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
+    /*
     NSLog(@"disconnected withError:%d", [err code]);
     if (([err code] == 61)&&(self.check)) {
         [(SHControlViewController *)self.mainController errorRemind:err];
     }
+    */
 }
 
 - (void)sendCommand:(NSString *)command from:(UIViewController *)controller needBack:(BOOL)needback check:(BOOL)check

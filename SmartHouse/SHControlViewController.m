@@ -79,6 +79,7 @@
     [self.GuidePanel setBackgroundColor:[UIColor clearColor]];
     
     self.currentModel = [self.myAppDelegate.models objectAtIndex:0];
+    self.tableView = [[UITableView alloc] init];
     [self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left_background"]]];
     [self.tableView setBounces:NO];
     [self.tableView setDelegate:self];
@@ -87,7 +88,12 @@
     [self.tableView reloadData];
     [self setupModeSelectBar:self.currentModel];
     [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
-    
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 708)];
+    } else if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
+        [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
+    }
+    [self.view addSubview:self.tableView];
 }
 
 //设置导航栏
@@ -449,7 +455,11 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 708)];
+    } else if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
+        [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
+    }
 }
 
 - (void)didReceiveMemoryWarning
