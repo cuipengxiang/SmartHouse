@@ -131,6 +131,7 @@
 
 - (void)onBackButtonClick
 {
+    [self.backController willAnimateRotationToInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation] duration:1.0];
     [self dismissViewControllerAnimated:YES completion:^(void){
         self.needquery = NO;
     }];
@@ -387,12 +388,12 @@
 
 - (void)queryMode:(NSThread *)thread
 {
-    //while (YES) {
+    while (YES) {
         if (self.needquery) {
             [self sendCommand:self.currentModel.queryCmd needBack:YES check:NO];
             sleep(2);
         }
-    //}
+    }
 }
 
 - (void)setCurrentMode:(NSString *)mode
@@ -443,10 +444,12 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
-    if (toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-        return YES;
-    }
-    return NO;
+    return YES;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    
 }
 
 - (void)didReceiveMemoryWarning

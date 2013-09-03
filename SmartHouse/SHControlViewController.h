@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 #import "SHRoomModel.h"
+#import "SHLoginViewController.h"
 
 @interface SHControlViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
@@ -25,6 +26,8 @@
 @property(nonatomic, strong)UIButton *MusicButton;
 @property(nonatomic, strong)IBOutlet UIScrollView *detailView;
 @property(nonatomic, strong)IBOutlet UIView *GuidePanel;
+
+@property(nonatomic, retain)SHLoginViewController *backController;
 
 @property(nonatomic)SHRoomModel *currentModel;
 @property(nonatomic)int modesCount;

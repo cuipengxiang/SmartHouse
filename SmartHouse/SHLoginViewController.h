@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SHLoginViewController : UIViewController<UIGestureRecognizerDelegate>
+{
+    UILabel *loginLabel;
+}
 
 @property (nonatomic, strong)UITextField *passwordField;
 @property (nonatomic, strong)UIButton *loginButton;
