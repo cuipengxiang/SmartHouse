@@ -67,15 +67,15 @@
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
     if (self.resendCommand) {
-        [self.socket writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        [sock writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
         NSLog(@"send:%@", self.resendCommand);
         self.resendCommand = nil;
     }
     
     if (self.needBack){
-        [self.socket readDataToData:[GCDAsyncSocket CRLFData] withTimeout:3 tag:0];
+        [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:3 tag:0];
     } else {
-        [self.socket disconnect];
+        [sock disconnect];
     }
 
 }
@@ -95,7 +95,7 @@
     NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
     [(SHControlViewController *)self.mainController setCurrentMode:msg];
 	NSLog(@"read:%@", msg);
-    [self.socket disconnect];
+    [sock disconnect];
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
