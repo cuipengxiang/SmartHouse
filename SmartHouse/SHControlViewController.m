@@ -164,11 +164,11 @@
     for (UIButton *button in self.scrollView.subviews) {
         [button removeFromSuperview];
     }
-    
+    /*
     if (![self.myModeThread isExecuting]) {
         [self.myModeThread start];
     }
-    
+    */
     [self.scrollView setBounces:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
