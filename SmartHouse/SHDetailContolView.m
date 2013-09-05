@@ -63,6 +63,8 @@
                 [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
                 [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
                 [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+                [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
+                [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
             } else if (i == 2) {
                 if (self.type == 0) {
                     [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"light_%d",i]] forState:UIControlStateNormal];
@@ -94,6 +96,8 @@
             [button setTag:BUTTON_BASE_TAG + i];
             [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
             [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
+            [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
             [self addSubview:button];
         }
     } else if (names.count == 3) {
@@ -107,17 +111,34 @@
                 [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
                 [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
                 [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+                [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
+                [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
             } else if (i == 2) {
                 if (self.type == 0) {
                     [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"light_%d",i]] forState:UIControlStateNormal];
                 } else {
                     [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"curtain_%d",i]] forState:UIControlStateNormal];
                 }
-                [button addTarget:self action:@selector(onButtonClick::) forControlEvents:UIControlEventTouchUpInside];
+                [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+                [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
+                [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
             }
             [self addSubview:button];
         }
     }
+}
+
+- (void)onButtonClickDown:(UIButton *)button
+{
+    self.controller.needquery = NO;
+}
+
+- (void)onButtonClickUpOutside:(UIButton *)button
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+        sleep(1);
+        self.controller.needquery = YES;
+    });
 }
 
 - (void)onButtonClick:(UIButton *)button
@@ -146,11 +167,16 @@
 - (void)onButtonUp:(UIButton *)button
 {
     self.isdown = NO;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+        sleep(1);
+        self.controller.needquery = YES;
+    });
 }
 
 - (void)onButtonDown:(UIButton *)button
 {
     self.isdown = YES;
+    self.controller.needquery = NO;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
         while (self.isdown) {
             [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];

@@ -164,11 +164,11 @@
     for (UIButton *button in self.scrollView.subviews) {
         [button removeFromSuperview];
     }
-    /*
+    
     if (![self.myModeThread isExecuting]) {
         [self.myModeThread start];
     }
-    */
+    
     [self.scrollView setBounces:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
@@ -186,9 +186,24 @@
         [modeButton setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
         [modeButton setTag:MODE_BTN_BASE_TAG + i];
         [modeButton addTarget:self action:@selector(onModeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [modeButton addTarget:self action:@selector(onModeButtonDown:) forControlEvents:UIControlEventTouchDown];
+        [modeButton addTarget:self action:@selector(onModeButtonUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
         [self.scrollView addSubview:modeButton];
     }
     
+}
+
+- (void)onModeButtonDown:(UIButton *)button
+{
+    self.needquery = NO;
+}
+
+- (void)onModeButtonUpOutside:(UIButton *)button
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+        sleep(1);
+        self.needquery = YES;
+    });
 }
 
 - (void)onModeButtonClick:(UIButton *)button
@@ -202,7 +217,10 @@
     self.skipQuery = 1;
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
     [self sendCommand:cmd needBack:NO check:YES];
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+        sleep(1);
+        self.needquery = YES;
+    });
 }
 
 - (void)onScrollLeftClick:(id)sender

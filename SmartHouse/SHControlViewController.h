@@ -44,6 +44,8 @@
 - (void)onBackButtonClick;
 - (void)onSettingsButtonClick;
 - (void)onModeButtonClick:(UIButton *)button;
+- (void)onModeButtonDown:(UIButton *)button;
+- (void)onModeButtonUpOutside:(UIButton *)button;
 
 - (void)onScrollLeftClick:(id)sender;
 - (void)onScrollRightClick:(id)sender;

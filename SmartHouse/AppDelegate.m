@@ -75,7 +75,7 @@
     if (self.needBack){
         [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:3 tag:0];
     } else {
-        [sock disconnect];
+        [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:0.5 tag:1];
     }
 
 }
@@ -91,10 +91,12 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    NSData *strData = [data subdataWithRange:NSMakeRange(0, [data length] - 2)];
-    NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
-    [(SHControlViewController *)self.mainController setCurrentMode:msg];
-	NSLog(@"read:%@", msg);
+    if (tag == 0) {
+        NSData *strData = [data subdataWithRange:NSMakeRange(0, [data length] - 2)];
+        NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
+        [(SHControlViewController *)self.mainController setCurrentMode:msg];
+        NSLog(@"read:%@", msg);
+    }
     [sock disconnect];
 }
 

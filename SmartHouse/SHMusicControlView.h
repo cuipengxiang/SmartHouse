@@ -20,6 +20,9 @@
 - (id)initWithFrame:(CGRect)frame andTitle:(NSString *)titleString andController:(SHControlViewController *)controller;
 - (void)setButtons:(NSMutableArray *)names andCmd:(NSMutableArray *)cmds;
 - (void)onButtonClick:(UIButton *)button;
+- (void)onButtonClickDown:(UIButton *)button;
+- (void)onButtonClickUpOutside:(UIButton *)button;
+
 - (void)sendCommand:(NSString *)cmd check:(BOOL)check;
 
 @end
