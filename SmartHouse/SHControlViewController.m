@@ -216,7 +216,11 @@
 
     self.skipQuery = 1;
     NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
-    [self sendCommand:cmd needBack:NO check:YES];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+        sleep(0.8);
+        [self sendCommand:cmd needBack:NO check:YES];
+    });
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
         sleep(1);
         self.needquery = YES;

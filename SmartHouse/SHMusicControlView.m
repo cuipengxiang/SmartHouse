@@ -79,25 +79,18 @@
 
 - (void)onButtonClickUpOutside:(UIButton *)button
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        sleep(1);
-        self.controller.needquery = YES;
-    });
+    self.controller.needquery = YES;
 }
 
 - (void)onButtonClick:(UIButton *)button
 {
-    [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];
-    /*
-    [button setEnabled:NO];
-    double delayInSeconds = BUTTON_DELAY;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [button setEnabled:YES];
-        });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+        sleep(0.8);
+        [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];
+        sleep(1);
+        self.controller.needquery = YES;
     });
-    */
+    
 }
 
 - (void)sendCommand:(NSString *)cmd check:(BOOL)check
