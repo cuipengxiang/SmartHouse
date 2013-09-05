@@ -114,16 +114,18 @@
 {
     NSError *error = nil;
     self.mainController = controller;
-    [self.socket connectToHost:self.host onPort:self.port error:&error];
-
     NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
     //NSLog(@"send:%@", command);
     self.resendCommand = commandSend;
     self.needBack = needback;
     self.check = check;
-    if (![self.socket isConnected]) {
+    if ([self.socket isConnected]) {
+        [self.socket writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+    } else {
         [self.socket connectToHost:self.host onPort:self.port error:&error];
     }
+
+    
     /*先判断状态-----1
     self.mainController = controller;
     NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
