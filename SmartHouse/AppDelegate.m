@@ -121,6 +121,9 @@
     self.resendCommand = commandSend;
     self.needBack = needback;
     self.check = check;
+    if (![self.socket isConnected]) {
+        [self.socket connectToHost:self.host onPort:self.port error:&error];
+    }
     /*先判断状态-----1
     self.mainController = controller;
     NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
