@@ -27,6 +27,8 @@
 @property(nonatomic, strong)IBOutlet UIScrollView *detailView;
 @property(nonatomic, strong)UIView *GuidePanel;
 
+@property(nonatomic)int modeCurrentPage;
+
 @property(nonatomic, retain)SHLoginViewController *backController;
 
 @property(nonatomic)SHRoomModel *currentModel;

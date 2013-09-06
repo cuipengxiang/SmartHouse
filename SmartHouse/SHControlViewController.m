@@ -16,7 +16,6 @@
 #define TYPE_LIGHT 0
 #define TYPE_CURTAIN 1
 #define TYPE_MUSIC 2
-#define BUTTON_DELAY 1.0
 
 @interface SHControlViewController ()
 
@@ -42,27 +41,23 @@
     [super viewDidLoad];
     self.needquery = YES;
     
-    self.LightButton = [[UIButton alloc] initWithFrame:CGRectMake(192.0f, 248.0f, 66.0f, 70.0f)];
+    self.LightButton = [[UIButton alloc] init];
     [self.LightButton setBackgroundImage:[UIImage imageNamed:@"btn_light"] forState:UIControlStateNormal];
     [self.LightButton setBackgroundImage:[UIImage imageNamed:@"btn_light"] forState:UIControlStateSelected];
     [self.LightButton addTarget:self action:@selector(onLightClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.CurtainButton = [[UIButton alloc] initWithFrame:CGRectMake(292.0f, 248.0f, 66.0f, 70.0f)];
+    self.CurtainButton = [[UIButton alloc] init];
     [self.CurtainButton setBackgroundImage:[UIImage imageNamed:@"btn_curtain"] forState:UIControlStateNormal];
     [self.CurtainButton setBackgroundImage:[UIImage imageNamed:@"btn_curtain"] forState:UIControlStateSelected];
     [self.CurtainButton addTarget:self action:@selector(onCuitainClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.MusicButton = [[UIButton alloc] initWithFrame:CGRectMake(392.0f, 248.0f, 66.0f, 70.0f)];
+    self.MusicButton = [[UIButton alloc] init];
     [self.MusicButton setBackgroundImage:[UIImage imageNamed:@"btn_music"] forState:UIControlStateNormal];
     [self.MusicButton setBackgroundImage:[UIImage imageNamed:@"btn_music"] forState:UIControlStateSelected];
     [self.MusicButton addTarget:self action:@selector(onMusicClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:self.LightButton];
-    [self.view addSubview:self.CurtainButton];
-    [self.view addSubview:self.MusicButton];
-    
-    [self.GuidePanel setBackgroundColor:[UIColor clearColor]];
     self.GuidePanel = [[UIView alloc] init];
+    [self.GuidePanel setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:self.GuidePanel];
     
     self.currentModel = [self.myAppDelegate.models objectAtIndex:0];
@@ -73,8 +68,6 @@
     [self.tableView setDataSource:self];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
-    [self setupModeSelectBar:self.currentModel];
-    [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
     
     if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
         [self.tableView setFrame:CGRectMake(0.0f, 40.0f, 140.0f, 708.0f)];
@@ -82,13 +75,22 @@
         [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
         [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 844.0f, 156.0f)];
+        [self.scrollView setFrame:CGRectMake(54.0f, 30.0f, 736.0f, 100.0f)];
     } else if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
         [self.LightButton setFrame:CGRectMake(192.0f, 248.0f, 72.0f, 76.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 248.0f, 72.0f, 76.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 248.0f, 72.0f, 76.0f)];
         [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 588.0f, 156.0f)];
+        [self.scrollView setFrame:CGRectMake(110.0f, 30.0f, 368.0f, 100.0f)];
     }
+    
+    [self.view addSubview:self.LightButton];
+    [self.view addSubview:self.CurtainButton];
+    [self.view addSubview:self.MusicButton];
+    
+    [self setupModeSelectBar:self.currentModel];
+    [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
     
     self.scrollLeft = [[UIButton alloc] initWithFrame:CGRectMake(20.0f, 55.0f, 25.0f, 50.0f)];
     [self.scrollLeft setBackgroundImage:[UIImage imageNamed:@"turn_left"] forState:UIControlStateNormal];
@@ -177,11 +179,25 @@
     [self.scrollView setBounces:YES];
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setContentOffset:CGPointMake(0, 0)];
-    self.modesCount = self.currentModel.modesNames.count;
+    self.modeCurrentPage = 0;
+    [self.scrollView setPagingEnabled:YES];
+    
+    int countInOnePage;
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+        countInOnePage = 4;
+    } else {
+        countInOnePage = 2;
+    }
+    if (self.currentModel.modesNames.count % countInOnePage == 0) {
+        self.modesCount = self.currentModel.modesNames.count / countInOnePage;
+    } else {
+        self.modesCount = self.currentModel.modesNames.count / countInOnePage + 1;
+    }
+    
     [self.scrollView setContentSize:CGSizeMake(184*self.currentModel.modesNames.count, 100.0f)];
     [self.scrollView setBackgroundColor:[UIColor clearColor]];
     for (int i = 0; i < self.currentModel.modesNames.count; i++) {
-        UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(i*184 + 20, 22, 144, 56)];
+        UIButton *modeButton = [[UIButton alloc] initWithFrame:CGRectMake(20 + i*184, 22, 144, 56)];
         [modeButton setTitle:[self.currentModel.modesNames objectAtIndex:i] forState:UIControlStateNormal];
         [modeButton setTitle:[self.currentModel.modesNames objectAtIndex:i] forState:UIControlStateSelected];
         [modeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
@@ -231,21 +247,19 @@
 
 - (void)onScrollLeftClick:(id)sender
 {
-    CGPoint point = [self.scrollView contentOffset];
-    if (point.x > 0) {
-        point.x = 0;
+    if (self.modeCurrentPage > 0) {
+        CGPoint point = CGPointMake((self.modeCurrentPage - 1) * 184.0 * 2, self.scrollView.contentOffset.y);
+        self.modeCurrentPage = self.modeCurrentPage - 1;
         [self.scrollView setContentOffset:point animated:YES];
     }
 }
 
 - (void)onScrollRightClick:(id)sender
 {
-    if (self.modesCount > 4) {
-        CGPoint point = [self.scrollView contentOffset];
-        if (point.x < (self.modesCount - 4)*184) {
-            point.x = (self.modesCount - 4)*184;
-            [self.scrollView setContentOffset:point animated:YES];
-        }
+    if (self.modeCurrentPage < self.modesCount - 1) {
+        CGPoint point = CGPointMake((self.modeCurrentPage + 1) * 184.0 * 2, self.scrollView.contentOffset.y);
+        self.modeCurrentPage = self.modeCurrentPage + 1;
+        [self.scrollView setContentOffset:point animated:YES];
     }
 }
 
@@ -486,19 +500,31 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    int countInOnePage;
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 708)];
         [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
         [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 844.0f, 156.0f)];
-    } else if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
+        [self.scrollView setFrame:CGRectMake(54.0f, 30.0f, 736.0f, 100.0f)];
+        countInOnePage = 4;
+    } else {
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
         [self.LightButton setFrame:CGRectMake(192.0f, 248.0f, 72.0f, 76.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 248.0f, 72.0f, 76.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 248.0f, 72.0f, 76.0f)];
         [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 588.0f, 156.0f)];
+        [self.scrollView setFrame:CGRectMake(110.0f, 30.0f, 368.0f, 100.0f)];
+        countInOnePage = 2;
     }
+    
+    if (self.currentModel.modesNames.count % countInOnePage == 0) {
+        self.modesCount = self.currentModel.modesNames.count / countInOnePage;
+    } else {
+        self.modesCount = self.currentModel.modesNames.count / countInOnePage + 1;
+    }
+    
     [self.scrollRight setFrame:CGRectMake(self.modeView.frame.size.width - 45.0f, 55.0f, 25.0f, 50.0f)];
 }
 
