@@ -25,7 +25,7 @@
 @property(nonatomic, strong)UIButton *CurtainButton;
 @property(nonatomic, strong)UIButton *MusicButton;
 @property(nonatomic, strong)IBOutlet UIScrollView *detailView;
-@property(nonatomic, strong)IBOutlet UIView *GuidePanel;
+@property(nonatomic, strong)UIView *GuidePanel;
 
 @property(nonatomic, retain)SHLoginViewController *backController;
 

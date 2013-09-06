@@ -61,23 +61,9 @@
     [self.view addSubview:self.CurtainButton];
     [self.view addSubview:self.MusicButton];
     
-    self.scrollLeft = [[UIButton alloc] initWithFrame:CGRectMake(20.0f, 55.0f, 25.0f, 50.0f)];
-    [self.scrollLeft setBackgroundImage:[UIImage imageNamed:@"turn_left"] forState:UIControlStateNormal];
-    [self.scrollLeft setBackgroundImage:[UIImage imageNamed:@"turn_left"] forState:UIControlStateSelected];
-    [self.scrollLeft addTarget:self action:@selector(onScrollLeftClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.scrollRight = [[UIButton alloc] initWithFrame:CGRectMake(self.modeView.frame.size.width - 45.0f, 55.0f, 25.0f, 50.0f)];
-    [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateNormal];
-    [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateSelected];
-    [self.scrollRight addTarget:self action:@selector(onScrollRightClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    [self.modeView addSubview:self.scrollLeft];
-    [self.modeView addSubview:self.scrollRight];
-    
-    [self.modeView setImage:[UIImage imageNamed:@"bg_mode"]];
-    
     [self.GuidePanel setBackgroundColor:[UIColor clearColor]];
+    self.GuidePanel = [[UIView alloc] init];
+    [self.view addSubview:self.GuidePanel];
     
     self.currentModel = [self.myAppDelegate.models objectAtIndex:0];
     self.tableView = [[UITableView alloc] init];
@@ -89,17 +75,36 @@
     [self.tableView reloadData];
     [self setupModeSelectBar:self.currentModel];
     [self setupDetailView:self.currentModel Type:TYPE_LIGHT];
+    
     if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-        [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 708)];
+        [self.tableView setFrame:CGRectMake(0.0f, 40.0f, 140.0f, 708.0f)];
         [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
+        [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 844.0f, 156.0f)];
     } else if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)){
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
         [self.LightButton setFrame:CGRectMake(192.0f, 248.0f, 72.0f, 76.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 248.0f, 72.0f, 76.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 248.0f, 72.0f, 76.0f)];
+        [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 588.0f, 156.0f)];
     }
+    
+    self.scrollLeft = [[UIButton alloc] initWithFrame:CGRectMake(20.0f, 55.0f, 25.0f, 50.0f)];
+    [self.scrollLeft setBackgroundImage:[UIImage imageNamed:@"turn_left"] forState:UIControlStateNormal];
+    [self.scrollLeft setBackgroundImage:[UIImage imageNamed:@"turn_left"] forState:UIControlStateSelected];
+    [self.scrollLeft addTarget:self action:@selector(onScrollLeftClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.scrollRight = [[UIButton alloc] initWithFrame:CGRectMake(self.modeView.frame.size.width - 45.0f, 55.0f, 25.0f, 50.0f)];
+    [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateNormal];
+    [self.scrollRight setBackgroundImage:[UIImage imageNamed:@"turn_right"] forState:UIControlStateSelected];
+    [self.scrollRight addTarget:self action:@selector(onScrollRightClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.modeView addSubview:self.scrollLeft];
+    [self.modeView addSubview:self.scrollRight];
+    
+    [self.modeView setImage:[UIImage imageNamed:@"bg_mode"]];
+    
     [self.view addSubview:self.tableView];
 }
 
@@ -486,12 +491,15 @@
         [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
+        [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 844.0f, 156.0f)];
     } else if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
         [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
         [self.LightButton setFrame:CGRectMake(192.0f, 248.0f, 72.0f, 76.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 248.0f, 72.0f, 76.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 248.0f, 72.0f, 76.0f)];
+        [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 588.0f, 156.0f)];
     }
+    [self.scrollRight setFrame:CGRectMake(self.modeView.frame.size.width - 45.0f, 55.0f, 25.0f, 50.0f)];
 }
 
 - (void)didReceiveMemoryWarning
