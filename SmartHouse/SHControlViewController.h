@@ -16,18 +16,21 @@
 @property(nonatomic, strong)AppDelegate *myAppDelegate;
 @property(nonatomic, strong)NSThread *myModeThread;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
-@property(nonatomic, strong)IBOutlet UIImageView *modeView;
+@property(nonatomic, strong)UIView *modeView;
 @property(nonatomic, strong)UITableView *tableView;
-@property(nonatomic, strong)IBOutlet UIScrollView *scrollView;
+@property(nonatomic, strong)UIScrollView *scrollView;
 @property(nonatomic, strong)UIButton *scrollLeft;
 @property(nonatomic, strong)UIButton *scrollRight;
 @property(nonatomic, strong)UIButton *LightButton;
 @property(nonatomic, strong)UIButton *CurtainButton;
 @property(nonatomic, strong)UIButton *MusicButton;
-@property(nonatomic, strong)IBOutlet UIScrollView *detailView;
+@property(nonatomic, strong)UIScrollView *detailView;
 @property(nonatomic, strong)UIView *GuidePanel;
+@property(nonatomic, strong)UIImageView *detailBackground;
 
+@property(nonatomic)int currentType;
 @property(nonatomic)int modeCurrentPage;
+@property(nonatomic)int countInOnePage;
 
 @property(nonatomic, retain)SHLoginViewController *backController;
 

@@ -8,7 +8,7 @@
 
 #import "SHMusicControlView.h"
 
-#define BUTTON_BASE_TAG 200
+#define BUTTON_BASE_TAG 5000
 #define BUTTON_DELAY 1.0
 
 @implementation SHMusicControlView
@@ -21,7 +21,7 @@
         self.controller = controller;
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setText:titleString];
-        [titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+        [titleLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
         [titleLabel setTextColor:[UIColor whiteColor]];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [titleLabel sizeToFit];
@@ -62,7 +62,7 @@
         [button setFrame:CGRectMake(25.5 + (i-5)%4*83, 150 + (i-5)/4*40, 75, 25)];
         [button setTag:BUTTON_BASE_TAG + i];
         [button setTitle:[self.buttonNames objectAtIndex:i] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+        [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
         [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:@"btn_music_control"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];

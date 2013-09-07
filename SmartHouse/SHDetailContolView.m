@@ -8,7 +8,7 @@
 
 #import "SHDetailContolView.h"
 
-#define BUTTON_BASE_TAG 2000
+#define BUTTON_BASE_TAG 4000
 #define BUTTON_DELAY 1.0
 
 @implementation SHDetailContolView
@@ -25,7 +25,7 @@
         [titleLabel setTextColor:[UIColor whiteColor]];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         [titleLabel sizeToFit];
-        [titleLabel setFrame:CGRectMake((frame.size.width - titleLabel.frame.size.width)/2, 20, titleLabel.frame.size.width, titleLabel.frame.size.height)];
+        [titleLabel setFrame:CGRectMake((frame.size.width - titleLabel.frame.size.width)/2, 19, titleLabel.frame.size.width, titleLabel.frame.size.height)];
         [self addSubview:titleLabel];
     }
     return self;
@@ -55,11 +55,11 @@
     if (names.count == 4) {
         for (int i = 0; i < names.count; i++) {
             UIButton *button = [[UIButton alloc] init];
-            [button setFrame:CGRectMake(17.5 + i * 55, 72, 50, 25)];
+            [button setFrame:CGRectMake(20 + i * 88, 72, 76, 36)];
             [button setTag:BUTTON_BASE_TAG + i];
             if (i < 2) {
                 [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
-                [button.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+                [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
                 [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
                 [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
                 [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -89,9 +89,9 @@
     } else if (names.count == 2) {
         for (int i = 0; i < names.count; i++) {
             UIButton *button = [[UIButton alloc] init];
-            [button setFrame:CGRectMake(72.5 + i * 55, 72, 50, 25)];
+            [button setFrame:CGRectMake(100 + i * 104, 72, 76, 36)];
             [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
-            [button.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+            [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
             [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
             [button setTag:BUTTON_BASE_TAG + i];
             [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
@@ -103,11 +103,11 @@
     } else if (names.count == 3) {
         for (int i = 0; i < names.count; i++) {
             UIButton *button = [[UIButton alloc] init];
-            [button setFrame:CGRectMake(17.5 + i * 55, 72, 50, 25)];
+            [button setFrame:CGRectMake(58 + i * 94, 72, 76, 36)];
             [button setTag:BUTTON_BASE_TAG + i];
             if (i < 2) {
                 [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
-                [button.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+                [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
                 [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
                 [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
                 [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
