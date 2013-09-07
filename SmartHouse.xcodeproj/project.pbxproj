@@ -118,8 +118,6 @@
 		D8421D0F17BA853500C39DA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D0E17BA853500C39DA0 /* AppDelegate.m */; };
 		D8421D1817BA853500C39DA0 /* SHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D1717BA853500C39DA0 /* SHLoginViewController.m */; };
 		D8EEBD0D17BC7F8200200262 /* SHDetailContolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */; };
-		D8F056E917BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056E617BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m */; };
-		D8F056EA17BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056E817BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m */; };
 		D8F056EE17BA8CE300DF2928 /* SHControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056EC17BA8CE300DF2928 /* SHControlViewController.m */; };
 		D8F056FB17BAC95600DF2928 /* SHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056F917BAC95500DF2928 /* SHSettingsViewController.m */; };
 		D8F5BEB217BDD10000D3500A /* SHMusicControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F5BEB117BDD10000D3500A /* SHMusicControlView.m */; };
@@ -246,10 +244,6 @@
 		D8421D1717BA853500C39DA0 /* SHLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHLoginViewController.m; sourceTree = "<group>"; };
 		D8EEBD0B17BC7F8200200262 /* SHDetailContolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHDetailContolView.h; sourceTree = "<group>"; };
 		D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDetailContolView.m; sourceTree = "<group>"; };
-		D8F056E517BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
-		D8F056E617BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
-		D8F056E717BA8BD000DF2928 /* TPKeyboardAvoidingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingTableView.h; sourceTree = "<group>"; };
-		D8F056E817BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
 		D8F056EB17BA8CE300DF2928 /* SHControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHControlViewController.h; sourceTree = "<group>"; };
 		D8F056EC17BA8CE300DF2928 /* SHControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHControlViewController.m; sourceTree = "<group>"; };
 		D8F056F817BAC95500DF2928 /* SHSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHSettingsViewController.h; sourceTree = "<group>"; };
@@ -459,21 +453,9 @@
 			isa = PBXGroup;
 			children = (
 				5214CB7517C068C000BDCEBC /* TCP */,
-				D8F056E417BA8BD000DF2928 /* TPKeyboardAvoiding */,
 			);
 			name = Vendors;
 			path = SmartHouse/Vendors;
-			sourceTree = "<group>";
-		};
-		D8F056E417BA8BD000DF2928 /* TPKeyboardAvoiding */ = {
-			isa = PBXGroup;
-			children = (
-				D8F056E517BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.h */,
-				D8F056E617BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m */,
-				D8F056E717BA8BD000DF2928 /* TPKeyboardAvoidingTableView.h */,
-				D8F056E817BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m */,
-			);
-			path = TPKeyboardAvoiding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -639,8 +621,6 @@
 				D8421D0B17BA853500C39DA0 /* main.m in Sources */,
 				D8421D0F17BA853500C39DA0 /* AppDelegate.m in Sources */,
 				D8421D1817BA853500C39DA0 /* SHLoginViewController.m in Sources */,
-				D8F056E917BA8BD000DF2928 /* TPKeyboardAvoidingScrollView.m in Sources */,
-				D8F056EA17BA8BD000DF2928 /* TPKeyboardAvoidingTableView.m in Sources */,
 				D8F056EE17BA8CE300DF2928 /* SHControlViewController.m in Sources */,
 				D8F056FB17BAC95600DF2928 /* SHSettingsViewController.m in Sources */,
 				D816387017BB0501008FAD0E /* SHReadConfigFile.m in Sources */,

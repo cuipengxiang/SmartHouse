@@ -26,6 +26,10 @@
 {
     [super viewDidLoad];
     
+    self.isKeybroadShowing = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTouch)];
     [gesture setNumberOfTouchesRequired:1];
     [gesture setNumberOfTapsRequired:1];
@@ -131,6 +135,7 @@
             [av show];
             [[NSUserDefaults standardUserDefaults] setObject:self.newpassword.text forKey:@"password"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            [self.controller willAnimateRotationToInterfaceOrientation:self.interfaceOrientation duration:1.0];
             [self dismissViewControllerAnimated:YES completion:^(void){
                 self.controller.needquery = YES;
             }];
@@ -145,6 +150,7 @@
             [av show];
             [[NSUserDefaults standardUserDefaults] setObject:self.newpassword.text forKey:@"password"];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            [self.controller willAnimateRotationToInterfaceOrientation:self.interfaceOrientation duration:1.0];
             [self dismissViewControllerAnimated:YES completion:^(void){
                 self.controller.needquery = YES;
             }];
@@ -201,6 +207,22 @@
     [textField setPlaceholder:@""];
 }
 
+- (void)keyboardWillShow:(NSNotification*)notification
+{
+    self.isKeybroadShowing = YES;
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)){
+        [self.settingbox setFrame:CGRectMake(275.5, -50.0, 473.0, 508.0)];
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification*)notification
+{
+    self.isKeybroadShowing = NO;
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)){
+        [self.settingbox setFrame:CGRectMake(275.5, 120.0, 473.0, 508.0)];
+    }
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
     return YES;
 }
@@ -208,7 +230,11 @@
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        [self.settingbox setFrame:CGRectMake(275.5, 120.0, 473.0, 508.0)];
+        if (self.isKeybroadShowing) {
+            [self.settingbox setFrame:CGRectMake(275.5, -50.0, 473.0, 508.0)];
+        } else {
+            [self.settingbox setFrame:CGRectMake(275.5, 120.0, 473.0, 508.0)];
+        }
         [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"login_bg"]]];
     } else {
         [self.settingbox setFrame:CGRectMake(147.5, 220.0, 473.0, 508.0)];

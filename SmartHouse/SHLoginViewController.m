@@ -128,8 +128,8 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self.passwordField setBackground:[UIImage imageNamed:@"input_box_focused"]];
     [self.passwordField setPlaceholder:@""];
+    [self.passwordField setBackground:[UIImage imageNamed:@"input_box_focused"]];
 }
 
 
