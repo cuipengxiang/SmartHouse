@@ -41,7 +41,7 @@
 @property BOOL needquery;
 @property int skipQuery;
 
-- (void)setupNavigationBar;
+- (void)setupNavigationBar:(float)width;
 - (void)setupModeSelectBar:(SHRoomModel *)currentModel;
 - (void)setupDetailView:(SHRoomModel *)currentModel Type:(int)type;
 - (void)updateViews:(SHRoomModel *)currentModel;

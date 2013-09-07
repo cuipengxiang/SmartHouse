@@ -9,18 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "SHControlViewController.h"
 
-@interface SHSettingsViewController : UIViewController
+@interface SHSettingsViewController : UIViewController<UIGestureRecognizerDelegate, UITextFieldDelegate>
 
 @property(nonatomic, strong)UIButton *commit;
 @property(nonatomic, strong)UIButton *cancel;
-@property(nonatomic, strong)IBOutlet UITextField *oldpassword;
-@property(nonatomic, strong)IBOutlet UITextField *newpassword;
-@property(nonatomic, strong)IBOutlet UITextField *newpassword_again;
-@property(nonatomic, strong)UINavigationBar *navigationBar;
+@property(nonatomic, strong)UIView *settingbox;
+@property(nonatomic, strong)UILabel *titleLabel;
+@property(nonatomic, strong)UITextField *oldpassword;
+@property(nonatomic, strong)UITextField *newpassword;
+@property(nonatomic, strong)UITextField *newpassword_again;
+
 @property(nonatomic, retain)SHControlViewController *controller;
 
 - (void)onBackButtonClick:(id)sender;
-//- (void)setupNavigationBar;
 - (void)onCommitClick:(id)sender;
 
 @end

@@ -29,7 +29,6 @@
     if (self) {
         self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.myModeThread = [[NSThread alloc] initWithTarget:self selector:@selector(queryMode:) object:nil];
-        [self setupNavigationBar];
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
     }
     return self;
@@ -69,6 +68,7 @@
     [self.tableView setDataSource:self];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView reloadData];
+    [self.view addSubview:self.tableView];
     
     self.scrollLeft = [[UIButton alloc] init];
     self.scrollRight = [[UIButton alloc] init];
@@ -76,7 +76,8 @@
     [self.GuidePanel setBackgroundColor:[UIColor clearColor]];
     
     if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-        [self.tableView setFrame:CGRectMake(0.0f, 40.0f, 140.0f, 708.0f)];
+        [self setupNavigationBar:1024.0f];
+        [self.tableView setFrame:CGRectMake(0.0f, 44.0f, 140.0f, 704.0f)];
         [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
@@ -90,7 +91,8 @@
         [self.detailView setFrame:CGRectMake(160.0f, 344.0f, 844.0f, 384.0f)];
         [self.detailView setPagingEnabled:YES];
     } else {
-        [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
+        [self setupNavigationBar:768.0f];
+        [self.tableView setFrame:CGRectMake(0.0, 44.0, 140, 960)];
         [self.LightButton setFrame:CGRectMake(190.0f, 248.0f, 72.0f, 76.0f)];
         [self.CurtainButton setFrame:CGRectMake(288.0f, 248.0f, 72.0f, 76.0f)];
         [self.MusicButton setFrame:CGRectMake(386.0f, 248.0f, 72.0f, 76.0f)];
@@ -127,15 +129,13 @@
     [self.view addSubview:self.modeView];
     [self.view addSubview:self.detailBackground];
     [self.view addSubview:self.detailView];
-    
-    [self.view addSubview:self.tableView];
     [self.view addSubview:self.GuidePanel];
 }
 
 //设置导航栏
-- (void)setupNavigationBar
+- (void)setupNavigationBar:(float)width
 {
-    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 1024, 44)];
+    self.navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, width, 44)];
     [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg_topbar_all"] forBarMetrics:UIBarMetricsDefault];
     
     UILabel *titleLabel = [[UILabel alloc] init];
@@ -552,7 +552,8 @@
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 708)];
+        [self.navigationBar setFrame:CGRectMake(0, 0, 1024, 44)];
+        [self.tableView setFrame:CGRectMake(0.0, 44.0, 140, 704)];
         [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
         [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
@@ -566,7 +567,8 @@
         [self.detailView setPagingEnabled:YES];
         [self.detailBackground setFrame:CGRectMake(160.0f, 344.0f, 844.0f, 384.0f)];
     } else {
-        [self.tableView setFrame:CGRectMake(0.0, 40.0, 140, 964)];
+        [self.navigationBar setFrame:CGRectMake(0, 0, 768, 44)];
+        [self.tableView setFrame:CGRectMake(0.0, 44.0, 140, 960)];
         [self.LightButton setFrame:CGRectMake(190.0f, 248.0f, 72.0f, 76.0f)];
         [self.CurtainButton setFrame:CGRectMake(288.0f, 248.0f, 72.0f, 76.0f)];
         [self.MusicButton setFrame:CGRectMake(386.0f, 248.0f, 72.0f, 76.0f)];
