@@ -101,7 +101,7 @@
         [self.scrollRight setFrame:CGRectMake(self.modeView.frame.size.width - 75.0f, 55.0f, 25.0f, 50.0f)];
         self.countInOnePage = 2;
         [self.detailBackground setFrame:CGRectMake(160.0f, 344.0f, 588.0f, 640.0f)];
-        [self.detailView setFrame:CGRectMake(160.0f, 344.0f, 588.0f, 640.0f)];
+        [self.detailView setFrame:CGRectMake(160.0f, 384.0f, 588.0f, 600.0f)];
         [self.detailView setPagingEnabled:NO];
     }
     
@@ -360,7 +360,13 @@
                 [self.detailView addSubview:detailViewPanel];
             }
         } else {
-            
+            int height = MAX(640, (150 * detailViewNames.count));
+            [self.detailView setContentSize:CGSizeMake(588, height)];
+            for (int i = 0; i < detailViewNames.count; i++) {
+                SHDetailContolView *detailViewPanel = [[SHDetailContolView alloc] initWithFrame:CGRectMake(104, i*150, 380, 140)andTitle:[detailViewNames objectAtIndex:i] andType:type andController:self];
+                [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
+                [self.detailView addSubview:detailViewPanel];
+            }
         }
     } else {
         if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
@@ -385,12 +391,18 @@
                 [self.GuidePanel setHidden:NO];
             }
             for (int i = 0; i < detailViewNames.count; i++) {
-                SHMusicControlView *detailViewPanel = [[SHMusicControlView alloc] initWithFrame:CGRectMake(i/2*844 + 30 + (i%2)*405, 45, 375, 280)andTitle:[detailViewNames objectAtIndex:i] andController:self];
+                SHMusicControlView *detailViewPanel = [[SHMusicControlView alloc] initWithFrame:CGRectMake(i/2*844 + 30 + (i%2)*404, 45, 380, 280)andTitle:[detailViewNames objectAtIndex:i] andController:self];
                 [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
                 [self.detailView addSubview:detailViewPanel];
             }
         } else {
-            
+            int height = MAX(640, (300 * detailViewNames.count));
+            [self.detailView setContentSize:CGSizeMake(588, height)];
+            for (int i = 0; i < detailViewNames.count; i++) {
+                SHMusicControlView *detailViewPanel = [[SHMusicControlView alloc] initWithFrame:CGRectMake(104, i*300, 380, 280) andTitle:[detailViewNames objectAtIndex:i] andController:self];
+                [detailViewPanel setButtons:[detailViewBtns objectAtIndex:i] andCmd:[detailViewCmds objectAtIndex:i]];
+                [self.detailView addSubview:detailViewPanel];
+            }
         }
     }
 }
@@ -564,7 +576,7 @@
         [self.scrollLeft setFrame:CGRectMake(50.0f, 55.0f, 25.0f, 50.0f)];
         [self.scrollRight setFrame:CGRectMake(self.modeView.frame.size.width - 75.0f, 55.0f, 25.0f, 50.0f)];
         self.countInOnePage = 2;
-        [self.detailView setFrame:CGRectMake(160.0f, 344.0f, 588.0f, 640.0f)];
+        [self.detailView setFrame:CGRectMake(160.0f, 384.0f, 588.0f, 600.0f)];
         [self.detailView setPagingEnabled:NO];
         [self.detailBackground setFrame:CGRectMake(160.0f, 344.0f, 588.0f, 640.0f)];
     }
