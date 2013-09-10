@@ -105,24 +105,14 @@
             UIButton *button = [[UIButton alloc] init];
             [button setFrame:CGRectMake(58 + i * 94, 72, 76, 36)];
             [button setTag:BUTTON_BASE_TAG + i];
-            if (i < 2) {
-                [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
-                [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
-                [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
-                [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
-                [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-                [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
-                [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
-            } else if (i == 2) {
-                if (self.type == 0) {
-                    [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"light_%d",i]] forState:UIControlStateNormal];
-                } else {
-                    [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"curtain_%d",i]] forState:UIControlStateNormal];
-                }
-                [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-                [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
-                [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
-            }
+            
+            [button setTitle:[names objectAtIndex:i] forState:UIControlStateNormal];
+            [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
+            [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
+            [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
+            [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
             [self addSubview:button];
         }
     }

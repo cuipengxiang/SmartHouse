@@ -75,7 +75,7 @@
     if (self.needBack){
         [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:3 tag:0];
     } else {
-        [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:0.5 tag:1];
+        [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:1.5 tag:1];
     }
 
 }
