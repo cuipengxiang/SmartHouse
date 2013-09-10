@@ -706,7 +706,7 @@
 		D8421D1F17BA853500C39DA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: 世倩 衣 (BZR7AKESU3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 鹏翔 崔 (GVQA7B9MVH)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartHouse/SmartHouse-Prefix.pch";
 				INFOPLIST_FILE = "SmartHouse/SmartHouse-Info.plist";
@@ -721,7 +721,7 @@
 		D8421D2017BA853500C39DA0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: 世倩 衣 (BZR7AKESU3)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: 鹏翔 崔 (GVQA7B9MVH)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SmartHouse/SmartHouse-Prefix.pch";
 				INFOPLIST_FILE = "SmartHouse/SmartHouse-Info.plist";
