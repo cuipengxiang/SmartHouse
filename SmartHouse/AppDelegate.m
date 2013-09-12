@@ -121,6 +121,7 @@
     self.check = check;
     if ([self.socket isConnected]) {
         [self.socket writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        NSLog(@"send:%@", self.resendCommand);
     } else {
         [self.socket connectToHost:self.host onPort:self.port error:&error];
     }

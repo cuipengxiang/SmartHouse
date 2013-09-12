@@ -10,7 +10,10 @@
 #import "AppDelegate.h"
 #import "SHControlViewController.h"
 
-@interface SHDetailContolView : UIView
+@interface SHDetailContolView : UIView {
+    NSDate *down;
+    NSDate *up;
+}
 
 @property (nonatomic, strong)AppDelegate *myDelegate;
 @property (nonatomic, strong)NSMutableArray *buttonNames;

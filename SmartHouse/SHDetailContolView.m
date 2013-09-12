@@ -160,21 +160,31 @@
 - (void)onButtonUp:(UIButton *)button
 {
     self.isdown = NO;
+    if (!down) {
+        return;
+    }
+    up = [NSDate date];
+    NSTimeInterval time = [up timeIntervalSinceDate:down];
+    float sleeptime = time > 3.0? 0 : 3 - time;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+        NSLog(@"%f", sleeptime);
+        sleep(sleeptime);
+        [self sendCommand:[self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 1] check:YES];
         sleep(1);
         self.controller.needquery = YES;
     });
+    down = nil;
+    up = nil;
 }
 
 - (void)onButtonDown:(UIButton *)button
 {
     self.isdown = YES;
     self.controller.needquery = NO;
+    down = [NSDate date];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        while (self.isdown) {
-            [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];
-            sleep(1.5);
-        }
+        sleep(1);
+        [self sendCommand:[self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 2] check:YES];
     });
 }
 /*

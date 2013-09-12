@@ -82,9 +82,21 @@
             [wholeHouse.lightNames addObject:[lights objectAtIndex:0]];
             NSMutableArray *lightBtnstemp = [[NSMutableArray alloc] init];
             NSMutableArray *lightCmdstemp = [[NSMutableArray alloc] init];
-            for (int k = 1; k < lights.count; k = k + 2) {
-                [lightBtnstemp addObject:[lights objectAtIndex:k]];
-                [lightCmdstemp addObject:[lights objectAtIndex:k + 1]];
+            if (lights.count <= 5) {
+                for (int k = 1; k < lights.count; k = k + 2) {
+                    [lightBtnstemp addObject:[lights objectAtIndex:k]];
+                    [lightCmdstemp addObject:[lights objectAtIndex:k + 1]];
+                }
+            } else {
+                for (int k = 1; k < 5; k = k + 2) {
+                    [lightBtnstemp addObject:[lights objectAtIndex:k]];
+                    [lightCmdstemp addObject:[lights objectAtIndex:k + 1]];
+                }
+                for (int k = 5; k < lights.count; k = k + 3) {
+                    [lightBtnstemp addObject:[lights objectAtIndex:k]];
+                    [lightCmdstemp addObject:[lights objectAtIndex:k + 1]];
+                    [lightCmdstemp addObject:[lights objectAtIndex:k + 2]];
+                }
             }
             [tempModel.lightBtns addObject:lightBtnstemp];
             [tempModel.lightCmds addObject:lightCmdstemp];
