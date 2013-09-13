@@ -131,7 +131,7 @@
 - (void)onButtonClick:(UIButton *)button
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        sleep(1);
+        sleep(0.1);
         [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];
         sleep(1);
         self.controller.needquery = YES;
@@ -165,7 +165,7 @@
     }
     up = [NSDate date];
     NSTimeInterval time = [up timeIntervalSinceDate:down];
-    float sleeptime = time > 3.0? 0 : 3 - time;
+    float sleeptime = time > 3.0? 0 : 3.0 - time;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
         NSLog(@"%f", sleeptime);
         sleep(sleeptime);
@@ -183,7 +183,7 @@
     self.controller.needquery = NO;
     down = [NSDate date];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        sleep(1);
+        sleep(0.1);
         [self sendCommand:[self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 2] check:YES];
     });
 }
