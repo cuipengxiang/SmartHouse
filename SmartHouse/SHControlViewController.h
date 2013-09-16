@@ -10,9 +10,12 @@
 #import "AppDelegate.h"
 #import "SHRoomModel.h"
 #import "SHLoginViewController.h"
+#import "GCDAsyncSocket.h"
 
-@interface SHControlViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface SHControlViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,GCDAsyncSocketDelegate>
 
+
+@property(nonatomic)dispatch_queue_t socketQueue;
 @property(nonatomic, strong)AppDelegate *myAppDelegate;
 @property(nonatomic, strong)NSThread *myModeThread;
 @property(nonatomic, strong)UINavigationBar *navigationBar;
@@ -49,8 +52,6 @@
 - (void)onBackButtonClick;
 - (void)onSettingsButtonClick;
 - (void)onModeButtonClick:(UIButton *)button;
-- (void)onModeButtonDown:(UIButton *)button;
-- (void)onModeButtonUpOutside:(UIButton *)button;
 
 - (void)onScrollLeftClick:(id)sender;
 - (void)onScrollRightClick:(id)sender;
@@ -60,7 +61,7 @@
 
 - (void)queryMode:(NSThread *)thread;
 - (void)setCurrentMode:(NSString *)mode;
-- (void)sendCommand:(NSString *)cmd needBack:(BOOL)needback check:(BOOL)check;
-- (void)errorRemind:(NSError *)error;
+- (void)sendCommand:(NSString *)cmd;
+
 
 @end

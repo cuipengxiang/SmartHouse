@@ -30,6 +30,8 @@
         self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.myModeThread = [[NSThread alloc] initWithTarget:self selector:@selector(queryMode:) object:nil];
         [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
+        
+        self.socketQueue = dispatch_queue_create("socketQueue1", NULL);
     }
     return self;
 }
@@ -223,24 +225,9 @@
         [modeButton setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
         [modeButton setTag:MODE_BTN_BASE_TAG + i];
         [modeButton addTarget:self action:@selector(onModeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [modeButton addTarget:self action:@selector(onModeButtonDown:) forControlEvents:UIControlEventTouchDown];
-        [modeButton addTarget:self action:@selector(onModeButtonUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
         [self.scrollView addSubview:modeButton];
     }
     
-}
-
-- (void)onModeButtonDown:(UIButton *)button
-{
-    self.needquery = NO;
-}
-
-- (void)onModeButtonUpOutside:(UIButton *)button
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        sleep(1);
-        self.needquery = YES;
-    });
 }
 
 - (void)onModeButtonClick:(UIButton *)button
@@ -252,12 +239,12 @@
     [button setSelected:YES];
 
     self.skipQuery = 1;
-    NSString *cmd = [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG];
+    NSString *commandSend = [NSString stringWithFormat:@"%@\r\n", [self.currentModel.modesCmds objectAtIndex:button.tag - MODE_BTN_BASE_TAG]];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        sleep(0.1);
-        [self sendCommand:cmd needBack:NO check:YES];
-        sleep(1);
-        self.needquery = YES;
+        NSError *error;
+        GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
+        socket.command = commandSend;
+        [socket connectToHost:self.myAppDelegate.host onPort:self.myAppDelegate.port withTimeout:3.0 error:&error];
     });
 }
 
@@ -492,8 +479,8 @@
 {
     while (YES) {
         if (self.needquery) {
-            [self sendCommand:self.currentModel.queryCmd needBack:YES check:NO];
-            sleep(5);
+            [self sendCommand:self.currentModel.queryCmd];
+            sleep(3);
         }
     }
 }
@@ -518,31 +505,9 @@
     });
 }
 
-- (void)sendCommand:(NSString *)cmd needBack:(BOOL)needback check:(BOOL)check;
+- (void)sendCommand:(NSString *)cmd;
 {
-    [self.myAppDelegate sendCommand:cmd from:self needBack:needback check:check];
-    
-    /* 先判断状态-----1
-    if ([self.myAppDelegate.socket isConnected]) {
-        [self.myAppDelegate sendCommand:cmd from:self needBack:needback];
-    } else {
-        if (check) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"与服务端连接已断开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            [alert show];
-            [self.myAppDelegate reConnectSocketWithCommand:cmd];
-        } else {
-            [self.myAppDelegate reConnectSocketWithCommand:nil];
-        }
-    }
-    */
-}
-
-- (void)errorRemind:(NSError *)error
-{
-    dispatch_async(dispatch_get_main_queue(), ^(void) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"连接服务端失败" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alert show];
-    });
+    [self.myAppDelegate sendCommand:cmd from:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
@@ -597,6 +562,23 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
+{
+    [sock writeData:[sock.command dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:0];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    [sock disconnect];
+    sock = nil;
 }
 
 @end

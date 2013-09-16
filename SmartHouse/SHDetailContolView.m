@@ -62,8 +62,6 @@
                 [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
                 [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
                 [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-                [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
-                [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
             } else if (i == 2) {
                 if (self.type == 0) {
                     [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"light_%d",i]] forState:UIControlStateNormal];
@@ -95,8 +93,6 @@
             [button setTag:BUTTON_BASE_TAG + i];
             [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
             [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
-            [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
             [self addSubview:button];
         }
     } else if (names.count == 3) {
@@ -110,76 +106,44 @@
             [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
             [button setBackgroundImage:[UIImage imageNamed:@"btn_light_control"] forState:UIControlStateNormal];
             [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-            [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
-            [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
             [self addSubview:button];
         }
     }
 }
 
-- (void)onButtonClickDown:(UIButton *)button
-{
-    self.controller.needquery = NO;
-}
-
-- (void)onButtonClickUpOutside:(UIButton *)button
-{
-    self.controller.needquery = YES;
-}
-
 - (void)onButtonClick:(UIButton *)button
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        sleep(0.1);
-        [self sendCommand:[self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG] check:YES];
-        sleep(1);
-        self.controller.needquery = YES;
+        NSError *error;
+        GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self.controller delegateQueue:self.controller.socketQueue];
+        socket.command = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:button.tag - BUTTON_BASE_TAG]];
+        [socket connectToHost:self.myDelegate.host onPort:self.myDelegate.port withTimeout:3.0 error:&error];
     });
-    
-}
-
-- (void)sendCommand:(NSString *)cmd check:(BOOL)check
-{
-    [self.myDelegate sendCommand:cmd from:self.controller needBack:NO check:check];
-    /*
-    if ([self.myDelegate.socket isConnected]) {
-        [self.myDelegate sendCommand:cmd from:nil needBack:NO];
-    } else {
-        if (check) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:@"与服务端连接已断开" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-            [alert show];
-            [self.myDelegate reConnectSocketWithCommand:cmd];
-        } else {
-            [self.myDelegate reConnectSocketWithCommand:nil];
-        }
-    }
-    */
 }
 
 - (void)onButtonUp:(UIButton *)button
 {
-    if (!down) {
-        return;
-    }
     up = [NSDate date];
-    //NSTimeInterval time = [up timeIntervalSinceDate:down];
+    NSTimeInterval time = [up timeIntervalSinceDate:down];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        sleep(0.1);
-        [self sendCommand:[self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 1] check:YES];
-        sleep(1);
-        self.controller.needquery = YES;
+        if (time < 0.5) {
+            sleep(0.5 - time);
+        }
+        NSError *error;
+        GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self.controller delegateQueue:self.controller.socketQueue];
+        socket.command = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 1]];
+        [socket connectToHost:self.myDelegate.host onPort:self.myDelegate.port withTimeout:3.0 error:&error];
     });
-    down = nil;
-    up = nil;
 }
 
 - (void)onButtonDown:(UIButton *)button
 {
-    self.controller.needquery = NO;
     down = [NSDate date];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        sleep(0.1);
-        [self sendCommand:[self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 2] check:YES];
+        NSError *error;
+        GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self.controller delegateQueue:self.controller.socketQueue];
+        socket.command = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 2]];
+        [socket connectToHost:self.myDelegate.host onPort:self.myDelegate.port withTimeout:3.0 error:&error];
     });
 }
 /*

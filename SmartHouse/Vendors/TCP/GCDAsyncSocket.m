@@ -1107,6 +1107,8 @@ enum GCDAsyncSocketConfig
 		currentWrite = nil;
 		
 		preBuffer = [[GCDAsyncSocketPreBuffer alloc] initWithCapacity:(1024 * 4)];
+        
+        self.command = [[NSString alloc] init];
 	}
 	return self;
 }
