@@ -227,6 +227,10 @@
     return YES;
 }
 
+- (BOOL)shouldAutorotate{
+    return YES;
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {

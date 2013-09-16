@@ -29,7 +29,6 @@
     if (self) {
         self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.myModeThread = [[NSThread alloc] initWithTarget:self selector:@selector(queryMode:) object:nil];
-        [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
         
         self.socketQueue = dispatch_queue_create("socketQueue1", NULL);
     }
@@ -108,6 +107,7 @@
         [self.detailView setFrame:CGRectMake(160.0f, 384.0f, 588.0f, 600.0f)];
         [self.detailView setPagingEnabled:NO];
     }
+    [self.view setBackgroundColor:[UIColor colorWithRed:246.0/255.0f green:246.0/255.0f blue:246.0/255.0f alpha:1.0]];
     
     [self.view addSubview:self.LightButton];
     [self.view addSubview:self.CurtainButton];
@@ -514,6 +514,10 @@
     return YES;
 }
 
+- (BOOL)shouldAutorotate{
+    return YES;
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
@@ -555,7 +559,7 @@
     } else {
         self.modesCount = self.currentModel.modesNames.count / self.countInOnePage + 1;
     }
-    
+    [self setupModeSelectBar:self.currentModel];
 }
 
 - (void)didReceiveMemoryWarning
