@@ -43,7 +43,6 @@
             [background setImage:[UIImage imageNamed:@"bg_curtain"]];
         }
         [self addSubview:background];
-        self.isdown = NO;
     }
     return self;
 }
@@ -159,16 +158,13 @@
 
 - (void)onButtonUp:(UIButton *)button
 {
-    self.isdown = NO;
     if (!down) {
         return;
     }
     up = [NSDate date];
-    NSTimeInterval time = [up timeIntervalSinceDate:down];
-    float sleeptime = time > 3.0? 0 : 3.0 - time;
+    //NSTimeInterval time = [up timeIntervalSinceDate:down];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        NSLog(@"%f", sleeptime);
-        sleep(sleeptime);
+        sleep(0.1);
         [self sendCommand:[self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 1] check:YES];
         sleep(1);
         self.controller.needquery = YES;
@@ -179,7 +175,6 @@
 
 - (void)onButtonDown:(UIButton *)button
 {
-    self.isdown = YES;
     self.controller.needquery = NO;
     down = [NSDate date];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){

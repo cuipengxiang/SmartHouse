@@ -16,6 +16,7 @@
 @property BOOL needBack;
 @property BOOL check;
 @property (strong, nonatomic) GCDAsyncSocket *socket;
+@property (strong, nonatomic) GCDAsyncSocket *socket2;
 @property (strong, nonatomic) NSString *host;
 @property (nonatomic)int16_t port;
 @property (strong, nonatomic) NSMutableArray *models;

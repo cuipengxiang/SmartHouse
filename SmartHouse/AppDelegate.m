@@ -29,6 +29,7 @@
     //初始化Socket连接
     dispatch_queue_t mainQueue = dispatch_queue_create("socketQueue", NULL);//dispatch_get_main_queue();
     self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
+    self.socket2 = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
     
     return YES;
 }
@@ -119,6 +120,16 @@
     self.resendCommand = commandSend;
     self.needBack = needback;
     self.check = check;
+    /*
+    if (check) {
+        if ([self.socket2 isConnected]) {
+            [self.socket2 writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        } else {
+            [self.socket2 connectToHost:self.host onPort:self.port error:&error];
+        }
+        return;
+    }
+    */
     if ([self.socket isConnected]) {
         [self.socket writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
         NSLog(@"send:%@", self.resendCommand);
