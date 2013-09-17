@@ -151,7 +151,6 @@
 {
     [sock writeData:[sock.command dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:0];
     if (sock.command1.length > 0) {
-        sleep(0.2);
         [sock writeData:[sock.command1 dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:1];
     }
 }
@@ -159,15 +158,16 @@
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
     [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:tag];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
     if (tag == 1) {
         [sock disconnect];
         sock = nil;
         self.myDelegate.canButtonDown = YES;
     }
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    
 }
 
 /*

@@ -577,12 +577,12 @@
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
     [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    [sock disconnect];
+    sock = nil;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-    [sock disconnect];
-    sock = nil;
 }
 
 @end
