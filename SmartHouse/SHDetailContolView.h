@@ -11,7 +11,9 @@
 #import "SHControlViewController.h"
 #import "GCDAsyncSocket.h"
 
-@interface SHDetailContolView : UIView<GCDAsyncSocketDelegate>
+@interface SHDetailContolView : UIView<GCDAsyncSocketDelegate>{
+    int downCount;
+}
 
 @property (nonatomic)dispatch_queue_t socketQueue;
 @property (nonatomic, strong)GCDAsyncSocket *socket;

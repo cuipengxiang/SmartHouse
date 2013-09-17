@@ -44,6 +44,7 @@
         }
         [self addSubview:background];
         self.socketQueue = dispatch_queue_create("socketQueue1", NULL);
+        downCount = 0;
     }
     return self;
 }
@@ -124,18 +125,22 @@
 
 - (void)onButtonUp:(UIButton *)button
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        self.socket.command1 = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 1]];
-        if ([self.socket isConnected]) {
-            [self.socket writeData:[self.socket.command1 dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:1];
-        }
-    });
+    if (downCount > 0) {
+        downCount--;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+            self.socket.command1 = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 1]];
+            if ([self.socket isConnected]) {
+                [self.socket writeData:[self.socket.command1 dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:1];
+            }
+        });
+    }
 }
 
 - (void)onButtonDown:(UIButton *)button
 {
     if (self.myDelegate.canButtonDown) {
         self.myDelegate.canButtonDown = NO;
+        downCount ++;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
             NSError *error;
             self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
