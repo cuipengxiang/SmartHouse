@@ -30,6 +30,7 @@
     dispatch_queue_t mainQueue = dispatch_queue_create("socketQueue", NULL);
     self.socket= [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
     
+    self.canButtonDown = YES;
     return YES;
 }
 

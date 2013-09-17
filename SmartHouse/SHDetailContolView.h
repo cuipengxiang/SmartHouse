@@ -12,11 +12,9 @@
 #import "GCDAsyncSocket.h"
 
 @interface SHDetailContolView : UIView<GCDAsyncSocketDelegate>
-{
-    NSDate *down;
-    NSDate *up;
-}
 
+@property (nonatomic)dispatch_queue_t socketQueue;
+@property (nonatomic, strong)GCDAsyncSocket *socket;
 @property (nonatomic, strong)AppDelegate *myDelegate;
 @property (nonatomic, strong)NSMutableArray *buttonNames;
 @property (nonatomic, strong)NSMutableArray *buttonCmds;

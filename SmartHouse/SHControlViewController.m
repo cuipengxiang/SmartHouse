@@ -30,7 +30,7 @@
         self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.myModeThread = [[NSThread alloc] initWithTarget:self selector:@selector(queryMode:) object:nil];
         
-        self.socketQueue = dispatch_queue_create("socketQueue1", NULL);
+        self.socketQueue = dispatch_queue_create("socketQueue", NULL);
     }
     return self;
 }

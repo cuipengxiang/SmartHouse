@@ -43,6 +43,7 @@
             [background setImage:[UIImage imageNamed:@"bg_curtain"]];
         }
         [self addSubview:background];
+        self.socketQueue = dispatch_queue_create("socketQueue1", NULL);
     }
     return self;
 }
@@ -123,29 +124,52 @@
 
 - (void)onButtonUp:(UIButton *)button
 {
-    up = [NSDate date];
-    NSTimeInterval time = [up timeIntervalSinceDate:down];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        if (time < 0.5) {
-            sleep(0.5 - time);
+        self.socket.command1 = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 1]];
+        if ([self.socket isConnected]) {
+            [self.socket writeData:[self.socket.command1 dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:1];
         }
-        NSError *error;
-        GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self.controller delegateQueue:self.controller.socketQueue];
-        socket.command = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 1]];
-        [socket connectToHost:self.myDelegate.host onPort:self.myDelegate.port withTimeout:3.0 error:&error];
     });
 }
 
 - (void)onButtonDown:(UIButton *)button
 {
-    down = [NSDate date];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-        NSError *error;
-        GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self.controller delegateQueue:self.controller.socketQueue];
-        socket.command = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 2]];
-        [socket connectToHost:self.myDelegate.host onPort:self.myDelegate.port withTimeout:3.0 error:&error];
-    });
+    if (self.myDelegate.canButtonDown) {
+        self.myDelegate.canButtonDown = NO;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+            NSError *error;
+            self.socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
+            self.socket.command = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:(button.tag - BUTTON_BASE_TAG)*2 - 2]];
+            [self.socket connectToHost:self.myDelegate.host onPort:self.myDelegate.port withTimeout:3.0 error:&error];
+        });
+    }
 }
+
+
+
+- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
+{
+    [sock writeData:[sock.command dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:0];
+    if (sock.command1.length > 0) {
+        sleep(0.2);
+        [sock writeData:[sock.command1 dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:1];
+    }
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:tag];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
+{
+    if (tag == 1) {
+        [sock disconnect];
+        sock = nil;
+        self.myDelegate.canButtonDown = YES;
+    }
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

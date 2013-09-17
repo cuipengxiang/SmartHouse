@@ -53,8 +53,6 @@
         [button setTag:BUTTON_BASE_TAG + i];
         [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"music_control%d",i]] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
-        [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
         [self addSubview:button];
     }
     for (int i = 5; i < self.buttonNames.count; i++) {
@@ -66,8 +64,6 @@
         [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:@"btn_music_control"] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [button addTarget:self action:@selector(onButtonClickDown:) forControlEvents:UIControlEventTouchDown];
-        [button addTarget:self action:@selector(onButtonClickUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
         [self addSubview:button];
     }
 }

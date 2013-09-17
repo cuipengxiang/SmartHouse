@@ -12,6 +12,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, GCDAsyncSocketDelegate>
 
+@property (nonatomic)BOOL canButtonDown;
 @property (strong)UIViewController *mainController;
 @property (strong, nonatomic) GCDAsyncSocket *socket;
 @property (strong, nonatomic) NSString *host;
