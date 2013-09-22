@@ -30,7 +30,7 @@
         self.myAppDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         self.myModeThread = [[NSThread alloc] initWithTarget:self selector:@selector(queryMode:) object:nil];
         
-        self.socketQueue = dispatch_queue_create("socketQueue", NULL);
+        self.socketQueue = dispatch_queue_create("socketQueue1", NULL);
     }
     return self;
 }
@@ -576,13 +576,9 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:1 tag:0];
     [sock disconnect];
     sock = nil;
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
 }
 
 @end

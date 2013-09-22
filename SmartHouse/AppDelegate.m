@@ -27,8 +27,7 @@
     [fileReader readFile];
     
     //初始化Socket连接
-    dispatch_queue_t mainQueue = dispatch_queue_create("socketQueue", NULL);
-    self.socket= [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
+    self.socketQueue = dispatch_queue_create("socketQueue", NULL);
 
     self.candown = YES;
     self.canup = YES;
@@ -69,15 +68,12 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    if (self.resendCommand) {
-        [sock writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:2 tag:0];
-        self.resendCommand = nil;
-    }
+    [sock writeData:[sock.command dataUsingEncoding:NSUTF8StringEncoding] withTimeout:2 tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:2 tag:0];
+    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:1 tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
@@ -89,23 +85,14 @@
     [sock disconnect];
 }
 
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
-{
-}
-
 - (void)sendCommand:(NSString *)command from:(UIViewController *)controller
 {
     NSError *error = nil;
     self.mainController = controller;
     NSString *commandSend = [NSString stringWithFormat:@"%@\r\n",command];
-    self.resendCommand = commandSend;
-
-    if ([self.socket isConnected]) {
-        [self.socket writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:2 tag:0];
-    } else {
-        [self.socket connectToHost:self.host onPort:self.port withTimeout:3.0 error:&error];
-    }
-
+    GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
+    socket.command = commandSend;
+    [socket connectToHost:self.host onPort:self.port withTimeout:3.0 error:&error];
 }
 
 

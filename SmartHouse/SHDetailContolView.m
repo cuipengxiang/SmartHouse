@@ -43,7 +43,7 @@
             [background setImage:[UIImage imageNamed:@"bg_curtain"]];
         }
         [self addSubview:background];
-        self.socketQueue = dispatch_queue_create("socketQueue1", NULL);
+        self.socketQueue = dispatch_queue_create("socketQueue2", NULL);
 
     }
     return self;
@@ -130,8 +130,8 @@
     if ((self.myDelegate.canup)&&(!self.myDelegate.candown)) {
         self.myDelegate.canup = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
-            if (time < 0.5) {
-                [NSThread sleepForTimeInterval:0.5 - time];
+            if (time < 0.4) {
+                [NSThread sleepForTimeInterval:0.4 - time];
             }
             NSError *error;
             GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
@@ -164,17 +164,13 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:1 tag:0];
     [sock disconnect];
     sock = nil;
     self.myDelegate.candown = YES;
     self.myDelegate.canup = YES;
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
-{
-    
-}
 
 /*
 // Only override drawRect: if you perform custom drawing.
