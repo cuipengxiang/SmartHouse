@@ -29,8 +29,10 @@
     //初始化Socket连接
     dispatch_queue_t mainQueue = dispatch_queue_create("socketQueue", NULL);
     self.socket= [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:mainQueue];
+
+    self.candown = YES;
+    self.canup = YES;
     
-    self.canButtonDown = YES;
     return YES;
 }
 
@@ -68,14 +70,14 @@
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
     if (self.resendCommand) {
-        [sock writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        [sock writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:2 tag:0];
         self.resendCommand = nil;
     }
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
-    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:-1 tag:0];
+    [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:2 tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
@@ -84,6 +86,7 @@
     NSString *msg = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
     [(SHControlViewController *)self.mainController setCurrentMode:msg];
     NSLog(@"read:%@", msg);
+    [sock disconnect];
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
@@ -98,7 +101,7 @@
     self.resendCommand = commandSend;
 
     if ([self.socket isConnected]) {
-        [self.socket writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+        [self.socket writeData:[self.resendCommand dataUsingEncoding:NSUTF8StringEncoding] withTimeout:2 tag:0];
     } else {
         [self.socket connectToHost:self.host onPort:self.port withTimeout:3.0 error:&error];
     }

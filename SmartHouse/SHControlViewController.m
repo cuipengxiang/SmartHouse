@@ -480,7 +480,7 @@
     while (YES) {
         if (self.needquery) {
             [self sendCommand:self.currentModel.queryCmd];
-            sleep(3);
+            sleep(4);
         }
     }
 }
