@@ -492,14 +492,26 @@
         self.skipQuery = 0;
         return;
     }
+    
     dispatch_async(dispatch_get_main_queue(), ^(void) {
+        int btn_tag = -1;
         for (int i = MODE_BTN_BASE_TAG; i < MODE_BTN_BASE_TAG + self.currentModel.modesNames.count; i++) {
             int location = [mode rangeOfString:[self.currentModel.modeBacks objectAtIndex:i - MODE_BTN_BASE_TAG]].location;
             
             if (location == INT32_MAX) {
-                [(UIButton *)[self.modeView viewWithTag:i] setSelected:NO];
+                //[(UIButton *)[self.modeView viewWithTag:i] setSelected:NO];
             } else {
-                [(UIButton *)[self.modeView viewWithTag:i] setSelected:YES];
+                //[(UIButton *)[self.modeView viewWithTag:i] setSelected:YES];
+                btn_tag = i;
+            }
+        }
+        if (btn_tag > 0) {
+            for (int i = MODE_BTN_BASE_TAG; i < MODE_BTN_BASE_TAG + self.currentModel.modesNames.count;i++) {
+                if (i == btn_tag) {
+                    [(UIButton *)[self.modeView viewWithTag:i] setSelected:YES];
+                } else {
+                    [(UIButton *)[self.modeView viewWithTag:i] setSelected:NO];
+                }
             }
         }
     });
