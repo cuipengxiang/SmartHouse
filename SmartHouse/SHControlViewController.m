@@ -492,7 +492,7 @@
         self.skipQuery = 0;
         return;
     }
-    
+        
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         int btn_tag = -1;
         for (int i = MODE_BTN_BASE_TAG; i < MODE_BTN_BASE_TAG + self.currentModel.modesNames.count; i++) {
