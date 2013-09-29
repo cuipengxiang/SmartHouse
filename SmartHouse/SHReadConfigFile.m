@@ -121,6 +121,7 @@
             [wholeHouse.curtainBtns addObject:curtainBtnstemp];
             [wholeHouse.curtainCmds addObject:curtainCmdstemp];
         }
+        /*
         int musicsCount = [[fileArray objectAtIndex:arrayCursor] intValue];
         arrayCursor++;
         for (int j = 0; j < musicsCount; j++) {
@@ -139,6 +140,7 @@
             [wholeHouse.musicBtns addObject:musicBtnstemp];
             [wholeHouse.musicCmds addObject:musicCmdstemp];
         }
+          */
         [myDelegate.models addObject:tempModel];
     }
     [myDelegate.models insertObject:wholeHouse atIndex:0];
