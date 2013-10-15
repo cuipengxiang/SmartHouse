@@ -117,6 +117,8 @@
 		D8421D0B17BA853500C39DA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D0A17BA853500C39DA0 /* main.m */; };
 		D8421D0F17BA853500C39DA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D0E17BA853500C39DA0 /* AppDelegate.m */; };
 		D8421D1817BA853500C39DA0 /* SHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8421D1717BA853500C39DA0 /* SHLoginViewController.m */; };
+		D88260C2180D37390096C6CA /* icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = D88260C0180D37390096C6CA /* icon1.png */; };
+		D88260C3180D37390096C6CA /* icon1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D88260C1180D37390096C6CA /* icon1@2x.png */; };
 		D8EEBD0D17BC7F8200200262 /* SHDetailContolView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */; };
 		D8F056EE17BA8CE300DF2928 /* SHControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056EC17BA8CE300DF2928 /* SHControlViewController.m */; };
 		D8F056FB17BAC95600DF2928 /* SHSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F056F917BAC95500DF2928 /* SHSettingsViewController.m */; };
@@ -242,6 +244,8 @@
 		D8421D0E17BA853500C39DA0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D8421D1617BA853500C39DA0 /* SHLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHLoginViewController.h; sourceTree = "<group>"; };
 		D8421D1717BA853500C39DA0 /* SHLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHLoginViewController.m; sourceTree = "<group>"; };
+		D88260C0180D37390096C6CA /* icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon1.png; sourceTree = SOURCE_ROOT; };
+		D88260C1180D37390096C6CA /* icon1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon1@2x.png"; sourceTree = SOURCE_ROOT; };
 		D8EEBD0B17BC7F8200200262 /* SHDetailContolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHDetailContolView.h; sourceTree = "<group>"; };
 		D8EEBD0C17BC7F8200200262 /* SHDetailContolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHDetailContolView.m; sourceTree = "<group>"; };
 		D8F056EB17BA8CE300DF2928 /* SHControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHControlViewController.h; sourceTree = "<group>"; };
@@ -335,6 +339,8 @@
 		D8421D0517BA853500C39DA0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D88260C0180D37390096C6CA /* icon1.png */,
+				D88260C1180D37390096C6CA /* icon1@2x.png */,
 				D81BD49417C5F18600D96702 /* Default-Landscape@2x~ipad.png */,
 				D81BD49217C5F18000D96702 /* Default-Landscape~ipad.png */,
 				D81BD49017C5F16D00D96702 /* icon@2x.png */,
@@ -529,6 +535,7 @@
 				52F8ECFD17BF7E0900002294 /* btn_back.png in Resources */,
 				52F8ECFE17BF7E0900002294 /* btn_setting.png in Resources */,
 				52F8ED1017BF82E400002294 /* bg_curtain@2x.png in Resources */,
+				D88260C3180D37390096C6CA /* icon1@2x.png in Resources */,
 				52F8ED1117BF82E400002294 /* bg_light@2x.png in Resources */,
 				52F8ED1317BF82E400002294 /* btn_back@2x.png in Resources */,
 				52F8ED1417BF82E400002294 /* btn_curtain@2x.png in Resources */,
@@ -547,6 +554,7 @@
 				52F8ED2317BF833400002294 /* bg_music.png in Resources */,
 				52F8ED2417BF833400002294 /* bg_music@2x.png in Resources */,
 				52F8ED2F17BF888900002294 /* music_control0.png in Resources */,
+				D88260C2180D37390096C6CA /* icon1.png in Resources */,
 				52F8ED3017BF888900002294 /* music_control0@2x.png in Resources */,
 				52F8ED3117BF888900002294 /* music_control1.png in Resources */,
 				52F8ED3217BF888900002294 /* music_control1@2x.png in Resources */,
