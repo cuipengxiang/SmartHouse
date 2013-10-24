@@ -43,8 +43,10 @@
     NSError *error;	
     NSArray *fileArray = [[NSString stringWithContentsOfFile:file encoding:NSUTF8StringEncoding error:&error] componentsSeparatedByString:@"\n"];
     NSArray *socketHostandPort = [[fileArray objectAtIndex:0] componentsSeparatedByString:@"|"];
-    myDelegate.host = [socketHostandPort objectAtIndex:0];
-    myDelegate.port = [[socketHostandPort objectAtIndex:1] integerValue];
+    myDelegate.host1 = [socketHostandPort objectAtIndex:0];
+    myDelegate.host2 = [socketHostandPort objectAtIndex:1];
+    myDelegate.host = myDelegate.host1;
+    myDelegate.port = [[socketHostandPort objectAtIndex:2] integerValue];
     NSArray *house = [[fileArray objectAtIndex:1] componentsSeparatedByString:@"|"];
     int roomsCount = [[house objectAtIndex:0] intValue];
     SHRoomModel *wholeHouse = [[SHRoomModel alloc] init];

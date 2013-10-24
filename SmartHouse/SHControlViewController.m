@@ -161,15 +161,22 @@
     [rightButton addTarget:self action:@selector(onSettingsButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [rightButton sizeToFit];
     
+    self.networkStateButton = [[UIButton alloc] init];
+    [self.networkStateButton setBackgroundImage:[UIImage imageNamed:@"state_1"] forState:UIControlStateNormal];
+    [self.networkStateButton sizeToFit];
+    
     UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    self.networkBarButton = [[UIBarButtonItem alloc] initWithCustomView:self.networkStateButton];
     
-    UINavigationItem *item = [[UINavigationItem alloc] init];
-    [item setTitleView:titleLabel];
-    [item setLeftBarButtonItem:leftBarButton];
-    [item setRightBarButtonItem:rightBarButton];
+    NSArray *rightButtons = @[rightBarButton, self.networkBarButton];
     
-    [self.navigationBar pushNavigationItem:item animated:YES];
+    self.item = [[UINavigationItem alloc] init];
+    [self.item setTitleView:titleLabel];
+    [self.item setLeftBarButtonItem:leftBarButton];
+    [self.item setRightBarButtonItems:rightButtons];
+    
+    [self.navigationBar pushNavigationItem:self.item animated:NO];
     [self.view addSubview:self.navigationBar];
 }
 
@@ -581,6 +588,18 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)setNetworkState:(BOOL)state
+{
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        if (state) {
+            [self.networkStateButton setBackgroundImage:[UIImage imageNamed:@"state_1"] forState:UIControlStateNormal];
+        } else {
+            [self.networkStateButton setBackgroundImage:[UIImage imageNamed:@"state_2"] forState:UIControlStateNormal];
+        }
+    });
 }
 
 

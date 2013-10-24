@@ -17,6 +17,8 @@
 @property BOOL canup;
 @property (strong)UIViewController *mainController;
 @property (strong, nonatomic) NSString *host;
+@property (strong, nonatomic) NSString *host1;
+@property (strong, nonatomic) NSString *host2;
 @property (nonatomic)int16_t port;
 @property (strong, nonatomic) NSMutableArray *models;
 @property (strong, nonatomic) UIWindow *window;

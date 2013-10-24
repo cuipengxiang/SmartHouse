@@ -25,6 +25,7 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>icon</string>
 				<string>icon1</string>
 				<string>icon.png</string>
 				<string>icon@2x.png</string>

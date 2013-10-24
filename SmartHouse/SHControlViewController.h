@@ -30,6 +30,9 @@
 @property(nonatomic, strong)UIScrollView *detailView;
 @property(nonatomic, strong)UIView *GuidePanel;
 @property(nonatomic, strong)UIImageView *detailBackground;
+@property(nonatomic, strong)UIButton *networkStateButton;
+@property(nonatomic, strong)UIBarButtonItem *networkBarButton;
+@property(nonatomic, strong)UINavigationItem *item;
 
 @property(nonatomic)int currentType;
 @property(nonatomic)int modeCurrentPage;
@@ -62,6 +65,7 @@
 - (void)queryMode:(NSThread *)thread;
 - (void)setCurrentMode:(NSString *)mode;
 - (void)sendCommand:(NSString *)cmd;
+- (void)setNetworkState:(BOOL)state;
 
 
 @end

@@ -85,6 +85,15 @@
     [sock disconnect];
 }
 
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+    if (err) {
+        [(SHControlViewController *)self.mainController setNetworkState:NO];
+    } else {
+        [(SHControlViewController *)self.mainController setNetworkState:YES];
+    }
+}
+
 - (void)sendCommand:(NSString *)command from:(UIViewController *)controller
 {
     NSError *error = nil;
