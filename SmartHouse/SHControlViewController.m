@@ -9,6 +9,7 @@
 #import "SHControlViewController.h"
 #import "SHSettingsViewController.h"
 #import "SHDetailContolView.h"
+#import "SHSettingsNewViewController.h"
 //#import "SHMusicControlView.h"
 
 #define GUIDE_PANEL_BASE_TAG 2000
@@ -190,11 +191,18 @@
 
 - (void)onSettingsButtonClick
 {
+    SHSettingsNewViewController *controller = [[SHSettingsNewViewController alloc] initWithNibName:nil bundle:nil];
+    controller.controller = self;
+    [self presentViewController:controller animated:YES completion:^(void){
+        self.needquery = NO;
+    }];
+    /*
     SHSettingsViewController *controller = [[SHSettingsViewController alloc] initWithNibName:nil bundle:nil];
     controller.controller = self;
     [self presentViewController:controller animated:YES completion:^(void){
         self.needquery = NO;
     }];
+     */
 }
 
 - (void)setupModeSelectBar:(SHRoomModel *)currentModel

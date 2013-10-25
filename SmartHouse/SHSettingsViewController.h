@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SHControlViewController.h"
+#import "SHSettingsNewViewController.h"
 
 @interface SHSettingsViewController : UIViewController<UITextFieldDelegate, UIGestureRecognizerDelegate>
 
@@ -20,7 +20,7 @@
 @property(nonatomic, strong)UITextField *newpassword_again;
 @property(nonatomic)BOOL isKeybroadShowing;
 
-@property(nonatomic, retain)SHControlViewController *controller;
+@property(nonatomic, retain)UIViewController *controller;
 
 - (void)onBackButtonClick:(id)sender;
 - (void)onCommitClick:(id)sender;
