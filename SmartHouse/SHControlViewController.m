@@ -10,7 +10,7 @@
 #import "SHSettingsViewController.h"
 #import "SHDetailContolView.h"
 #import "SHSettingsNewViewController.h"
-//#import "SHMusicControlView.h"
+#import "SHMusicControlView.h"
 
 #define GUIDE_PANEL_BASE_TAG 2000
 #define MODE_BTN_BASE_TAG 1000
@@ -56,12 +56,12 @@
     [self.CurtainButton setBackgroundImage:[UIImage imageNamed:@"btn_curtain"] forState:UIControlStateNormal];
     [self.CurtainButton setBackgroundImage:[UIImage imageNamed:@"btn_curtain"] forState:UIControlStateSelected];
     [self.CurtainButton addTarget:self action:@selector(onCuitainClick:) forControlEvents:UIControlEventTouchUpInside];
-    /*
+    
     self.MusicButton = [[UIButton alloc] init];
     [self.MusicButton setBackgroundImage:[UIImage imageNamed:@"btn_music"] forState:UIControlStateNormal];
     [self.MusicButton setBackgroundImage:[UIImage imageNamed:@"btn_music"] forState:UIControlStateSelected];
     [self.MusicButton addTarget:self action:@selector(onMusicClick:) forControlEvents:UIControlEventTouchUpInside];
-    */
+    
     self.currentModel = [self.myAppDelegate.models objectAtIndex:0];
     self.tableView = [[UITableView alloc] init];
     [self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left_background"]]];
@@ -82,7 +82,7 @@
         [self.tableView setFrame:CGRectMake(0.0f, 44.0f, 140.0f, 704.0f)];
         [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
-        //[self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
+        [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
         [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 844.0f, 156.0f)];
         [self.modeView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_mode_l"]]];
         [self.scrollView setFrame:CGRectMake(54.0f, 30.0f, 736.0f, 100.0f)];
@@ -97,7 +97,7 @@
         [self.tableView setFrame:CGRectMake(0.0, 44.0, 140, 960)];
         [self.LightButton setFrame:CGRectMake(190.0f, 248.0f, 72.0f, 76.0f)];
         [self.CurtainButton setFrame:CGRectMake(288.0f, 248.0f, 72.0f, 76.0f)];
-        //[self.MusicButton setFrame:CGRectMake(386.0f, 248.0f, 72.0f, 76.0f)];
+        [self.MusicButton setFrame:CGRectMake(386.0f, 248.0f, 72.0f, 76.0f)];
         [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 588.0f, 156.0f)];
         [self.modeView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_mode_p"]]];
         [self.scrollView setFrame:CGRectMake(110.0f, 30.0f, 368.0f, 100.0f)];
@@ -112,7 +112,7 @@
     
     [self.view addSubview:self.LightButton];
     [self.view addSubview:self.CurtainButton];
-    //[self.view addSubview:self.MusicButton];
+    [self.view addSubview:self.MusicButton];
     
     [self.modeView addSubview:self.scrollLeft];
     [self.modeView addSubview:self.scrollRight];
@@ -196,13 +196,6 @@
     [self presentViewController:controller animated:YES completion:^(void){
         self.needquery = NO;
     }];
-    /*
-    SHSettingsViewController *controller = [[SHSettingsViewController alloc] initWithNibName:nil bundle:nil];
-    controller.controller = self;
-    [self presentViewController:controller animated:YES completion:^(void){
-        self.needquery = NO;
-    }];
-     */
 }
 
 - (void)setupModeSelectBar:(SHRoomModel *)currentModel
@@ -371,7 +364,6 @@
             }
         }
     }
-    /*
     else {
         if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
             int pageCount = detailViewNames.count/2;
@@ -409,7 +401,7 @@
             }
         }
     }
-     */
+
 }
 
 - (void)onLightClick:(id)sender
@@ -555,7 +547,7 @@
         [self.tableView setFrame:CGRectMake(0.0, 44.0, 140, 704)];
         [self.LightButton setFrame:CGRectMake(192.0f, 258.0f, 66.0f, 70.0f)];
         [self.CurtainButton setFrame:CGRectMake(292.0f, 258.0f, 66.0f, 70.0f)];
-        //[self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
+        [self.MusicButton setFrame:CGRectMake(392.0f, 258.0f, 66.0f, 70.0f)];
         [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 844.0f, 156.0f)];
         [self.modeView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_mode_l"]]];
         [self.scrollView setFrame:CGRectMake(54.0f, 30.0f, 736.0f, 100.0f)];
@@ -570,7 +562,7 @@
         [self.tableView setFrame:CGRectMake(0.0, 44.0, 140, 960)];
         [self.LightButton setFrame:CGRectMake(190.0f, 248.0f, 72.0f, 76.0f)];
         [self.CurtainButton setFrame:CGRectMake(288.0f, 248.0f, 72.0f, 76.0f)];
-        //[self.MusicButton setFrame:CGRectMake(386.0f, 248.0f, 72.0f, 76.0f)];
+        [self.MusicButton setFrame:CGRectMake(386.0f, 248.0f, 72.0f, 76.0f)];
         [self.modeView setFrame:CGRectMake(160.0f, 64.0f, 588.0f, 156.0f)];
         [self.modeView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_mode_p"]]];
         [self.scrollView setFrame:CGRectMake(110.0f, 30.0f, 368.0f, 100.0f)];
