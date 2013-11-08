@@ -258,18 +258,23 @@
 
 - (void)onScrollLeftClick:(id)sender
 {
+    self.modeCurrentPage = self.scrollView.contentOffset.x/184.0;
     if (self.modeCurrentPage > 0) {
-        CGPoint point = CGPointMake((self.modeCurrentPage - 1) * 184.0 * self.countInOnePage, self.scrollView.contentOffset.y);
-        self.modeCurrentPage = self.modeCurrentPage - 1;
+        CGPoint point = CGPointMake((self.modeCurrentPage - 1) * 184.0, self.scrollView.contentOffset.y);
         [self.scrollView setContentOffset:point animated:YES];
     }
 }
 
 - (void)onScrollRightClick:(id)sender
 {
-    if (self.modeCurrentPage < self.modesCount - 1) {
-        CGPoint point = CGPointMake((self.modeCurrentPage + 1) * 184.0 * self.countInOnePage, self.scrollView.contentOffset.y);
-        self.modeCurrentPage = self.modeCurrentPage + 1;
+    if ((int)self.scrollView.contentOffset.x % 184 != 0) {
+        self.modeCurrentPage = self.scrollView.contentOffset.x/184.0 + 1;
+    } else {
+        self.modeCurrentPage = self.scrollView.contentOffset.x/184.0;
+    }
+    int i = self.currentModel.modesNames.count;
+    if (self.modeCurrentPage < (i - self.countInOnePage)) {
+        CGPoint point = CGPointMake((self.modeCurrentPage + 1) * 184.0, self.scrollView.contentOffset.y);
         [self.scrollView setContentOffset:point animated:YES];
     }
 }
