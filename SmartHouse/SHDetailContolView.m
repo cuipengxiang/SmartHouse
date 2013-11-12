@@ -171,6 +171,20 @@
     self.myDelegate.canup = YES;
 }
 
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
+{
+    if (err) {
+        self.myDelegate.candown = YES;
+        self.myDelegate.canup = YES;
+    }
+}
+
+- (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutWriteWithTag:(long)tag elapsed:(NSTimeInterval)elapsed bytesDone:(NSUInteger)length
+{
+    self.myDelegate.candown = YES;
+    self.myDelegate.canup = YES;
+    return 0.0;
+}
 
 /*
 // Only override drawRect: if you perform custom drawing.
