@@ -161,10 +161,14 @@
 }
 
 - (void)buttonTimeOut{
-    self.myDelegate.candown = YES;
-    self.myDelegate.canup = YES;
-    [timer invalidate];
-    timer = nil;
+    if ((!self.myDelegate.candown)&&(self.myDelegate.canup)) {
+        
+    } else {
+        self.myDelegate.candown = YES;
+        self.myDelegate.canup = YES;
+        [timer invalidate];
+        timer = nil;
+    }
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
