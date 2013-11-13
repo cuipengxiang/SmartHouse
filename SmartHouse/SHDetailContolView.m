@@ -144,6 +144,11 @@
 - (void)onButtonDown:(UIButton *)button
 {
     down = [NSDate date];
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
+    timer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(buttonTimeOut) userInfo:nil repeats:NO];
     if (self.myDelegate.candown) {
         self.myDelegate.candown = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
@@ -155,34 +160,34 @@
     }
 }
 
-
+- (void)buttonTimeOut{
+    self.myDelegate.candown = YES;
+    self.myDelegate.canup = YES;
+    [timer invalidate];
+    timer = nil;
+}
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
 {
-    [sock writeData:[sock.command dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:0];
+    [sock writeData:[sock.command dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3.0 tag:0];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag
 {
     [sock readDataToData:[GCDAsyncSocket CRLFData] withTimeout:1 tag:0];
     [sock disconnect];
-    sock = nil;
-    self.myDelegate.candown = YES;
-    self.myDelegate.canup = YES;
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err
 {
-    if (err) {
-        self.myDelegate.candown = YES;
-        self.myDelegate.canup = YES;
-    }
+    self.myDelegate.candown = YES;
+    self.myDelegate.canup = YES;
+    sock = nil;
 }
 
 - (NSTimeInterval)socket:(GCDAsyncSocket *)sock shouldTimeoutWriteWithTag:(long)tag elapsed:(NSTimeInterval)elapsed bytesDone:(NSUInteger)length
 {
-    self.myDelegate.candown = YES;
-    self.myDelegate.canup = YES;
+    [sock disconnect];
     return 0.0;
 }
 
