@@ -144,11 +144,12 @@
 - (void)onButtonDown:(UIButton *)button
 {
     down = [NSDate date];
-    if (timer) {
-        [timer invalidate];
-        timer = nil;
+    if (buttonTimer) {
+        [buttonTimer invalidate];
+        buttonTimer = nil;
     }
-    timer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(buttonTimeOut) userInfo:nil repeats:NO];
+    buttonTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(buttonTimeOut:) userInfo:nil repeats:NO];
+    buttonTimer.accessibilityValue = [NSString stringWithFormat:@"%d", button.tag];
     if (self.myDelegate.candown) {
         self.myDelegate.candown = NO;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
@@ -160,15 +161,20 @@
     }
 }
 
-- (void)buttonTimeOut{
+- (void)buttonTimeOut:(NSTimer *)timer
+{
     if ((!self.myDelegate.candown)&&(self.myDelegate.canup)) {
-        
-    } else {
-        self.myDelegate.candown = YES;
-        self.myDelegate.canup = YES;
-        [timer invalidate];
-        timer = nil;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
+            NSError *error;
+            GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
+            socket.command = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:([timer.accessibilityValue intValue] - BUTTON_BASE_TAG)*2 - 1]];
+            [socket connectToHost:self.myDelegate.host onPort:self.myDelegate.port withTimeout:3.0 error:&error];
+        });
     }
+    self.myDelegate.candown = YES;
+    self.myDelegate.canup = YES;
+    [timer invalidate];
+    timer = nil;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port
