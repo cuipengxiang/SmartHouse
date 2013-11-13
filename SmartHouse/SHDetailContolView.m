@@ -164,15 +164,18 @@
 - (void)buttonTimeOut:(NSTimer *)timer
 {
     if ((!self.myDelegate.candown)&&(self.myDelegate.canup)) {
+        /*
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^(void){
             NSError *error;
             GCDAsyncSocket *socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.socketQueue];
             socket.command = [NSString stringWithFormat:@"%@\r\n", [self.buttonCmds objectAtIndex:([timer.accessibilityValue intValue] - BUTTON_BASE_TAG)*2 - 1]];
             [socket connectToHost:self.myDelegate.host onPort:self.myDelegate.port withTimeout:3.0 error:&error];
         });
+         */
+    } else {
+        self.myDelegate.candown = YES;
+        self.myDelegate.canup = YES;
     }
-    self.myDelegate.candown = YES;
-    self.myDelegate.canup = YES;
     [timer invalidate];
     timer = nil;
 }
