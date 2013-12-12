@@ -29,9 +29,6 @@
     //初始化Socket连接
     self.socketQueue = dispatch_queue_create("socketQueue", NULL);
 
-    self.candown = YES;
-    self.canup = YES;
-    
     return YES;
 }
 

@@ -55,9 +55,20 @@
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
     }
-    for (int i = 5; i < self.buttonNames.count; i++) {
+    for (int i = 5; i < 9; i++) {
         UIButton *button = [[UIButton alloc] init];
         [button setFrame:CGRectMake(25.5 + (i-5)%4*83, 150 + (i-5)/4*40, 75, 25)];
+        [button setTag:BUTTON_BASE_TAG + i];
+        [button setTitle:[self.buttonNames objectAtIndex:i] forState:UIControlStateNormal];
+        [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
+        [button setTitleColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageNamed:@"btn_music_control"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:button];
+    }
+    for (int i = 9; i < self.buttonNames.count; i++) {
+        UIButton *button = [[UIButton alloc] init];
+        [button setFrame:CGRectMake(25.5 + (i-9)%3*83, 190 + (i-9)/3*40, 75, 25)];
         [button setTag:BUTTON_BASE_TAG + i];
         [button setTitle:[self.buttonNames objectAtIndex:i] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];

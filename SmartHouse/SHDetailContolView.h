@@ -14,8 +14,6 @@
 @interface SHDetailContolView : UIView<GCDAsyncSocketDelegate>{
     NSDate *down;
     NSDate *up;
-    
-    NSTimer *buttonTimer;
 }
 
 @property (nonatomic)dispatch_queue_t socketQueue;
@@ -32,7 +30,5 @@
 
 - (void)onButtonDown:(UIButton *)button;
 - (void)onButtonUp:(UIButton *)button;
-
-- (void)buttonTimeOut:(NSTimer *)timer;
 
 @end
