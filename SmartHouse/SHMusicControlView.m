@@ -47,17 +47,17 @@
     self.buttonNames = [[NSMutableArray alloc] initWithArray:names];
     self.buttonCmds = [[NSMutableArray alloc] initWithArray:cmds];
     
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 4; i++) {
         UIButton *button = [[UIButton alloc] init];
-        [button setFrame:CGRectMake(30 + i * 65, 62, 55, 55)];
+        [button setFrame:CGRectMake(35.0 + i * 85, 65, 55, 55)];
         [button setTag:BUTTON_BASE_TAG + i];
         [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"music_control%d",i]] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
     }
-    for (int i = 5; i < 9; i++) {
+    for (int i = 4; i < self.buttonNames.count; i++) {
         UIButton *button = [[UIButton alloc] init];
-        [button setFrame:CGRectMake(25.5 + (i-5)%4*83, 150 + (i-5)/4*40, 75, 25)];
+        [button setFrame:CGRectMake(40.0 + (i-4)%3*112.5, 150 + (i-4)/3*40, 75, 25)];
         [button setTag:BUTTON_BASE_TAG + i];
         [button setTitle:[self.buttonNames objectAtIndex:i] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
@@ -66,6 +66,7 @@
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
     }
+    /*
     for (int i = 9; i < self.buttonNames.count; i++) {
         UIButton *button = [[UIButton alloc] init];
         [button setFrame:CGRectMake(25.5 + (i-9)%3*83, 190 + (i-9)/3*40, 75, 25)];
@@ -77,6 +78,7 @@
         [button addTarget:self action:@selector(onButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
     }
+     */
 }
 
 - (void)onButtonClick:(UIButton *)button
